@@ -1,0 +1,395 @@
+/*body {
+	display: flex;
+	background-image: url(http://www.imprentadorrego.com.ar/NewWebDorrego/ImprentaDorrego/img/IMG_0032.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	font-family: 'Hind', sans-serif;
+	object-fit: center;
+}
+
+h4, h3, h2{
+	color: white;
+	font-weight: 500;
+}
+
+li {
+	color: white;
+	line-height: 1.75em;
+	list-style: square;
+	list-style-position: inside;
+}
+.mainContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 360px);
+	grid-template-rows: repeat(auto-fill, 300px);
+	width: 100vw;
+	height: 100vh;
+	grid-gap: 5px;
+	align-content: top;
+
+}
+.purpleWindow {
+	display: flex;
+	flex-direction: column;
+	width: 340px;
+	border: 5px solid white;
+	border-radius: 25px;
+	padding: 30px;
+	color: #fff;
+	background: #5900b3bb;
+	box-shadow: 10px 15px 10px #33333399;
+	margin: 20px;
+}
+
+.purpleWindow h2 {
+	text-transform: uppercase;
+	font-size: 1.1em;
+	margin: 0 0 20px 0;
+}
+
+.purpleWindow select, .purpleWindow input, .purpleWindow button {
+	text-transform: uppercase;
+	font-size: .9em;
+	margin: 15px 0 5px 0;
+	width: 100%;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	background: #00000099;
+}
+
+.purpleWindow button:hover {
+	color: #5900b3;
+	background: #c9e;
+}
+
+.purpleWindow select:focus{
+	background: #000000ee;
+	border-radius: 5px;
+}
+
+.purpleWindow p, .purpleWindow label{
+	font-size: 0.8em;
+	color:  #d9b3ff;
+	margin: 2px 0px 8px 10px;
+	text-transform: uppercase;
+
+}
+.terminacion {
+	border-top: 1px solid #d9b3ff;
+	margin-top: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #d9b3ff;
+}
+
+.terminacion div{
+	color: #d9b3ff;
+	display: flex;
+	align-items: center;
+	justify-items: flex-start;
+	
+}
+.terminacion input {
+	max-width: fit-content;
+	min-width: 15px;
+	height: 15px;
+}
+.terminacion p , .terminacion label{
+	height: 15px;
+	line-height: 30px;
+}
+
+.gridItem_1 {
+	grid-column: 1 / span 2;
+	grid-row: 1 / span 3;
+}
+
+.gridItem_2 {
+	grid-column: 2 / span 3;
+	grid-row: 1 / span 2;
+}
+*/
+
+--violeta: #470787;
+
+
+
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  background: #333;
+  color: #0ff;
+}
+
+
+
+.formulario {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100%;
+	margin: 50px auto;
+	font-family: monospace;
+}
+
+
+.mainContainer{
+	display: inline-flex;
+	padding: 50px;
+	width: 100vw;
+	max-width: 400px;
+	height: 100vh;
+	background-image: url(http://www.imprentadorrego.com.ar/NewWebDorrego/ImprentaDorrego/img/IMG_0032.png);
+	object-fit: contain;
+	align-items: flex-start;
+	justify-items: flex-end;
+}
+
+.secContainer{ 
+	display: inline-flex;
+	background: #ccc;
+	height: 100%;
+	grid-column: 1 / span 2;
+	grid-row: 2 / span 1;
+}
+
+.terminacion {
+	text-rendering: ;
+}
+
+div.terminacion{
+		grid-column: span 2;
+		padding: 5% 10%;
+		border-top: 3px double #5B1AAF;
+}
+
+.terminacion h3 {
+	font-size: 21px;
+	text-transform: uppercase;
+	color: ;
+}
+.terminacion input {
+	display: inline;
+	height: 15px;
+	margin: 5px 10px 10px 0px;
+}
+.terminacion p , .terminacion label{
+	background-color: #000;
+	padding: 0 5px;
+	color: #ffc;
+	font-weight: 500;
+	display:inline;
+	line-height: 35px;
+
+}
+
+
+.formulario button {
+	padding: 0 5px;
+	grid-column: 2 / span 1;
+	width: fit-content;
+	background: #000;
+	color: #88f;
+	box-shadow: 3px 3px 0px #444;
+	transition: box-shadow .5s;
+}
+
+.formulario button:hover{
+	box-shadow: 1px 1px 0.3px #444;
+}
+
+.formulario input, .formulario select {
+	color: #eee;
+	background: #47078799;
+	border: 2px solid #000;
+	height: 35px;
+	margin: 0 auto 13px 10%;
+	padding: 0 0 0 10px;
+	transition: border 1s;
+}
+
+.formulario input:focus, .formulario select:focus {
+	color: #000;
+	border: 2px solid cyan;
+	background: #f49;
+}
+
+.formulario label {
+	background: #49f;
+	padding: 0 5px;
+	font-size: 12px;
+	color: #ffa;
+	margin-left: 20%;
+	margin-bottom: 2px;
+	
+}
+
+.formulario input[type="number"] {
+	display: inline;
+	width: 50%;
+	margin-left: 20%;
+
+} 
+
+.formulario input[type="text"], .formulario select {
+	width: 80%;
+	grid-column: span 2;
+} 
+
+
+
+.formulario > .inputError {
+	background-color: #f24;
+	border: 2px solid #900;
+}
+
+input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputError, input#coloresDorso.inputError, input#ancho.inputError, input#alto.inputError {
+	background-color: #f24;
+	border: 2px solid #900;
+}
+
+
+/* -------------------- CRUD - start------------------ */
+
+.productList{
+	display: inline;
+	padding: 50px;
+	grid-column: 2 / span 1;
+	grid-row: 1 / span 1;
+}
+
+.productList.button {
+	padding: 0;
+	margin: 0;
+	outline: none;
+}
+
+.productList h3:active, .productList h3:focus, .productList h3:selected {
+	outline: none;
+	border: none;
+	background: #07e;
+	color: #eee;
+}
+
+.addProducts{
+	margin-top: 40px;
+	margin-bottom: 40px;
+	align-items: center;
+	
+}
+
+.addProducts button, input {
+	font-size: .9em;
+	padding: 5px;
+	border: 1px solid #07e;
+	height: 30px;
+	transition: border 1s, box-shadow .3s, background .5s;
+}
+
+.addProducts button:focus,.addProducts button:active, input:focus {
+	border: 1px solid #F90;
+	outline: none;
+}
+
+.addProducts button:hover  {
+	border: 1px solid #036;
+	outline: none;
+	box-shadow: 3px 3px 0px #99999966;
+}
+
+.addProducts button:active:hover{
+	border: 1px solid #000;
+	box-shadow: none;
+	background: #666;
+}
+
+.productItem {
+	width: 90%;
+	min-width: 300px;
+	border-top: 1px solid #07e;
+	margin:  5px auto 5px auto;
+	padding-top: 5px;
+	padding-bottom: 0px;
+	display: grid;
+	grid-template-columns: 1fr 150px;
+}
+
+.saveButtons{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-right: 0;
+}
+
+.saveButtons button{
+	font-size: .8em;
+	padding: 5px;
+	margin-left: 10px;
+	border: none;
+	
+}
+
+.productList h3 {
+	font-size: 0.9em;
+	font-weight: 500;
+	color:  #07e;
+	display: inline;
+	text-align: left;
+}
+
+.delete {
+	color: #d00;
+}
+
+.delete:hover{
+	color: #fff;
+	background: #f00;
+}
+
+.imposible {
+	color: #999;
+}
+
+.posible {
+	color: #07e;
+}
+
+.posible:hover{
+	color: #0af;
+	outline:1px solid #07e;
+}
+
+/* -------------------- CRUD - end ------------------ */
+
+@media only screen and (max-width: 500px) {
+	body {
+			display: flex;
+			flex-direction: column;
+			min-width: 300px;
+	}
+	.mainContainer{
+		padding: 20px;
+		min-width: 300px;
+	}
+	.productList {
+		background: #ddd;
+		min-width: 300px;
+		display: block;
+		padding: 5px;
+		grid-column: 1 / span 1;
+		grid-row: 2 / span 1;
+	}
+	.productItem {
+		width: 95%;
+		min-width: 250px;
+		padding: 14px 0;
+		margin:  auto;
+	}
+	.saveButtons button{
+		margin-left: 5px;
+	}
+	
+}

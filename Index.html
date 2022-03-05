@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- IMPORTANTISIMO ETIQUETA META VIEWPORT PARA ADAPTARSE A PANTALLAS DIFERENTES -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Site Metas -->
+	<meta title="MXMdg">
+	<meta contetn="Portfolio">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500&display=swap');
+              
+                
+        </style>
+<!--	<link rel="stylesheet" href="MainStylesheet.css"> -->
+	<link rel="stylesheet" href="normalize.css">
+	<link rel='stylesheet' href="prueba.css">
+	<!-- <link rel='stylesheet' href="ventanas.css"> --> 
+	<link rel='stylesheet' href="CRUD.css"> 
+	
+
+
+
+</head>
+<body>
+	<div class="mainContainer">
+		<form class="formulario" id="interiorForm">
+			<!-- <div class="zonaDeArrastre">
+				<h1>Presupuesto</h1>
+				<div class="botonCerrar" id="btnCierre">X</div>
+			</div> -->
+			
+			<select id="tipoTrabajo"><option>Tipo de producto</option></select>
+			<label >Parte del trabajo</label>
+			<input type="text" name="descripcion" id="descripcion">
+			<div>	
+				<label>Cantidad</label>
+				<input type="number" id="cantidad" min="1" max="10000000" required>
+			</div>
+			<div>
+				<label>Paginas</label>
+				<input type="number" id="paginas" min="1" requided  >
+			</div>
+			<div>
+				<label>Colores Frente</label>
+				<input type="number" min="0" max="7" step="1" id="coloresFrente">
+			</div>
+			<div>
+				<label>Colores Dorso</label>
+				<input type="number" min="0" max="7" step="1" id="coloresDorso">
+			</div>
+			<select id="material"><option>Material</option></select>
+			<div>
+				<label>Ancho</label>
+				<input type="number" id="ancho">
+			</div>
+			<div>
+				<label>Alto</label>
+				<input type="number" id="alto">
+			</div>
+			<div class="terminacion" id="terminacion"><h3>Terminacion</h3></div>
+			<button id="enviar">Agregar parte</button>
+		</form>
+		
+		
+	</div>
+	<div class="secContainer"></div>
+	<div class="productList">
+		
+	</div>
+</body>
+
+		
+		
+
+<!-- Javascript -->
+<script src="codigo.js"></script>	
+<script src="codigoDB.js"></script>	
+<script src="ventanas.js"></script>	
+
+
+</body>
+
+</html>
