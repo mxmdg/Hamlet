@@ -46,7 +46,7 @@ const leerObjetos = (almacen,dataBase)=> {
 	const cursor = idbData[1].openCursor();
 	cursor.addEventListener("success",()=>{
 		if (cursor.result) {
-			let element = crearHTML(cursor.result.key,cursor.result.value.identificador);
+			let element = crearHTML(cursor.result.key,cursor.result.value.nombre);
 			document.querySelector(".productList").appendChild(element);
 			cursor.result.continue();
 		} else {
@@ -56,25 +56,21 @@ const leerObjetos = (almacen,dataBase)=> {
 };
 
 
-const leerObjeto = (almacen,dataBase)=> {
-	const idbData = abrirTrans(almacen,dataBase);
+const leerObjeto = (a,db,k)=> {
+	const idbData = abrirTrans(a,db);
 	const cursor = idbData[1].openCursor();
 	let arr = []
 	cursor.addEventListener("success",()=>{
 		if (cursor.result) {
 			let key = cursor.result.key
 			let detalle = Object.defineProperty(cursor.result.value,`Key`, { enumerable: true, configurable: false, writable: false, value: `${key}`
-});
+	});
 			arr.push(detalle);
 			cursor.result.continue();
-		} else {
-			console.log("Estos son todos los datos");
 		}
 
 	});
-
 	return arr
-
 };
 
 

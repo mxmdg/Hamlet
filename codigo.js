@@ -59,17 +59,19 @@ try {
 // Personal Project!
 
 class interior {
-	constructor (identificador,alto,ancho,pags,coloresFrente,coloresDorso,material) {
-		this.identificador = identificador;
+	constructor (nombre,tipo,cantidad,alto,ancho,pags,color,material) {
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.cantidad = cantidad;
 		this.alto = alto;
 		this.ancho = ancho;
 		this.pags = pags;
-		this.coloresFrente = coloresFrente;
-		this.coloresDorso = coloresDorso;
+		this.color = color;
 		this.material = material;
 		this.lomo = Math.ceil(Math.ceil(parseInt(pags) / 2 ) * ((parseInt(material.altoResma))/500));
 		this.formato = ancho + " x " + alto;
 		this.orientacion = this.orientacionDePagina();
+		this.totalPags = this.cantidad * this.pags;
 		};
 
 	orientacionDePagina() {
@@ -160,6 +162,23 @@ class formato {
 	}
 };
 
+const formatos = [
+	a3 = new formato("A3",420,297),
+	a4 = new formato("A4",297,210),
+	carta = new formato("Carta",279.4,215.9),
+	tabloide = new formato("Tabloide",431.8,215.9),
+	iD_488x330 = new formato("488x330",488,330),
+	iD_470x320 = new formato("470x320",470,320),
+	iD_432x320 = new formato("432x320",432,320),
+	iD_648x315 = new formato("648x315",648,315),
+	iD_650x340 = new formato("650x340",650,340),
+	iD_508x358 = new formato("508x358",508,358),
+	iD_508x240 = new formato("508x240",508,240),
+	iD_350x250 = new formato("350x250",350,250),
+	iD_215x315 = new formato("215x315",215,315)
+
+]
+
 
 class impresora {
 	constructor (Nombre,Colores,xMinimo,xMaximo,yMinimo,yMaximo,PPM,ValorCopia) {
@@ -171,7 +190,10 @@ class impresora {
 		this.yMax = yMaximo;
 		this.ppm = PPM;
 		this.valorCopia = ValorCopia;
+		this.formatos = formatos.filter(f => Math.max(f.x,f.y) <= this.xMax && Math.min(f.x,f.y) >= this.xMin && Math.min(f.x,f.y) <= this.yMax && Math.max(f.x,f.y) >= this.yMin);
 	}
+
+
 };
 
 
@@ -207,19 +229,7 @@ const impresoras = [
 	versant180 = new impresora("Versant 180",4,150,488,120,330,80,5),
 ]
 
-const formatos = [
-	a3 = new formato("A3",420,297),
-	a4 = new formato("A4",297,210),
-	carta = new formato("Carta",279.4,215.9),
-	tabloide = new formato("Tabloide",431.8,215.9),
-	iD_488x330 = new formato("488x330",488,330),
-	iD_470x320 = new formato("470x320",470,320),
-	iD_432x320 = new formato("432x320",432,320),
-	iD_648x315 = new formato("648x315",648,315),
-	iD_650x340 = new formato("650x340",650,340),
-	iD_508x358 = new formato("508x358",508,358)
 
-]
 
 const procesosTerminacion = [
 	guillotinado = new terminacion ("Guillotinado","Tiempo"),
@@ -256,15 +266,21 @@ var btnEnviar = document.getElementById("enviar");
 var ident = document.getElementById("descripcion");
 var tipoTrabajo = document.getElementById("tipoTrabajo");
 var cantidad = document.getElementById("cantidad");
-var coloresFrente = document.getElementById("coloresFrente");
-var coloresDorso = document.getElementById("coloresDorso");
+var impresion = document.querySelectorAll(".rBtn")
 var alto = document.getElementById("alto");
 var ancho = document.getElementById("ancho");
 var pags = document.getElementById("paginas");
 var materialSeleccionado = document.getElementById("material");
 var papelElegido
 
+let colores
 
+for (let i = 0; i < impresion.length; i++) {
+	impresion[i].addEventListener("change", ()=> {
+	colores = impresion[i].value;
+	console.log(colores);
+	})
+};
 
 
 materialSeleccionado.addEventListener("change",(e)=>{
@@ -327,13 +343,6 @@ function validarForm() {
 			pags.classList.add("inputError");
 		} else if (tipoTrabajo.value == "Revista" && ((pags.value % 4) > 0)) {
 			error = "El numero de paginas debe ser multiplo de 4"
-		}
-		 else if (coloresFrente.value < 0 || coloresFrente.value > 7) {
-			error = "Elija 1 color para blanco y negro, 4 para CMYK. Puede añadri hasta 3 colores especiales."
-			coloresFrente.classList.add("inputError");
-		} else if (coloresDorso.value < 0 || coloresDorso.value > 7) {
-			error = "Elija 1 color para blanco y negro, 4 para CMYK. Puede añadri hasta 3 colores especiales."
-			coloresDorso.classList.add("inputError");
 		} else if (materialSeleccionado.value == "Material" || materialSeleccionado == undefined) {
 			error = "Seleccione el material"
 			materialSeleccionado.classList.add("inputError");
@@ -372,9 +381,16 @@ let n = 0;
 function informarProducto(prod) {
 	n = n + 1;
 	
-	prod = new interior((ident.value + "_" + tipoTrabajo.value),parseInt(alto.value),parseInt(ancho.value),parseInt(pags.value),parseInt(coloresFrente.value),parseInt(coloresDorso.value),papelElegido);
+	prod = new interior(ident.value, 
+						tipoTrabajo.value,
+						parseInt(cantidad.value),
+						parseInt(alto.value),
+						parseInt(ancho.value),
+						parseInt(pags.value),
+						colores,
+						papelElegido);
 	
-	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.identificador}<div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel} ${prod.material.gramaje}`,"verde","xy",`resultado_${n}`);
+	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel} ${prod.material.gramaje}`,"verde","xy",`resultado_${n}`);
 	trabajoNuevo.push(prod);
 
 	agregarObjetos(prod,"Almacen",testIDB);
@@ -594,4 +610,9 @@ const test = (prod)=>{
 		console.log(`Formato: ${prod.formato} - Pliego: ${f.nombre} - Poses: ${r}`)
 		}
 
-}
+};
+
+const getItemByKey = (keyNumber,store,db)=> {
+	const arr = leerObjeto(store,db);
+	arr
+};

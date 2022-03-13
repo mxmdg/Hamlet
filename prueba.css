@@ -156,6 +156,12 @@ li {
 	grid-row: 2 / span 1;
 }
 
+.impresion {
+	grid-column: 1 / span 2;
+	margin-bottom: 20px;
+	border-top: 3px double #5B1AAF;
+}
+
 .terminacion {
 	text-rendering: ;
 }
@@ -169,7 +175,7 @@ div.terminacion{
 .terminacion h3 {
 	font-size: 21px;
 	text-transform: uppercase;
-	color: ;
+	color: #49f;
 }
 .terminacion input {
 	display: inline;
@@ -184,6 +190,12 @@ div.terminacion{
 	display:inline;
 	line-height: 35px;
 
+}
+
+.formulario h3 {
+	margin-left: 10%;
+	color: #49f;
+	padding-top: 5px;
 }
 
 
@@ -227,6 +239,10 @@ div.terminacion{
 	
 }
 
+.formulario label[for="impresion"] {
+	margin: 5px;
+}
+
 .formulario input[type="number"] {
 	display: inline;
 	width: 50%;
@@ -239,7 +255,15 @@ div.terminacion{
 	grid-column: span 2;
 } 
 
-
+.formulario input[type="radio"] {
+	display: inline-block;
+	height: 15px;
+	width: fit-content;
+	margin-left: 10%;
+	margin-right: 0;
+	margin-top: 5px;
+	margin-bottom: 5px;
+} 
 
 .formulario > .inputError {
 	background-color: #f24;

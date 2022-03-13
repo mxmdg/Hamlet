@@ -45,13 +45,12 @@
 				<label>Paginas</label>
 				<input type="number" id="paginas" min="1" requided  >
 			</div>
-			<div>
-				<label>Colores Frente</label>
-				<input type="number" min="0" max="7" step="1" id="coloresFrente">
-			</div>
-			<div>
-				<label>Colores Dorso</label>
-				<input type="number" min="0" max="7" step="1" id="coloresDorso">
+			<div class="impresion">
+				<h3>Impresion:</h3>
+				<input type="radio" class="rBtn"id="Color" name="impresion" value="Color" checked><label for="impresion">Color</label><br>
+				<input type="radio" class="rBtn"id="BN" name="impresion" value="BN"><label for="impresion">Blanco y negro</label><br>
+				<input type="radio" class="rBtn"id="BNHQ" name="impresion" value="BNHQ"><label for="impresion">Blanco y negro Alta Calidad</label>
+
 			</div>
 			<select id="material"><option>Material</option></select>
 			<div>
