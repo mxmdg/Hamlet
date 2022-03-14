@@ -58,20 +58,36 @@ try {
 
 // Personal Project!
 
+class trabajo {
+	constructor (usuario,nombre,tipo,cantidad,partes) {
+		this.usuario = usuario;
+		this.tipo = tipo;
+		this.cantidad = cantidad;
+		this.nombre = nombre;
+		this.partes = []
+	}
+
+}
+
+
 class interior {
-	constructor (nombre,tipo,cantidad,alto,ancho,pags,color,material) {
+	constructor (nombre,tipo,cantidad,alto,ancho,pags,coloresFrente,coloresDorso,material) {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.cantidad = cantidad;
 		this.alto = alto;
 		this.ancho = ancho;
 		this.pags = pags;
-		this.color = color;
+		this.coloresFrente = coloresFrente;
+		this.coloresDorso = coloresDorso;
 		this.material = material;
 		this.lomo = Math.ceil(Math.ceil(parseInt(pags) / 2 ) * ((parseInt(material.altoResma))/500));
 		this.formato = ancho + " x " + alto;
 		this.orientacion = this.orientacionDePagina();
 		this.totalPags = this.cantidad * this.pags;
+		this.printer = impresoras.filter(impresora => impresora.colores == Math.max(coloresFrente,coloresDorso));
+		this.formatosDisponibles = this.printer[0].formatos;
+
 		};
 
 	orientacionDePagina() {
@@ -84,8 +100,7 @@ class interior {
 			orientacion = "Cuadrado"
 		} return orientacion;
 		};
-
-
+	
 
 	};
 
@@ -266,7 +281,8 @@ var btnEnviar = document.getElementById("enviar");
 var ident = document.getElementById("descripcion");
 var tipoTrabajo = document.getElementById("tipoTrabajo");
 var cantidad = document.getElementById("cantidad");
-var impresion = document.querySelectorAll(".rBtn")
+var coloresFrente = document.getElementById("coloresFrente");
+var coloresDorso = document.getElementById("coloresDorso");
 var alto = document.getElementById("alto");
 var ancho = document.getElementById("ancho");
 var pags = document.getElementById("paginas");
@@ -275,12 +291,12 @@ var papelElegido
 
 let colores
 
-for (let i = 0; i < impresion.length; i++) {
+/*for (let i = 0; i < impresion.length; i++) {
 	impresion[i].addEventListener("change", ()=> {
 	colores = impresion[i].value;
 	console.log(colores);
 	})
-};
+};*/
 
 
 materialSeleccionado.addEventListener("change",(e)=>{
@@ -292,14 +308,11 @@ materialSeleccionado.addEventListener("change",(e)=>{
 
 });
 
-const validarInput = (elInput,elError)=>{
-	
-	};
 
 
 function validarForm() {
 		let error
-		let i = 0;
+		
 
 		let max = 300, min = 60, pagMax = 1000, pagMin = 20;
 
@@ -343,6 +356,12 @@ function validarForm() {
 			pags.classList.add("inputError");
 		} else if (tipoTrabajo.value == "Revista" && ((pags.value % 4) > 0)) {
 			error = "El numero de paginas debe ser multiplo de 4"
+		} else if (coloresFrente.value < 0 || coloresFrente.value > 7) {
+			error = "Elija 1 color para blanco y negro, 4 para CMYK. Puede añadri hasta 3 colores especiales."
+			coloresFrente.classList.add("inputError");
+		} else if (coloresDorso.value < 0 || coloresDorso.value > 7) {
+			error = "Elija 1 color para blanco y negro, 4 para CMYK. Puede añadri hasta 3 colores especiales."
+			coloresDorso.classList.add("inputError");
 		} else if (materialSeleccionado.value == "Material" || materialSeleccionado == undefined) {
 			error = "Seleccione el material"
 			materialSeleccionado.classList.add("inputError");
@@ -387,7 +406,8 @@ function informarProducto(prod) {
 						parseInt(alto.value),
 						parseInt(ancho.value),
 						parseInt(pags.value),
-						colores,
+						parseInt(coloresFrente.value),
+						parseInt(coloresDorso.value),
 						papelElegido);
 	
 	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel} ${prod.material.gramaje}`,"verde","xy",`resultado_${n}`);
@@ -396,6 +416,8 @@ function informarProducto(prod) {
 	agregarObjetos(prod,"Almacen",testIDB);
 
 	leerObjetos("Almacen",testIDB);
+
+
 
 	//-------- Cerrar ventana -- ya fue...
 
@@ -516,7 +538,7 @@ function corteFinal (x1,y1,x2,y2,margen = 5,calle = 2) {
 	let a = optimizarCorte(x1,y1,x2,y2);
 	let b = optimizarCorte(y1,x1,x2,y2);
 	resultado = Math.max(a,b);
-	//console.log(`RESULTADO FINAL: ${resultado}`)
+	console.log(`RESULTADO FINAL: ${resultado} en ${x1} x ${y1}`);
 	return resultado
 };
 
