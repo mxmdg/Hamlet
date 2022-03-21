@@ -465,12 +465,18 @@ function calcularCortePlana (papelElegido,anchoTrabajo,altoTrabajo) {
 		let xPoses_1 = Math.floor(papelElegido.anchoPlana / parseInt(anchoTrabajo));
 		let yPoses_1 = Math.floor(papelElegido.largoPlana / parseInt(altoTrabajo));
 		let totalPoses_1 = xPoses_1 * yPoses_1;
-		let desperdicio = (papelElegido.anchoPlana - (parseInt(anchoTrabajo) * xPoses_1)) * (papelElegido.largoPlana - (parseInt(altoTrabajo) * yPoses_1));
+		
+		let xPoses_2 = Math.floor(papelElegido.largoPlana / parseInt(anchoTrabajo));
+		let yPoses_2 = Math.floor(papelElegido.anchoPlana / parseInt(altoTrabajo));
+		let totalPoses_2 = xPoses_2 * yPoses_2;
+		
+		let totalPoses = Math.max(totalPoses_1,totalPoses_2)		
 
-		console.log(`Entran ${xPoses_1} en los ${papelElegido.anchoPlana} de ancho de la resma, por ${yPoses_1} en los ${papelElegido.largoPlana} que tiene de alto la resma. Total: ${totalPoses_1}`);
-		console.log(`Desperdicio: ${desperdicio}`);
 
-		return poses = totalPoses_1;
+		//console.log(`Entran ${xPoses_1} en los ${papelElegido.anchoPlana} de ancho de la resma, por ${yPoses_1} en los ${papelElegido.largoPlana} que tiene de alto la resma. Total: ${totalPoses}`);
+		console.log(`Salen ${totalPoses} pliegos`);
+
+		return poses = totalPoses;
 };
 
 let pliegosTotales = ()=> {
@@ -525,7 +531,7 @@ const calcularMejorCorte = (x1,y1,x2,y2)=> {
 		let n1 = Math.floor(x1 / parseInt(x2)) * Math.floor(y1 / parseInt(y2));
 		let n2 = Math.floor(y1 / parseInt(x2)) * Math.floor(x1 / parseInt(y2));
 		n = Math.max(n1,n2);
-		console.log(`Entran ${n}`);
+		//console.log(`Entran ${n}`);
 		return n;
 };
 
@@ -538,7 +544,7 @@ function corteFinal (x1,y1,x2,y2,margen = 5,calle = 2) {
 	let a = optimizarCorte(x1,y1,x2,y2);
 	let b = optimizarCorte(y1,x1,x2,y2);
 	resultado = Math.max(a,b);
-	console.log(`RESULTADO FINAL: ${resultado} en ${x1} x ${y1}`);
+	console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
 	return resultado
 };
 
@@ -637,4 +643,19 @@ const test = (prod)=>{
 const getItemByKey = (keyNumber,store,db)=> {
 	const arr = leerObjeto(store,db);
 	arr
+};
+
+
+function verPosados(i) {
+	let arr = []
+	arr = leerObjeto("Almacen",testIDB,0);
+	console.log(arr[2]);
+	
+	
+	/* for (f in arr[i].formatosDisponibles) {
+   		 console.log("-------------------------------------")
+    	corteFinal(f.x,f.y,arr[i].alto,arr[i].ancho);
+    	calcularCortePlana(arr[i].material,f.x,f.y);
+    	console.log("-------------------------------------") 
+	} */
 };
