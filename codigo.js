@@ -100,7 +100,12 @@ class interior {
 			orientacion = "Cuadrado"
 		} return orientacion;
 		};
-	
+
+	calcularCortes() {
+		for (let f of this.formatosDisponibles) {
+				
+		};
+	};
 
 	};
 
@@ -258,6 +263,7 @@ const procesosTerminacion = [
 const materialesSeleccion = document.getElementById("material");
 
 let trabajoNuevo = [];
+let savedJobs = [];
 
 window.addEventListener("load",(e)=>{
 	for (mat of materiales) {
@@ -268,6 +274,7 @@ window.addEventListener("load",(e)=>{
 		
 		crearDocFrag("#tipoTrabajo","Option",`${tipo}`);
 	};
+	savedJobs = leerObjeto("Trabajos",trabajosDB,0);
 	e.preventDefault();
 });
 
@@ -415,9 +422,9 @@ function informarProducto(prod) {
 	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel} ${prod.material.gramaje}`,"verde","xy",`resultado_${n}`);
 	trabajoNuevo.push(prod);
 
-	agregarObjetos(prod,"Almacen",testIDB);
+	agregarObjetos(prod,"Trabajos",trabajosDB);
 
-	leerObjetos("Almacen",testIDB);
+	leerObjetos("Trabajos",trabajosDB);
 
 
 
@@ -450,7 +457,7 @@ btnEnviar.addEventListener("click",(e)=>{
 		e.preventDefault();
 		validarForm();
 		console.log(trabajoNuevo);
-		moverVentana(`#resultado_${n}`,`#arrastre_${n}`);
+		//moverVentana(`#resultado_${n}`,`#arrastre_${n}`);
 		});
 		
 /*btnCerrar.addEventListener("click", (e)=>{
@@ -644,7 +651,17 @@ const test = (prod)=>{
 
 const getItemByKey = (keyNumber,store,db)=> {
 	const arr = leerObjeto(store,db);
-	arr
+	return arr
+};
+
+function verPosados(job,i) {
+	for (f of job.formatosDisponibles) {
+   		console.log("-------------------------------------")
+    	corteFinal(f.x,f.y,job.alto,job.ancho);
+    	calcularCortePlana(job.material,f.x,f.y);
+    	console.log("-------------------------------------")
+	}
+	return arr
 };
 
 
@@ -678,3 +695,5 @@ function informar(t) {
     console.log("-------------------------------------")
 }
 };
+
+console.log(savedJobs);

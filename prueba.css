@@ -199,17 +199,28 @@ div.terminacion{
 }
 
 
-.formulario button {
-	padding: 0 5px;
+.button__ON, .button__OFF {
+	padding: 10px;
+	margin: auto;
 	grid-column: 2 / span 1;
 	width: fit-content;
-	background: #000;
-	color: #88f;
-	box-shadow: 3px 3px 0px #444;
-	transition: box-shadow .5s;
+	height: 35px;
+	transition: box-shadow .3s;
 }
 
-.formulario button:hover{
+.button__ON {
+	background: #99a;
+	color: #eee;
+	box-shadow: 3px 3px 0px #444;
+}
+
+.button__OFF {
+	background: #666;
+	color: #333;
+	box-shadow: 0px 0px 0px #333;
+
+}
+.button__ON:hover{
 	box-shadow: 1px 1px 0.3px #444;
 }
 
@@ -249,6 +260,8 @@ div.terminacion{
 	margin-left: 20%;
 
 } 
+
+
 
 .formulario input[type="text"], .formulario select {
 	width: 80%;

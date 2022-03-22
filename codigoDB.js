@@ -1,6 +1,10 @@
 "use strict"
 
-const testIDB = window.indexedDB.open("testDataBase",1);
+if (!window.indexedDB) {
+    window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
+}
+
+const trabajosDB = window.indexedDB.open("Imprenta",1);
 
 
 // CRUD = create, read, update, delete
@@ -9,14 +13,14 @@ const validarIDB = dataBase => {
 	dataBase.addEventListener("upgradeneeded",()=>{
 		console.log(`${dataBase.result.name} creada exitosamente`);
 		const mxmDB = dataBase.result;
-		mxmDB.createObjectStore("Almacen",{
-			autoIncrement: true
+		mxmDB.createObjectStore("Trabajos",{
+			keyPath: "nombre"
 		});
 	});
 
 	dataBase.addEventListener("success",()=>{
 		console.log(`${dataBase.result.name} cargada exitosamente`);
-		leerObjetos("Almacen",testIDB);
+		leerObjetos("Trabajos",trabajosDB);
 	});
 
 	dataBase.addEventListener("error",()=>{
@@ -24,7 +28,7 @@ const validarIDB = dataBase => {
 	});
 }
 
-validarIDB(testIDB);
+validarIDB(trabajosDB);
 
 const abrirTrans = (almacen,dataBase) => {
 	const db = dataBase.result;
@@ -38,6 +42,9 @@ const agregarObjetos = (objeto,almacen,dataBase) => {
 	idbData[1].add(objeto);
 	idbData[0].addEventListener("complete",()=>{
 		console.log(`Objeto agregado`)
+	})
+	idbData[0].addEventListener("error", (e)=>{
+		alert(e.target.error.message);
 	})
 };
 
@@ -56,7 +63,7 @@ const leerObjetos = (almacen,dataBase)=> {
 };
 
 
-const leerObjeto = (a,db,k)=> {
+const leerObjeto = (a,db)=> {
 	const idbData = abrirTrans(a,db);
 	const cursor = idbData[1].openCursor();
 	let arr = []
@@ -123,13 +130,13 @@ const crearHTML = (id,name)=> {
 
 	saveButton.addEventListener("click",()=>{
 		if (saveButton.className == "posible") {
-			modificarObjetos({identificador: titulo.textContent},testIDB,"Almacen",id);
+			modificarObjetos({identificador: titulo.textContent},trabajosDB,"Trabajos",id);
 			saveButton.classList.replace("posible","imposible")
 		}
 	})
 
 	deleteButton.addEventListener("click",()=>{
-		eliminarObjetos(testIDB,"Almacen",id);
+		eliminarObjetos(trabajosDB,"Trabajos",id);
 		document.querySelector(".productList").removeChild(container);
 	})
 	
@@ -144,14 +151,14 @@ const newProduct = document.getElementById("product");
 	if (newProduct.value.length > 0) { 
 		if (document.querySelector(".posible") != undefined) {
 			if (confirm("Hay elementos sin guardar, queres continuar")) {
-				agregarObjetos({identificador: newProduct.value},"Almacen",testIDB);
+				agregarObjetos({identificador: newProduct.value},"Trabajos",trabajosDB);
 				document.querySelector(".productList").innerHTML = "";
-				leerObjetos("Almacen",testIDB);
+				leerObjetos("Trabajos",trabajosDB);
 			}
 		} else {
-			agregarObjetos({identificador: newProduct.value},"Almacen",testIDB);
+			agregarObjetos({identificador: newProduct.value},"Trabajos",trabajosDB);
 			document.querySelector(".productList").innerHTML = "";
-			leerObjetos("Almacen",testIDB);
+			leerObjetos("Trabajos",trabajosDB);
 		}
 	} else {
 		alert("Debe agregar un titulo, infeliz!")
