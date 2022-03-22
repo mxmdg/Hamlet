@@ -220,8 +220,10 @@ const materiales = [
 	Obra_70 = new material("Obra",70,"Boreal",650,950,950,50),
 	Obra_90 = new material("Obra",90,"Boreal",650,950,950,62),
 	Obra_120 = new material("Obra",120,"Boreal",650,950,950,70),
+	Obra_180 = new material("Obra",180,"Boreal",650,950,950,73),
 	Bookcell_80 = new material("Bookcell",80,"Boreal",650,950,950,60),
 	Bookcell_65 = new material("Bookcell",65,"Boreal",650,950,950,54),
+	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,58),
 	IlustMate_120 = new material("Encapado Mate",120,"Suzano",650,950,950,52),
 	IlustMate_150 = new material("Encapado Mate",150,"Suzano",650,950,950,55),
 	IlustMate_170 = new material("Encapado Mate",170,"Suzano",650,950,950,58),
@@ -658,4 +660,21 @@ function verPosados(i) {
     	calcularCortePlana(arr[i].material,f.x,f.y);
     	console.log("-------------------------------------") 
 	} */
+};
+
+function informar(t) {
+    for (f of t.formatosDisponibles) {
+    console.log("-------------------------------------")
+    console.log(t.nombre);  
+	console.log(t.formato) 
+    console.log("-------------------------------------")    
+    corteFinal(f.x,f.y,t.alto,t.ancho);
+    console.log(resultado);
+    calcularCortePlana(t.material,f.x,f.y);
+    let hojas = (t.coloresDorso > 0) ? t.pags / 2 : t.pags;
+    let tirada = Math.ceil(t.cantidad / resultado);
+    let pliegos = hojas * tirada;
+    console.log(`Hojas ${hojas} - Tirada ${tirada} - Pliegos: ${pliegos}`);
+    console.log("-------------------------------------")
+}
 };
