@@ -262,7 +262,7 @@ function validarForm() {
 			}
 			
 			currentJob();
-			crearDocFrag(".formulario","select","Agregar parte");
+			crearDocFragConID(".formulario","select",`<option>Agregar parte</option>`,"addPart");
 			for (p of tiposDePartes) {
 				let contenedor = document.getElementById("interiorForm").lastElementChild
 				let n = document.createElement("option");
@@ -270,11 +270,8 @@ function validarForm() {
    				n.appendChild(op);
    				contenedor.appendChild(n);
    			};
-   			nw.replaceWith(nw.cloneNode(true))
-   			nw.classList.replace("button__ON","button__OFF");
-   			mw.addEventListener("load", (e)=>{
-   				e.preventDefault();
-   			})
+   			
+   			
 
 		
 		} else {
@@ -287,7 +284,6 @@ function validarForm() {
 nw.addEventListener("click",(e)=>{
 		e.preventDefault();
 		validarForm();
-		console.log("Trabajo Nuevo:" + trabajoNuevo);
 		//moverVentana(`#resultado_${n}`,`#arrastre_${n}`);
 		});
 		
