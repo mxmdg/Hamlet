@@ -680,21 +680,27 @@ function verPosados(i) {
 };
 
 function informar(t) {
-    for (f of t.formatosDisponibles) {
-    console.log("-------------------------------------")
-    console.log(t.nombre);  
-	console.log(t.formato) 
-    console.log("-------------------------------------")    
-    corteFinal(f.x,f.y,t.alto,t.ancho);
-    console.log(resultado);
-    calcularCortePlana(t.material,f.x,f.y);
-    let hojas = (t.coloresDorso > 0) ? t.pags / 2 : t.pags;
-    let tirada = Math.ceil(t.cantidad / resultado);
-    let pliegos = hojas * tirada;
-    let pliegosPlana = Math.ceil(pliegos / poses);
-    console.log(`Hojas ${hojas} - Tirada ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana}`);
-    console.log("-------------------------------------")
-}
+	
+  	  for (f of t.formatosDisponibles) {
+		if (corteFinal(f.x,f.y,t.alto,t.ancho) > 0) {
+  		console.log("-------------------------------------")
+  		console.log(t.nombre);  
+		console.log(t.formato) 
+   		console.log("-------------------------------------")    
+   		corteFinal(f.x,f.y,t.alto,t.ancho);
+   		console.log(resultado);
+   		calcularCortePlana(t.material,f.x,f.y);
+   		let hojas = (t.coloresDorso > 0) ? t.pags / 2 : t.pags;
+   		let tirada = Math.ceil(t.cantidad / resultado);
+   		let pliegos = hojas * tirada;
+   		let pliegosPlana = Math.ceil(pliegos / poses);
+   		console.log(`Hojas ${hojas} - Tirada ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana}`);
+   		console.log("-------------------------------------")
+	} else {
+		console.log(t.formato + " no entra en " + f.nombre)
+	}
+		} 
+	
 };
 
 
