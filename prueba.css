@@ -200,10 +200,11 @@ div.terminacion{
 
 
 .button__ON, .button__OFF {
+	color: green;
 	padding: 10px;
-	margin: auto;
-	grid-column: 2 / span 1;
-	width: fit-content;
+	margin-top: 10px;
+	margin-left: 10%;
+	margin-rigth: 10%;
 	height: 35px;
 	transition: box-shadow .3s;
 }
