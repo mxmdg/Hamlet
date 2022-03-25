@@ -186,7 +186,7 @@ const formatos = [
 	a3 = new formato("A3",420,297),
 	a4 = new formato("A4",297,210),
 	carta = new formato("Carta",279.4,215.9),
-	tabloide = new formato("Tabloide",431.8,279.4),
+	tabloide = new formato("Tabloide",431.8,215.9),
 	iD_488x330 = new formato("488x330",488,330),
 	iD_470x320 = new formato("470x320",470,320),
 	iD_432x320 = new formato("432x320",432,320),
@@ -691,12 +691,9 @@ function informar(t) {
     let hojas = (t.coloresDorso > 0) ? t.pags / 2 : t.pags;
     let tirada = Math.ceil(t.cantidad / resultado);
     let pliegos = hojas * tirada;
-    let pliegosPlana = Math.ceil(pliegos / poses);
-    console.log(`Hojas ${hojas} - Tirada ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana}`);
+    console.log(`Hojas ${hojas} - Tirada ${tirada} - Pliegos: ${pliegos}`);
     console.log("-------------------------------------")
 }
 };
-
-
 
 console.log(savedJobs);

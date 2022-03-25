@@ -15,15 +15,6 @@ function crearDocFragConClase(contenedor,etiqueta,contenido,clase_1,clase_2,id) 
 	container.appendChild(textContainer);
 	container.lastElementChild.classList.add(clase_1, clase_2);
 	container.lastElementChild.setAttribute("id", id);
-}
-
-function crearDocFragConID(contenedor,etiqueta,contenido,id) {
-	let container = document.querySelector(contenedor);
-	let textContainer = document.createElement(etiqueta);
-	let content = document.createTextNode(contenido);
-	textContainer.innerHTML = contenido;
-	container.appendChild(textContainer);
-	container.lastElementChild.setAttribute("id", id);
 
 
 }
