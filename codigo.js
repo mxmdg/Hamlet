@@ -87,7 +87,8 @@ class interior {
 		this.totalPags = this.cantidad * this.pags;
 		this.printer = impresoras.filter(impresora => impresora.colores == Math.max(coloresFrente,coloresDorso));
 		this.formatosDisponibles = this.printer[0].formatos;
-
+		this.anchoDeTapaSinSolapas = this.lomo + (this.ancho * 2);
+		this.anchoDeTapaConSolapas = this.lomo + (this.ancho * 2) + 160;
 		};
 
 	orientacionDePagina() {
@@ -327,7 +328,7 @@ function validarForm() {
 
 		switch(tipoTrabajo.value) { //"Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"
 			case "Libro" :
-				max = 300; min = 60; pagMax = 1000; pagMin = 20;
+				max = 315; min = 50; pagMax = 1000; pagMin = 20;
 				break;
 			case "Revista":	
 				max = 300; min = 70; pagMax = 64; pagMin = 4;
@@ -483,7 +484,7 @@ function calcularCortePlana (papelElegido,anchoTrabajo,altoTrabajo) {
 
 
 		//console.log(`Entran ${xPoses_1} en los ${papelElegido.anchoPlana} de ancho de la resma, por ${yPoses_1} en los ${papelElegido.largoPlana} que tiene de alto la resma. Total: ${totalPoses}`);
-		console.log(`Salen ${totalPoses} pliegos`);
+		//console.log(`Salen ${totalPoses} pliegos`);
 
 		return poses = totalPoses;
 };
@@ -553,7 +554,7 @@ function corteFinal (x1,y1,x2,y2,margen = 5,calle = 2) {
 	let a = optimizarCorte(x1,y1,x2,y2);
 	let b = optimizarCorte(y1,x1,x2,y2);
 	resultado = Math.max(a,b);
-	console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
+	//console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
 	return resultado
 };
 
@@ -684,17 +685,17 @@ function informar(t) {
   	  for (f of t.formatosDisponibles) {
 		if (corteFinal(f.x,f.y,t.alto,t.ancho) > 0) {
   		console.log("-------------------------------------")
-  		console.log(t.nombre);  
-		console.log(t.formato) 
+  		console.log(t.nombre + " " + t.material.tipoPapel + " " + t.material.gramaje);  
+		console.log(t.formato + " en " + f.nombre) 
    		console.log("-------------------------------------")    
    		corteFinal(f.x,f.y,t.alto,t.ancho);
-   		console.log(resultado);
+   		console.log("Lomo: " + t.lomo + " Ancho de Tapa: " + t.anchoDeTapaSinSolapas + " - Con Solapas: " + t.anchoDeTapaConSolapas);
    		calcularCortePlana(t.material,f.x,f.y);
    		let hojas = (t.coloresDorso > 0) ? t.pags / 2 : t.pags;
    		let tirada = Math.ceil(t.cantidad / resultado);
    		let pliegos = hojas * tirada;
    		let pliegosPlana = Math.ceil(pliegos / poses);
-   		console.log(`Hojas ${hojas} - Tirada ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana}`);
+   		console.log(`Hojas ${hojas} - Poses: ${resultado} - Tirada: ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana}`);
    		console.log("-------------------------------------")
 	} else {
 		console.log(t.formato + " no entra en " + f.nombre)
