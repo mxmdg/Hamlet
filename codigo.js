@@ -189,6 +189,7 @@ const formatos = [
 	carta = new formato("Carta",279.4,215.9),
 	tabloide = new formato("Tabloide",431.8,279.4),
 	iD_488x330 = new formato("488x330",488,330),
+	iD_360x290 = new formato("360x290",360,290),
 	iD_470x320 = new formato("470x320",470,320),
 	iD_432x320 = new formato("432x320",432,320),
 	iD_648x315 = new formato("648x315",648,315),
@@ -269,7 +270,7 @@ let savedJobs = [];
 window.addEventListener("load",(e)=>{
 	for (mat of materiales) {
 		
-		crearDocFrag("#material","Option",`${mat.tipoPapel} ${mat.gramaje}`);
+		crearDocFrag("#material","Option",`${mat.tipoPapel} ${mat.gramaje} (${mat.marca})`);
 	};
 	for (tipo of tiposDeTrabajos) {
 		
@@ -515,11 +516,11 @@ function optimizarCorte (x1,y1,x2,y2) {
 		
 		let masPoses
 		
-		if (y2 < xResto && x2 < y1) {
+		if (y2 <= xResto && x2 < y1) {
 			calcularMejorCorte(xResto,y1,x2,y2);
 			masPoses = n;
 			
-		} else if (x2 < yResto && y2 < x1) {
+		} else if (x2 <= yResto && y2 < x1) {
 			calcularMejorCorte(yResto,x1,x2,y2);
 			masPoses = n;
 		} else {

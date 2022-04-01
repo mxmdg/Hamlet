@@ -51,10 +51,12 @@ const agregarObjetos = (objeto,almacen,dataBase) => {
 const leerObjetos = (almacen,dataBase)=> {
 	const idbData = abrirTrans(almacen,dataBase);
 	const cursor = idbData[1].openCursor();
+	let cont = document.querySelector(".productList")
+	cont.innerHTML = "";
 	cursor.addEventListener("success",()=>{
 		if (cursor.result) {
 			let element = crearHTML(cursor.result.key,cursor.result.value.nombre);
-			document.querySelector(".productList").appendChild(element);
+			cont.appendChild(element);
 			cursor.result.continue();
 		} else {
 			console.log("Estos son todos los datos");
