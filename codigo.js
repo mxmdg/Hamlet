@@ -277,6 +277,8 @@ window.addEventListener("load",(e)=>{
 		crearDocFrag("#tipoTrabajo","Option",`${tipo}`);
 	};
 	savedJobs = leerObjeto("Trabajos",trabajosDB,0);
+
+	console.log(savedJobs);
 	e.preventDefault();
 });
 
@@ -510,14 +512,12 @@ function optimizarCorte (x1,y1,x2,y2) {
 		
 		let yResto = y1 % y2;
 
-		/*console.log(`Resto x = ${xResto}`);
-		console.log(`Resto y = ${yResto}`);
-		console.log(`Poses = ${poses}`);*/
 		
 		let masPoses
 		
 		if (y2 <= xResto && x2 < y1) {
 			calcularMejorCorte(xResto,y1,x2,y2);
+
 			masPoses = n;
 			
 		} else if (x2 <= yResto && y2 < x1) {
@@ -539,10 +539,17 @@ function optimizarCorte (x1,y1,x2,y2) {
 };
 
 const calcularMejorCorte = (x1,y1,x2,y2)=> {
-		let n1 = Math.floor(x1 / parseInt(x2)) * Math.floor(y1 / parseInt(y2));
-		let n2 = Math.floor(y1 / parseInt(x2)) * Math.floor(x1 / parseInt(y2));
+
+		let xPoses1 = Math.floor(x1 / parseInt(x2));
+		let yPoses1 = Math.floor(y1 / parseInt(y2));
+		let xPoses2 = Math.floor(x1 / parseInt(y2));
+		let yPoses2 = Math.floor(y1 / parseInt(x2));
+
+		let n1 = xPoses1 * yPoses1;
+		let n2 = xPoses2 * yPoses2;
 		n = Math.max(n1,n2);
 		//console.log(`Entran ${n}`);
+
 		return n;
 };
 
@@ -553,12 +560,66 @@ function corteFinal (x1,y1,x2,y2,margen = 5,calle = 2) {
 	x2 = x2 + (calle/2);
 	y2 = y2 + (calle/2);
 	let a = optimizarCorte(x1,y1,x2,y2);
-	let b = optimizarCorte(y1,x1,x2,y2);
+	let b = optimizarCorte(x1,y1,y2,x2);
 	resultado = Math.max(a,b);
+	
+	
 	//console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
 	return resultado
 };
 
+
+const dibujarMejorCorte = (x1,y1,x2,y2)=> {
+
+		let xPoses1 = Math.floor(x1 / parseInt(x2));
+		let yPoses1 = Math.floor(y1 / parseInt(y2));
+		let xPoses2 = Math.floor(x1 / parseInt(y2));
+		let yPoses2 = Math.floor(y1 / parseInt(x2));
+
+		let n1 = xPoses1 * yPoses1;
+		let n2 = xPoses2 * yPoses2;
+		n = Math.max(n1,n2);
+		//console.log(`Entran ${n}`);
+
+		let izq = (700 - x1)/2;
+		let top = (400 - y1)/2;
+
+
+		ctx.strokeStyle = "#fff";
+		ctx.strokeWidth = "2"
+		ctx.strokeRect(izq,top,x1,y1);
+
+		ctx.strokeStyle = "#ff3";
+
+
+		
+		if (n1 >= n2) {
+			top = top - y2;
+			for (let h = 0; h < yPoses1; h++){
+				top = top + y2;
+				for (let i = 0; i < xPoses1; i++) {
+				ctx.strokeRect(izq + ((x1-((x2 * xPoses1)))/2) + (x2 * i),top + ((y1-(y2*yPoses1))/2),x2,y2)
+
+				}
+			}
+			
+		} else if (n2 > n1){
+			top = top - x2;
+			for (let h = 0; h < yPoses2; h++){
+				top = top + x2;
+				for (let i = 0; i < xPoses2; i++) {
+				ctx.strokeRect(izq + ((x1-((y2 * xPoses2)))/2) + (y2 * i),top + ((y1-(x2*yPoses2))/2),y2,x2);
+
+				}
+			}
+		};
+		
+		
+		//ctx.fillRect(izq + ((x1-x2)/2),top + ((y1-y2)/2),x2,y2);
+
+
+		return n;
+};
 
 //___________________________ I D B _______________________________
 
@@ -706,5 +767,9 @@ function informar(t) {
 };
 
 
+// ----------------- CANVAS ----------------------
 
-console.log(savedJobs);
+const canvas = document.getElementById("canvas");
+
+const ctx = canvas.getContext("2d");
+

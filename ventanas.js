@@ -112,11 +112,15 @@ function removeGrandParent(elemento) {
 
 };
 
-//let btnCierre = document.getElementById("btnCierre");
+let btnCierre = document.getElementById("btnCierre");
+
+btnCierre.addEventListener("click",(e)=>{
+	e.preventDefault();
+	removeGrandParent(btnCierre);
+})
 
 
-//moverVentana(".violeta",".zonaDeArrastre");
-
+moverVentana(".verde",".zonaDeArrastre");
 
 
 
