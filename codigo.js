@@ -423,7 +423,7 @@ function informarProducto(prod) {
 						parseInt(coloresDorso.value),
 						papelElegido);
 	
-	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel} ${prod.material.gramaje}`,"verde","xy",`resultado_${n}`);
+	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonMin" id="btnMin_${n}">-</div><div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel} ${prod.material.gramaje}`,"verde","xy",`resultado_${n}`);
 	trabajoNuevo.push(prod);
 
 	agregarObjetos(prod,"Trabajos",trabajosDB);
@@ -434,11 +434,30 @@ function informarProducto(prod) {
 
 	//-------- Cerrar ventana -- ya fue...
 
-	/*let clickParaCerrar = document.getElementById(`btnCierre_${n}`); 
+	let clickParaCerrar = document.getElementById(`btnCierre_${n}`); 
+
+	let clickParaMin = document.getElementById(`btnMin_${n}`); 
 
 	let ventanaACerrar = document.getElementById(`resultado_${n}`);
 
-	
+	clickParaMin.addEventListener("click",()=> {
+
+		let minBtn = document.getElementById(`btnMin_${n}`);
+		let ventana = document.getElementById(`btnMin_${n}`).parentElement.parentElement;
+
+
+		if (ventana.classList.contains("verdeMin")) {
+			ventana.classList.remove("verdeMin");
+			minBtn.innerHTML = "-";
+			
+		} else {
+			ventana.classList.add("verdeMin")
+			minBtn.innerHTML = "+";
+		}
+
+	})
+
+
 	clickParaCerrar.addEventListener("click", () => {
 		removeGrandParent(clickParaCerrar)
 		let num = (clickParaCerrar.getAttribute("id").substring(10));
@@ -447,27 +466,97 @@ function informarProducto(prod) {
 
 
 		trabajoNuevo.splice((num - 1), 1);
-	});	*/
+	});	
 
 }
 
 
 
-//let formu = document.getElementById("interiorForm");
+let formu = document.getElementById("interiorForm");
 
-//let btnCerrar = document.getElementById("btnCierre");
+let btnCerrar = document.getElementById("btnCierre");
 
 btnEnviar.addEventListener("click",(e)=>{
 		e.preventDefault();
 		validarForm();
 		console.log(trabajoNuevo);
-		//moverVentana(`#resultado_${n}`,`#arrastre_${n}`);
+		moverVentana(`#resultado_${n}`,`#arrastre_${n}`);
 		});
 		
-/*btnCerrar.addEventListener("click", (e)=>{
+btnCerrar.addEventListener("click", (e)=>{
     e.preventDefault();
     removeGrandParent(btnCerrar);
-});*/
+});
+
+const btnImpose = document.getElementById("impose");
+
+btnImpose.addEventListener("click",(e)=> {
+	e.preventDefault();
+	prod = new interior(ident.value, 
+						tipoTrabajo.value,
+						parseInt(cantidad.value),
+						parseInt(alto.value),
+						parseInt(ancho.value),
+						parseInt(pags.value),
+						parseInt(coloresFrente.value),
+						parseInt(coloresDorso.value),
+						papelElegido);
+
+
+	replaceDocFragConClase(".formulario","select",`<option>Elegir formato</option>`,"selFormat","btn","formatoElegido")
+	for (f of prod.formatosDisponibles) {
+		crearDocFrag("#formatoElegido","option",f.nombre);
+	}
+	sf = document.getElementById("formatoElegido");
+
+	
+
+	sf.addEventListener("change",(e)=>{
+		e.preventDefault();
+
+		let minBtn = document.getElementById("btnMin");
+		let ventana = document.getElementById("contCanvas");
+
+
+		if (ventana.classList.contains("verdeMin")) {
+			ventana.classList.remove("verdeMin");
+			minBtn.innerHTML = "-";
+			
+		};
+
+
+		
+		const dibujar = ()=> {
+			let f
+			for (fd of prod.formatosDisponibles) {
+				if (sf.value == fd.nombre) {
+					f = fd
+
+				}
+			}
+			dibujarMejorCorte(f.x,f.y,prod.ancho,prod.alto);
+			calcularCortePlana(prod.material,f.x,f.y); //retorna poses
+			corteFinal(f.x,f.y,prod.alto,prod.ancho);//retorna resultado
+			let hojas = (prod.coloresDorso > 0) ? prod.pags / 2 : prod.pags;
+   			let tirada = Math.ceil(prod.cantidad / resultado);
+   			let pliegos = hojas * tirada;
+   			let pliegosPlana = Math.ceil(pliegos / poses);
+
+			console.log(`f.x: ${f.x} - f.y: ${f.y}`)
+
+   			//replaceDocFragConClase("#contCanvas","div",("Lomo: " + prod.lomo + " Ancho de Tapa: " + prod.anchoDeTapaSinSolapas + " - Con Solapas: " + prod.anchoDeTapaConSolapas),"info","data","infoData");
+   			replaceDocFragConClase("#contCanvas","div",   		(`Hojas ${hojas} - Poses: ${resultado} - Tirada: ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana}`),"info","resultados","infoResult");
+   			
+		}
+
+		dibujar();
+
+		
+		
+		
+	})
+
+})
 
 
 //___________________________Calculo de posado_______________________________
@@ -580,6 +669,8 @@ const dibujarMejorCorte = (x1,y1,x2,y2)=> {
 		let n2 = xPoses2 * yPoses2;
 		n = Math.max(n1,n2);
 		//console.log(`Entran ${n}`);
+
+		ctx.clearRect(0,0,700,400);
 
 		let izq = (700 - x1)/2;
 		let top = (400 - y1)/2;

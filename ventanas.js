@@ -12,6 +12,30 @@ function crearDocFragConClase(contenedor,etiqueta,contenido,clase_1,clase_2,id) 
 	let textContainer = document.createElement(etiqueta);
 	let content = document.createTextNode(contenido);
 	textContainer.innerHTML = contenido;
+	
+	container.appendChild(textContainer);
+	container.lastElementChild.classList.add(clase_1, clase_2);
+	container.lastElementChild.setAttribute("id", id);
+}
+
+function crearDocFragConID(contenedor,etiqueta,contenido,id) {
+	let container = document.querySelector(contenedor);
+	let textContainer = document.createElement(etiqueta);
+	let content = document.createTextNode(contenido);
+	textContainer.innerHTML = contenido;
+	container.appendChild(textContainer);
+	container.lastElementChild.setAttribute("id", id);
+
+
+}
+function replaceDocFragConClase(contenedor,etiqueta,contenido,clase_1,clase_2,id) {
+	let container = document.querySelector(contenedor);
+	let textContainer = document.createElement(etiqueta);
+	let content = document.createTextNode(contenido);
+	textContainer.innerHTML = contenido;
+	if (container.lastElementChild.getAttribute("id")==id) {
+		container.removeChild(container.lastElementChild);
+	}
 	container.appendChild(textContainer);
 	container.lastElementChild.classList.add(clase_1, clase_2);
 	container.lastElementChild.setAttribute("id", id);
@@ -112,13 +136,33 @@ function removeGrandParent(elemento) {
 
 };
 
+function minGrandParent(elemento) {
+
+    //let abu = elemento.parentElement.parentElement.parentElement;
+    let padre = elemento.parentElement.parentElement;
+    padre.classList.toggle("verdeMin");
+
+};
+
 let btnCierre = document.getElementById("btnCierre");
+let btnMin = document.getElementById("btnMin");
 
 btnCierre.addEventListener("click",(e)=>{
 	e.preventDefault();
 	removeGrandParent(btnCierre);
 })
 
+btnMin.addEventListener("click",(e)=>{
+	e.preventDefault();
+	let abu = btnMin.parentElement.parentElement;
+	if (abu.classList.contains("verdeMin")) {
+			btnMin.innerHTML = "-";
+			}  else { btnMin.innerHTML = "+";
+	};
+	abu.classList.toggle("verdeMin");
+
+
+})
 
 moverVentana(".verde",".zonaDeArrastre");
 

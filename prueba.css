@@ -408,6 +408,12 @@ canvas {
 	top: 0px;
 	left: 0px;
 }
+
+#contCanvas .info {
+	padding: 20px;
+	color: #9ff;
+}
+
 .verde {
 	border: 5px solid white;
 	border-radius: 20px;
@@ -418,14 +424,21 @@ canvas {
 	margin: 20px;
 	position: absolute;
 	width: 720px;
-	height: 450px;
-	transition: box-shadow .5s
+	height: 500px;
+	overflow: hidden;
+	transition: box-shadow .5s;
+	transition: height .5s ease-in;
+}
+
+.verdeMin {
+	height: 35px;
+	overflow: hidden;
+	transition: height .5s ease-in;
 }
 
 .zonaDeArrastre{
 	display: flex;
 	justify-content: space-between;
-	text-transform: uppercase;
 	font-weight: 700;
 	width: 100%;
 	height: 30px;
@@ -440,6 +453,12 @@ canvas {
 	transition: background .5s;
 }
 
+.zonaDeArrastre h4{
+	font-size: 15px;
+	font-weight: 300;
+
+}
+
 .zonaDeArrastre:hover{
 	background: #00000066;
 	cursor: move;
@@ -451,8 +470,8 @@ canvas {
 	width: 25px;
 	height: 25px;
 	position: absolute;
-	right: -10px;
-	top: -10px;
+	right: 0px;
+	top: 0px;
 	border: 2px solid white;
 	background: #F33;
 	text-align: center;
@@ -461,6 +480,26 @@ canvas {
 
 .botonCerrar:hover {
 	color: #F00;
+	background: #000;
+	cursor: pointer;
+}
+
+.botonMin {
+	padding: 2px;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	right: 25px;
+	top: 0px;
+	border: 2px solid white;
+	background: #3F3;
+	text-align: center;
+	box-shadow: 3px 3px 2px #00000066;
+}
+
+.botonMin:hover {
+	color: #0f0;
 	background: #000;
 	cursor: pointer;
 }
