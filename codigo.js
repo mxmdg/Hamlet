@@ -542,10 +542,18 @@ btnImpose.addEventListener("click",(e)=> {
    			let pliegos = hojas * tirada;
    			let pliegosPlana = Math.ceil(pliegos / poses);
 
-			console.log(`f.x: ${f.x} - f.y: ${f.y}`)
+			//console.log(`f.x: ${f.x} - f.y: ${f.y}`)
 
    			//replaceDocFragConClase("#contCanvas","div",("Lomo: " + prod.lomo + " Ancho de Tapa: " + prod.anchoDeTapaSinSolapas + " - Con Solapas: " + prod.anchoDeTapaConSolapas),"info","data","infoData");
-   			replaceDocFragConClase("#contCanvas","div",   		(`Hojas ${hojas} - Poses: ${resultado} - Tirada: ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana}`),"info","resultados","infoResult");
+   			if (resultado == 0) {
+   				console.log("No entra, la puta madre")
+   				replaceDocFragConClase("#contCanvas","div",(`${prod.nombre} no cabe en ${f.nombre}`),"info","resultados","infoResult");
+   			
+   			} else {
+   				console.log("LTA puto!")
+   				replaceDocFragConClase("#contCanvas","div",(`Hojas ${hojas} - Poses: ${resultado} - Tirada: ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana} de ${prod.material.anchoPlana} x ${prod.material.largoPlana}`),"info","resultados","infoResult");
+   			
+   			}
    			
 		}
 
@@ -677,14 +685,14 @@ const dibujarMejorCorte = (x1,y1,x2,y2)=> {
 
 
 		ctx.strokeStyle = "#fff";
-		ctx.strokeWidth = "2"
+		ctx.strokeWidth = "1"
 		ctx.strokeRect(izq,top,x1,y1);
 
 		ctx.strokeStyle = "#ff3";
 
 
 		
-		if (n1 >= n2) {
+		if (n1 >= n2 && n1 > 0) {
 			top = top - y2;
 			for (let h = 0; h < yPoses1; h++){
 				top = top + y2;
@@ -694,7 +702,7 @@ const dibujarMejorCorte = (x1,y1,x2,y2)=> {
 				}
 			}
 			
-		} else if (n2 > n1){
+		} else if (n2 > n1 && n2 > 0){
 			top = top - x2;
 			for (let h = 0; h < yPoses2; h++){
 				top = top + x2;
@@ -703,6 +711,14 @@ const dibujarMejorCorte = (x1,y1,x2,y2)=> {
 
 				}
 			}
+			
+		} else if (n1 == 0 && n2 == 0) { 
+				console.log("Ahora el dibujo deberia ser rojo")
+				ctx.clearRect(0,0,700,400);
+				ctx.strokeStyle = "#F00";
+				ctx.strokeWidth = "3"
+				ctx.strokeRect(izq,top,x1,y1);
+
 		};
 		
 		
