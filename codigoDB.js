@@ -55,7 +55,16 @@ const leerObjetos = (almacen,dataBase)=> {
 	cont.innerHTML = "";
 	cursor.addEventListener("success",()=>{
 		if (cursor.result) {
-			let element = crearHTML(cursor.result.key,cursor.result.value.nombre);
+			let element = crearHTML(
+				cursor.result.value.nombre,
+				cursor.result.value.tipo,
+				cursor.result.value.material,
+				cursor.result.value.cantidad,
+				cursor.result.value.coloresFrente,
+				cursor.result.value.coloresDorso,
+				cursor.result.value.formato,
+				cursor.result.value.orientacion
+				);
 			cont.appendChild(element);
 			cursor.result.continue();
 		} else {
@@ -82,7 +91,19 @@ const leerObjeto = (a,db)=> {
 	return arr
 };
 
-
+const selectJob = (job) => {
+	let arr = leerObjeto("Trabajos",trabajosDB);
+	console.log(arr);
+	let thisJob = []
+	for (let j of arr) {
+		console.log("jota" + j);
+		if (j.nombre == job) {
+			thisJob.push(j)
+		}
+	}
+	//console.log(thisJob);
+	return thisJob
+}
 
 const modificarObjetos = (objeto,dataBase,almacen,key) => {
 	const idbData = abrirTrans(almacen,dataBase);
@@ -101,7 +122,7 @@ const eliminarObjetos = (dataBase,almacen,key) => {
 };
 
 
-const crearHTML = (id,name)=> {
+const crearHTML = (name,type,stock,qty,cF,cD,format,orientation)=> {
 	let container = document.createElement("DIV");
 	let titulo = document.createElement("h3");
 	let saveButtons = document.createElement("DIV");
@@ -115,7 +136,7 @@ const crearHTML = (id,name)=> {
 
 	saveButton.textContent = "Modificar";
 	deleteButton.textContent = "Borrar";
-	titulo.textContent = id + " - " + name;
+	titulo.textContent = `${name} (${type}) - ${stock.tipoPapel} ${stock.gramaje} - Cantidad: ${qty} - Colores: ${cF}/${cD} - Formato: ${format} (${orientation})`;
 
 	saveButtons.appendChild(saveButton);
 	saveButtons.appendChild(deleteButton);
@@ -123,7 +144,7 @@ const crearHTML = (id,name)=> {
 	container.appendChild(titulo);
 	container.appendChild(saveButtons);
 
-	titulo.setAttribute("contenteditable","true");
+	titulo.setAttribute("contenteditable","false");
 	titulo.setAttribute("spellcheck","false");
 
 	titulo.addEventListener("keyup",()=>{

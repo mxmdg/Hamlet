@@ -187,6 +187,7 @@ const formatos = [
 	a3 = new formato("A3",420,297),
 	a4 = new formato("A4",297,210),
 	carta = new formato("Carta",279.4,215.9),
+	oficio = new formato("Oficio",215.9,355.6),
 	tabloide = new formato("Tabloide",431.8,279.4),
 	iD_488x330 = new formato("488x330",488,330),
 	iD_360x290 = new formato("360x290",360,290),
@@ -194,6 +195,7 @@ const formatos = [
 	iD_432x320 = new formato("432x320",432,320),
 	iD_648x315 = new formato("648x315",648,315),
 	iD_650x340 = new formato("650x340",650,340),
+	iD_650x358 = new formato("650x358",650,358),
 	iD_508x358 = new formato("508x358",508,358),
 	iD_508x240 = new formato("508x240",508,240),
 	iD_350x250 = new formato("350x250",350,250),
@@ -423,7 +425,7 @@ function informarProducto(prod) {
 						parseInt(coloresDorso.value),
 						papelElegido);
 	
-	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonMin" id="btnMin_${n}">-</div><div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel} ${prod.material.gramaje}`,"verde","xy",`resultado_${n}`);
+	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonMin" id="btnMin_${n}">-</div><div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}`,"verde","xy",`resultado_${n}`);
 	trabajoNuevo.push(prod);
 
 	agregarObjetos(prod,"Trabajos",trabajosDB);
@@ -536,7 +538,8 @@ btnImpose.addEventListener("click",(e)=> {
 			}
 			dibujarMejorCorte(f.x,f.y,prod.ancho,prod.alto);
 			calcularCortePlana(prod.material,f.x,f.y); //retorna poses
-			corteFinal(f.x,f.y,prod.alto,prod.ancho);//retorna resultado
+			calcularMejorCorte(f.x,f.y,prod.alto,prod.ancho);//retorna n
+			let resultado = n; //esto es para no reemplazar el retorno "resultado" que viene de la funcion corteFinal. Usamos n para usar la funcion calcularMejorCorte
 			let hojas = (prod.coloresDorso > 0) ? prod.pags / 2 : prod.pags;
    			let tirada = Math.ceil(prod.cantidad / resultado);
    			let pliegos = hojas * tirada;
@@ -546,12 +549,12 @@ btnImpose.addEventListener("click",(e)=> {
 
    			//replaceDocFragConClase("#contCanvas","div",("Lomo: " + prod.lomo + " Ancho de Tapa: " + prod.anchoDeTapaSinSolapas + " - Con Solapas: " + prod.anchoDeTapaConSolapas),"info","data","infoData");
    			if (resultado == 0) {
-   				console.log("No entra, la puta madre")
+   				//console.log("No entra, la puta madre")
    				replaceDocFragConClase("#contCanvas","div",(`${prod.nombre} no cabe en ${f.nombre}`),"info","resultados","infoResult");
    			
    			} else {
-   				console.log("LTA puto!")
-   				replaceDocFragConClase("#contCanvas","div",(`Hojas ${hojas} - Poses: ${resultado} - Tirada: ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana} de ${prod.material.anchoPlana} x ${prod.material.largoPlana}`),"info","resultados","infoResult");
+   				//console.log("LTA puto!")
+   				replaceDocFragConClase("#contCanvas","div",(`Hojas ${hojas} - Poses: ${resultado} - Tirada: ${tirada} - Pliegos: ${pliegos} - Pliegos Plana: ${pliegosPlana} (salen ${poses} de ${prod.material.anchoPlana} x ${prod.material.largoPlana})`),"info","resultados","infoResult");
    			
    			}
    			
@@ -835,19 +838,6 @@ function verPosados(job,i) {
 };
 
 
-function verPosados(i) {
-	let arr = []
-	arr = leerObjeto("Almacen",testIDB,0);
-	console.log(arr[2]);
-	
-	
-	/* for (f in arr[i].formatosDisponibles) {
-   		 console.log("-------------------------------------")
-    	corteFinal(f.x,f.y,arr[i].alto,arr[i].ancho);
-    	calcularCortePlana(arr[i].material,f.x,f.y);
-    	console.log("-------------------------------------") 
-	} */
-};
 
 function informar(t) {
 	
