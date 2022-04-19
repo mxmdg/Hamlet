@@ -313,6 +313,23 @@ let colores
 	})
 };*/
 
+const cargarDatos = (n) => {
+	tipoTrabajo.value = savedJobs[n].tipo;
+	ident.value = savedJobs[n].nombre;
+	cantidad.value = savedJobs[n].cantidad;
+	coloresFrente.value = savedJobs[n].coloresFrente;
+	coloresDorso.value = savedJobs[n].coloresDorso;
+	alto.value = savedJobs[n].alto;
+	ancho.value = savedJobs[n].ancho;
+	pags.value = savedJobs[n].pags;
+	materialSeleccionado.value = savedJobs[n].material.tipoPapel + " " + savedJobs[n].material.gramaje + " (" + savedJobs[n].material.marca + ")";
+	//`${mat.tipoPapel} ${mat.gramaje} (${mat.marca})`
+	for (mat of materiales) {
+		if (materialSeleccionado.value.includes(mat.tipoPapel + " " + mat.gramaje)) {
+		papelElegido = mat
+		};
+	}; return papelElegido;
+}
 
 materialSeleccionado.addEventListener("change",(e)=>{
 	for (mat of materiales) {
@@ -434,7 +451,7 @@ function informarProducto(prod) {
 
 
 
-	//-------- Cerrar ventana -- ya fue...
+	//-------- Cerrar ventana -- ya fue... no, volvió
 
 	let clickParaCerrar = document.getElementById(`btnCierre_${n}`); 
 

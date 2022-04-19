@@ -53,6 +53,7 @@ const leerObjetos = (almacen,dataBase)=> {
 	const cursor = idbData[1].openCursor();
 	let cont = document.querySelector(".productList")
 	cont.innerHTML = "";
+	
 	cursor.addEventListener("success",()=>{
 		if (cursor.result) {
 			let element = crearHTML(
@@ -129,12 +130,14 @@ const crearHTML = (name,type,stock,qty,cF,cD,format,orientation)=> {
 	let saveButton = document.createElement("button");
 	let deleteButton = document.createElement("button");
 
+	
+
 	container.classList.add("productItem");
 	saveButtons.classList.add("saveButtons");
-	saveButton.classList.add("imposible");
+	saveButton.classList.add("posible");
 	deleteButton.classList.add("delete")
 
-	saveButton.textContent = "Modificar";
+	saveButton.textContent = "Cargar";
 	deleteButton.textContent = "Borrar";
 	titulo.textContent = `${name} (${type}) - ${stock.tipoPapel} ${stock.gramaje} - Cantidad: ${qty} - Colores: ${cF}/${cD} - Formato: ${format} (${orientation})`;
 
@@ -153,8 +156,9 @@ const crearHTML = (name,type,stock,qty,cF,cD,format,orientation)=> {
 
 	saveButton.addEventListener("click",()=>{
 		if (saveButton.className == "posible") {
-			modificarObjetos({identificador: titulo.textContent},trabajosDB,"Trabajos",id);
-			saveButton.classList.replace("posible","imposible")
+			cargarDatos(1)
+			//modificarObjetos({identificador: titulo.textContent},trabajosDB,"Trabajos",id);
+			//saveButton.classList.replace("posible","imposible")
 		}
 	})
 
@@ -166,6 +170,8 @@ const crearHTML = (name,type,stock,qty,cF,cD,format,orientation)=> {
 
 	return container
 };
+
+
 
 const addButton = document.querySelector(".add");
 const newProduct = document.getElementById("product");
