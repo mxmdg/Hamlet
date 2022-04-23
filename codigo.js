@@ -252,7 +252,8 @@ const impresoras = [
 	nuvera157 = new impresora("Nuvera 157",1,200,470,200,320,157,2),
 	iGen = new impresora("iGen V",4,200,660,200,360,150,5),
 	versant80 = new impresora("Versant 80",4,150,488,120,330,80,5),
-	versant180 = new impresora("Versant 180",4,150,488,120,330,80,5),
+	//versant180 = new impresora("Versant 180",4,150,488,120,330,80,5),
+	versant3100 = new impresora("Versant 80",4,150,660,120,330,100,4),
 ]
 
 
@@ -648,8 +649,8 @@ function optimizarCorte (x1,y1,x2,y2) {
 		totalPoses = parseInt(poses) + parseInt(masPoses);		
 
 
-		/*console.log(`Mas Poses = ${masPoses}`);
-		console.log(`Total = ${totalPoses}`)*/
+		console.log(`Mas Poses = ${masPoses}`);
+		console.log(`Total = ${totalPoses}`)
 
 		return totalPoses;
 
@@ -665,7 +666,7 @@ const calcularMejorCorte = (x1,y1,x2,y2)=> {
 		let n1 = xPoses1 * yPoses1;
 		let n2 = xPoses2 * yPoses2;
 		n = Math.max(n1,n2);
-		//console.log(`Entran ${n}`);
+		console.log(`Entran ${n}`);
 
 		return n;
 };
@@ -681,7 +682,7 @@ function corteFinal (x1,y1,x2,y2,margen = 5,calle = 2) {
 	resultado = Math.max(a,b);
 	
 	
-	//console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
+	console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
 	return resultado
 };
 

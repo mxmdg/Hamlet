@@ -13,9 +13,8 @@ const validarIDB = dataBase => {
 	dataBase.addEventListener("upgradeneeded",()=>{
 		console.log(`${dataBase.result.name} creada exitosamente`);
 		const mxmDB = dataBase.result;
-		mxmDB.createObjectStore("Trabajos",{
-			keyPath: "nombre"
-		});
+		mxmDB.createObjectStore("Trabajos",{ keyPath: "id", autoIncrement:true }/*{keyPath: "nombre"}*/);
+		console.log(mxmDB.objectStore)
 	});
 
 	dataBase.addEventListener("success",()=>{
@@ -53,10 +52,12 @@ const leerObjetos = (almacen,dataBase)=> {
 	const cursor = idbData[1].openCursor();
 	let cont = document.querySelector(".productList")
 	cont.innerHTML = "";
-	
+	let i = 0;
 	cursor.addEventListener("success",()=>{
+		
 		if (cursor.result) {
 			let element = crearHTML(
+				cursor.result.value.id,
 				cursor.result.value.nombre,
 				cursor.result.value.tipo,
 				cursor.result.value.material,
@@ -64,13 +65,17 @@ const leerObjetos = (almacen,dataBase)=> {
 				cursor.result.value.coloresFrente,
 				cursor.result.value.coloresDorso,
 				cursor.result.value.formato,
-				cursor.result.value.orientacion
+				cursor.result.value.orientacion,
+				i
 				);
+			
 			cont.appendChild(element);
 			cursor.result.continue();
+			i++
 		} else {
 			console.log("Estos son todos los datos");
 		}
+		
 	})
 };
 
@@ -123,7 +128,7 @@ const eliminarObjetos = (dataBase,almacen,key) => {
 };
 
 
-const crearHTML = (name,type,stock,qty,cF,cD,format,orientation)=> {
+const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 	let container = document.createElement("DIV");
 	let titulo = document.createElement("h3");
 	let saveButtons = document.createElement("DIV");
@@ -156,7 +161,7 @@ const crearHTML = (name,type,stock,qty,cF,cD,format,orientation)=> {
 
 	saveButton.addEventListener("click",()=>{
 		if (saveButton.className == "posible") {
-			cargarDatos(1)
+			cargarDatos(i)
 			//modificarObjetos({identificador: titulo.textContent},trabajosDB,"Trabajos",id);
 			//saveButton.classList.replace("posible","imposible")
 		}
