@@ -80,11 +80,11 @@ const leerObjetos = (almacen,dataBase)=> {
 };
 
 
-const leerObjeto = (a,db)=> {
+const leerObjeto = async (a,db)=> {
 	const idbData = abrirTrans(a,db);
 	const cursor = idbData[1].openCursor();
 	let arr = []
-	cursor.addEventListener("success",()=>{
+	await cursor.addEventListener("success",()=>{
 		if (cursor.result) {
 			let key = cursor.result.key
 			let detalle = Object.defineProperty(cursor.result.value,`Key`, { enumerable: true, configurable: false, writable: false, value: `${key}`

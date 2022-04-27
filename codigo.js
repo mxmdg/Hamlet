@@ -279,7 +279,20 @@ window.addEventListener("load",(e)=>{
 		
 		crearDocFrag("#tipoTrabajo","Option",`${tipo}`);
 	};
-	savedJobs = leerObjeto("Trabajos",trabajosDB,0);
+	
+	let arroyo = ()=> {
+    resultado = leerObjeto("Trabajos",trabajosDB);
+    resultado.then(r=>{
+        console.log(r)
+        savedJobs = r;
+        });
+    resultado.catch(err => alert(err))
+	}
+
+	setTimeout(arroyo,2500)
+
+
+	//resultado.catch(err=> alert(err));
 
 	console.log(savedJobs);
 	e.preventDefault();

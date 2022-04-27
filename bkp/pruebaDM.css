@@ -1,3 +1,124 @@
+/*body {
+	display: flex;
+	background-image: url(http://www.imprentadorrego.com.ar/NewWebDorrego/ImprentaDorrego/img/IMG_0032.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	font-family: 'Hind', sans-serif;
+	object-fit: center;
+}
+
+h4, h3, h2{
+	color: white;
+	font-weight: 500;
+}
+
+li {
+	color: white;
+	line-height: 1.75em;
+	list-style: square;
+	list-style-position: inside;
+}
+.mainContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 360px);
+	grid-template-rows: repeat(auto-fill, 300px);
+	width: 100vw;
+	height: 100vh;
+	grid-gap: 5px;
+	align-content: top;
+
+}
+.purpleWindow {
+	display: flex;
+	flex-direction: column;
+	width: 340px;
+	border: 5px solid white;
+	border-radius: 25px;
+	padding: 30px;
+	color: #fff;
+	background: #5900b3bb;
+	box-shadow: 10px 15px 10px #33333399;
+	margin: 20px;
+}
+
+.purpleWindow h2 {
+	text-transform: uppercase;
+	font-size: 1.1em;
+	margin: 0 0 20px 0;
+}
+
+.purpleWindow select, .purpleWindow input, .purpleWindow button {
+	text-transform: uppercase;
+	font-size: .9em;
+	margin: 15px 0 5px 0;
+	width: 100%;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	background: #00000099;
+}
+
+.purpleWindow button:hover {
+	color: #5900b3;
+	background: #c9e;
+}
+
+.purpleWindow select:focus{
+	background: #000000ee;
+	border-radius: 5px;
+}
+
+.purpleWindow p, .purpleWindow label{
+	font-size: 0.8em;
+	color:  #d9b3ff;
+	margin: 2px 0px 8px 10px;
+	text-transform: uppercase;
+
+}
+.terminacion {
+	border-top: 1px solid #d9b3ff;
+	margin-top: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #d9b3ff;
+}
+
+.terminacion div{
+	color: #d9b3ff;
+	display: flex;
+	align-items: center;
+	justify-items: flex-start;
+	
+}
+.terminacion input {
+	max-width: fit-content;
+	min-width: 15px;
+	height: 15px;
+}
+.terminacion p , .terminacion label{
+	height: 15px;
+	line-height: 30px;
+}
+
+.gridItem_1 {
+	grid-column: 1 / span 2;
+	grid-row: 1 / span 3;
+}
+
+.gridItem_2 {
+	grid-column: 2 / span 3;
+	grid-row: 1 / span 2;
+}
+*/
+
+
+
+
+
+
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   background: #333;
@@ -10,18 +131,19 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	width: 100%;
-	margin: 50px auto;
+	margin: 25px auto;
 	font-family: monospace;
 }
 
 
 .mainContainer{
 	display: inline-flex;
-	padding: 50px;
+	padding: 20px;
 	width: 100vw;
 	max-width: 400px;
 	height: 100vh;
-	background-image: url(http://www.imprentadorrego.com.ar/NewWebDorrego/ImprentaDorrego/img/IMG_0032.png);
+	/*background-image: url(http://www.imprentadorrego.com.ar/NewWebDorrego/ImprentaDorrego/img/IMG_0032.png);*/
+	background: #222;
 	object-fit: contain;
 	align-items: flex-start;
 	justify-items: flex-end;
@@ -29,7 +151,7 @@
 
 .secContainer{ 
 	display: inline-flex;
-	background: #ccc;
+	background: #333;
 	height: 100%;
 	grid-column: 1 / span 2;
 	grid-row: 2 / span 1;
@@ -38,43 +160,45 @@
 .impresion {
 	grid-column: 1 / span 2;
 	margin-bottom: 20px;
-	border-top: 3px double #5B1AAF;
+	border-top: 3px double #555;
 }
 
 .terminacion {
-	text-rendering: optimizeLegibility ;
+	text-rendering: optimizeLegibility;
 }
 
 div.terminacion{
 		grid-column: span 2;
 		padding: 5% 10%;
-		border-top: 3px double #5B1AAF;
+		border-top: 3px double #555;
 }
 
 .terminacion h3 {
 	font-size: 21px;
 	text-transform: uppercase;
-	color: #49f;
+	color: #444;
 }
 .terminacion input {
 	display: inline;
-	height: 15px;
-	margin: 5px 10px 10px 0px;
+	margin: 15px 10px 10px 0px;
+	border-radius: 3px;
+	border: solid 2px #444;
 }
 .terminacion p , .terminacion label{
 	background-color: #000;
-	padding: 0 5px;
-	color: #ffc;
+	padding:5px 10px;
+	color: #666;
 	font-weight: 500;
 	display:inline;
-	line-height: 35px;
+	line-height: 20px;
 
 }
 
 .formulario h3 {
 	margin-left: 10%;
-	color: #49f;
+	color: #900;
 	padding-top: 5px;
+	font-weight: 100;
 }
 
 
@@ -106,8 +230,9 @@ div.terminacion{
 
 .formulario input, .formulario select {
 	color: #eee;
-	background: #47078799;
-	border: 2px solid #000;
+	background: #555;
+	border: 1px solid #222;
+	border-radius: 5px;
 	height: 35px;
 	margin: 0 auto 13px 10%;
 	padding: 0 0 0 10px;
@@ -115,16 +240,15 @@ div.terminacion{
 }
 
 .formulario input:focus, .formulario select:focus {
-	color: #000;
-	border: 2px solid cyan;
-	background: #f49;
+	color: #aaa;
+	border: 1px solid #099;
+	background: #444;
 }
 
 .formulario label {
-	background: #49f;
 	padding: 0 5px;
 	font-size: 12px;
-	color: #ffa;
+	color: #999;
 	margin-left: 20%;
 	margin-bottom: 2px;
 	
@@ -294,11 +418,11 @@ canvas {
 }
 
 .verde {
-	border: 5px solid white;
-	border-radius: 20px;
+	border: 2px solid #000;
+	border-radius: 10px;
 	padding: 0px;
-	color: #fff;
-	background: #006622cc;
+	color: #aaa;
+	background: #003311cc;
 	box-shadow: 2px 2px 5px #33333399;
 	margin: 20px;
 	position: absolute;
@@ -306,10 +430,11 @@ canvas {
 	height: 500px;
 	overflow: hidden;
 	transition: box-shadow .5s;
-	transition: height .5s ease-in;
+	transition: height .3s ease-in, color .5s ease-in;
 }
 
 .verdeMin {
+	color: #666;
 	height: 35px;
 	overflow: hidden;
 	transition: height .5s ease-in;
@@ -322,8 +447,8 @@ canvas {
 	width: 100%;
 	height: 30px;
 	background: #33333366;
-	border-radius: 20px 20px 0 0;
-	border-bottom: 1px solid #ffffff77;
+	border-radius: 10px 10px 0 0;
+	border-bottom: 1px solid #22222277;
 	margin: 0px;
 	padding: 6px 20px;
 	position: relative;
@@ -351,14 +476,14 @@ canvas {
 	position: absolute;
 	right: 0px;
 	top: 0px;
-	border: 2px solid white;
-	background: #F33;
+	border: 2px solid #311;
+	background: #913;
 	text-align: center;
 	box-shadow: 3px 3px 2px #00000066;
 }
 
 .botonCerrar:hover {
-	color: #F00;
+	color: #900;
 	background: #000;
 	cursor: pointer;
 }
@@ -371,14 +496,14 @@ canvas {
 	position: absolute;
 	right: 25px;
 	top: 0px;
-	border: 2px solid white;
-	background: #3F3;
+	border: 2px solid #222;
+	background: #393;
 	text-align: center;
 	box-shadow: 3px 3px 2px #00000066;
 }
 
 .botonMin:hover {
-	color: #0f0;
+	color: #090;
 	background: #000;
 	cursor: pointer;
 }

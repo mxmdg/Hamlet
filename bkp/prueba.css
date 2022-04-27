@@ -1,3 +1,124 @@
+/*body {
+	display: flex;
+	background-image: url(http://www.imprentadorrego.com.ar/NewWebDorrego/ImprentaDorrego/img/IMG_0032.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	font-family: 'Hind', sans-serif;
+	object-fit: center;
+}
+
+h4, h3, h2{
+	color: white;
+	font-weight: 500;
+}
+
+li {
+	color: white;
+	line-height: 1.75em;
+	list-style: square;
+	list-style-position: inside;
+}
+.mainContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 360px);
+	grid-template-rows: repeat(auto-fill, 300px);
+	width: 100vw;
+	height: 100vh;
+	grid-gap: 5px;
+	align-content: top;
+
+}
+.purpleWindow {
+	display: flex;
+	flex-direction: column;
+	width: 340px;
+	border: 5px solid white;
+	border-radius: 25px;
+	padding: 30px;
+	color: #fff;
+	background: #5900b3bb;
+	box-shadow: 10px 15px 10px #33333399;
+	margin: 20px;
+}
+
+.purpleWindow h2 {
+	text-transform: uppercase;
+	font-size: 1.1em;
+	margin: 0 0 20px 0;
+}
+
+.purpleWindow select, .purpleWindow input, .purpleWindow button {
+	text-transform: uppercase;
+	font-size: .9em;
+	margin: 15px 0 5px 0;
+	width: 100%;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	background: #00000099;
+}
+
+.purpleWindow button:hover {
+	color: #5900b3;
+	background: #c9e;
+}
+
+.purpleWindow select:focus{
+	background: #000000ee;
+	border-radius: 5px;
+}
+
+.purpleWindow p, .purpleWindow label{
+	font-size: 0.8em;
+	color:  #d9b3ff;
+	margin: 2px 0px 8px 10px;
+	text-transform: uppercase;
+
+}
+.terminacion {
+	border-top: 1px solid #d9b3ff;
+	margin-top: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #d9b3ff;
+}
+
+.terminacion div{
+	color: #d9b3ff;
+	display: flex;
+	align-items: center;
+	justify-items: flex-start;
+	
+}
+.terminacion input {
+	max-width: fit-content;
+	min-width: 15px;
+	height: 15px;
+}
+.terminacion p , .terminacion label{
+	height: 15px;
+	line-height: 30px;
+}
+
+.gridItem_1 {
+	grid-column: 1 / span 2;
+	grid-row: 1 / span 3;
+}
+
+.gridItem_2 {
+	grid-column: 2 / span 3;
+	grid-row: 1 / span 2;
+}
+*/
+
+
+
+
+
+
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   background: #333;
