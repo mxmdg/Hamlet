@@ -17,6 +17,7 @@
 
 .mainContainer{
 	display: inline-flex;
+	border-right: 1px solid #555;
 	padding: 20px;
 	width: 100vw;
 	max-width: 400px;
@@ -29,7 +30,7 @@
 
 .secContainer{ 
 	display: inline-flex;
-	background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(34,34,34,1) 39%);
+	background: #333;
 	height: 100%;
 	grid-column: 2 / span 2;
 	grid-row: 1 / span 2;
@@ -206,7 +207,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 .addProducts button, input {
 	font-size: .9em;
 	padding: 5px;
-	border: 1px solid #07e;
+	border: 1px solid #999;
 	height: 30px;
 	transition: border 1s, box-shadow .3s, background .5s;
 }
@@ -217,9 +218,9 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 }
 
 .addProducts button:hover  {
-	border: 1px solid #036;
+	border: 1px solid #59e3ea;
 	outline: none;
-	box-shadow: 3px 3px 0px #99999966;
+	box-shadow: 5px 5px 2px #000;
 }
 
 .addProducts button:active:hover{
@@ -231,7 +232,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 .productItem {
 	width: 90%;
 	min-width: 300px;
-	border-top: 1px solid #07e;
+	border-top: 1px dashed #999;
 	margin:  5px auto 5px auto;
 	padding-top: 5px;
 	padding-bottom: 0px;
@@ -243,32 +244,45 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
+	align-items: center;
 	padding-right: 0;
 }
 
 .saveButtons button{
+	color: #777;
+	background: #444;
+	border-radius: 5px;
 	font-size: .8em;
+	height: 25px;
 	padding: 5px;
 	margin-left: 10px;
-	border: none;
+	box-shadow: 1px 1px 2px #000;
+	border: 1px solid #999;
 	
 }
 
 .productList h3 {
 	font-size: 0.9em;
 	font-weight: 500;
-	color:  #444;
+	color:  #aaa;
 	display: inline;
 	text-align: left;
+	transition: color 0s;
 }
 
+.productList h3:hover {
+	color:#59e3ea;
+	transition: color 0.35s;
+}
 .delete {
 	color: #d00;
 }
 
 .delete:hover{
-	color: #fff;
-	background: #f00;
+	border:1px solid #d00;
+	color: #a00;
+	background: #000;
+	box-shadow: 3px 3px 2px #000;
 }
 
 .imposible {
@@ -276,12 +290,14 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 }
 
 .posible {
-	color: #07e;
+	color: #59e3ea;
+	border: 1px solid #59e3ea;
 }
 
 .posible:hover{
-	color: #0af;
-	outline:1px solid #07e;
+	color: #59e3ea;
+	border:1px solid #59e3ea;
+	box-shadow: 3px 3px 2px #000;
 }
 
 /* -------------------- CRUD - end ------------------ */

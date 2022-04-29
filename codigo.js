@@ -241,9 +241,9 @@ const materiales = [
 	IlustBrillo_120 = new material("Encapado Brillo",120,"Suzano",650,950,950,52),
 	IlustBrillo_150 = new material("Encapado Brillo",150,"Suzano",650,950,950,55),
 	IlustBrillo_170 = new material("Encapado Brillo",170,"Suzano",650,950,950,58),
-	autoadhesivoIlust = new material("Autoadhesivo Ilustracion",150,"Support",500,700,700,62),
-	oppBlanco = new material("OPP Blanco",150,"Support",500,700,700,62),
-	oppTransparente = new material("OPP Transparente",150,"Support",500,700,700,62)
+	autoadhesivoIlust = new material("Autoadhesivo Ilustracion",150,"Support",1000,700,700,62),
+	oppBlanco = new material("OPP Blanco",150,"Support",1000,700,700,62),
+	oppTransparente = new material("OPP Transparente",150,"Support",1000,700,700,62)
 ]
 
 
