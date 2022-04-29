@@ -73,6 +73,7 @@ const leerObjetos = (almacen,dataBase)=> {
 			cursor.result.continue();
 			i++
 		} else {
+			
 			console.log("Estos son todos los datos");
 		}
 		

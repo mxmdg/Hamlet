@@ -29,10 +29,10 @@
 
 .secContainer{ 
 	display: inline-flex;
-	background: #333;
+	background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(34,34,34,1) 39%);
 	height: 100%;
-	grid-column: 1 / span 2;
-	grid-row: 2 / span 1;
+	grid-column: 2 / span 2;
+	grid-row: 1 / span 2;
 }
 
 .impresion {
@@ -52,9 +52,8 @@ div.terminacion{
 }
 
 .terminacion h3 {
-	font-size: 21px;
-	text-transform: uppercase;
-	color: #444;
+	font-size: 16px;
+	color: #777;
 }
 .terminacion input {
 	display: inline;
@@ -74,7 +73,6 @@ div.terminacion{
 
 .formulario h3 {
 	margin-left: 10%;
-	color: #900;
 	padding-top: 5px;
 	font-weight: 100;
 }
@@ -91,19 +89,25 @@ div.terminacion{
 }
 
 .button__ON {
-	background: #99a;
+	background: #444;
 	color: #eee;
-	box-shadow: 3px 3px 0px #444;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: 3px 3px 0px #000;
+	margin-bottom: 25px;
 }
 
 .button__OFF {
 	background: #666;
 	color: #333;
-	box-shadow: 0px 0px 0px #333;
+	box-shadow: 0px 0px 0px #000;
 
 }
 .button__ON:hover{
-	box-shadow: 1px 1px 0.3px #444;
+	color: #59e3ea;
+	border: 1px solid #59e3ea;
+	background-color: #222;
+	box-shadow: 1px 1px 0.3px #000;
 }
 
 .formulario input, .formulario select {
@@ -118,8 +122,8 @@ div.terminacion{
 }
 
 .formulario input:focus, .formulario select:focus {
-	color: #aaa;
-	border: 1px solid #099;
+	color: #59e3ea;
+	border: 1px solid #59e3ea;
 	background: #444;
 }
 .formulario label {
@@ -175,7 +179,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 .productList{
 	display: inline;
 	padding: 50px;
-	grid-column: 2 / span 1;
+	grid-column: 3 / span 1;
 	grid-row: 1 / span 1;
 }
 
@@ -188,8 +192,8 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 .productList h3:active, .productList h3:focus {
 	outline: none;
 	border: none;
-	background: #07e;
-	color: #eee;
+	background: #444;
+	color: #59e3ea;
 }
 
 .addProducts{
@@ -253,7 +257,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 .productList h3 {
 	font-size: 0.9em;
 	font-weight: 500;
-	color:  #07e;
+	color:  #444;
 	display: inline;
 	text-align: left;
 }
@@ -287,6 +291,8 @@ canvas {
 	position: relative;
 	top: 0px;
 	left: 0px;
+	grid-column: 2 / span 1;
+	grid-row: 2 / span 1;
 }
 
 #contCanvas .info {
