@@ -662,11 +662,18 @@ function optimizarCorte (x1,y1,x2,y2) {
 		totalPoses = parseInt(poses) + parseInt(masPoses);		
 
 
-		console.log(`Mas Poses = ${masPoses}`);
+		console.log(`Poses = ${poses} + ${masPoses}`);
 		console.log(`Total = ${totalPoses}`)
 
-		return totalPoses;
-
+		return [ xP= xPoses, 
+			yP= yPoses,
+			mP= masPoses,
+			tP= totalPoses,
+			xR= xResto,
+			yR= yResto,
+			x=x2,
+			y=y2
+			]
 };
 
 const calcularMejorCorte = (x1,y1,x2,y2)=> {
@@ -679,28 +686,87 @@ const calcularMejorCorte = (x1,y1,x2,y2)=> {
 		let n1 = xPoses1 * yPoses1;
 		let n2 = xPoses2 * yPoses2;
 		n = Math.max(n1,n2);
-		console.log(`Entran ${n}`);
+		//console.log(`Entran ${n}`);
 
 		return n;
 };
 
 
 function corteFinal (x1,y1,x2,y2,margen = 5,calle = 2) {
-	x1 = x1 - margen;
-	y1 = y1 - margen;
+	x1 = x1 - 2*margen;
+	y1 = y1 - 2*margen;
 	x2 = x2 + (calle/2);
 	y2 = y2 + (calle/2);
 	let a = optimizarCorte(x1,y1,x2,y2);
+	console.log(a);
 	let b = optimizarCorte(x1,y1,y2,x2);
-	resultado = Math.max(a,b);
+	console.log(b);
+	resultado = (a[3]>=b[3])? a : b;
 	
 	
 	console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
 	return resultado
 };
 
+const dibujarCorteOptimizado = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
+	let printAreaX = x1 - (margen * 2);
+	let printAreaY = y1 - (margen * 2);
 
-const dibujarMejorCorte = (x1,y1,x2,y2)=> {
+	let resultado = corteFinal(x1,y1,x2,y2,margen,calle);
+
+	let xPoses = resultado[0];
+	let yPoses = resultado[1];
+	let masPoses = resultado[2];
+	let tPoses = resultado[3];
+	let xResto = resultado[4];
+	let yResto = resultado[5];
+	let x = resultado[6] - calle;
+	let y = resultado[7] - calle;
+
+	ctx.clearRect(0,0,700,400);
+
+	let izq = (700 - x1)/2;
+	let top = (400 - y1)/2;
+
+	console.log("izq: " + izq)
+	console.log("top: " + top)
+
+	ctx.strokeStyle = "#fff";
+	ctx.strokeWidth = "1"
+	ctx.strokeRect(izq,top,x1,y1);
+	ctx.strokeStyle = "#999";
+	ctx.strokeRect(izq + margen,top + margen,printAreaX,printAreaY);
+	
+	ctx.strokeStyle = "#fd0";
+
+	izq = (izq + margen);
+	izq2 = izq;
+	top = (top + margen);
+	top2 = top;
+
+	let xImpo = izq2 + (xPoses * (x + calle))-calle;
+	let yImpo = top2 + (yPoses * (y + calle))-calle;
+
+
+	for (let h = 0; h < yPoses; h++){
+		top = top2 + (y + calle)*h;
+		izq = izq2;
+		for (let i = 0; i < xPoses; i++) {
+			izq = izq2 + (x + calle)*i;
+			ctx.strokeRect(izq,top,x,y);
+		}
+	};
+
+	if (y < xResto) {
+		dibujarCorte(xResto,y1,x,y,xImpo,top2);
+	} else if (x < yResto) {
+		dibujarCorte(x1,yResto,x,y,izq2,yImpo);
+	}
+		
+
+}
+
+const dibujarCorte = (x1,y1,x2,y2,x3, y3)=> {
 
 		let xPoses1 = Math.floor(x1 / parseInt(x2));
 		let yPoses1 = Math.floor(y1 / parseInt(y2));
@@ -709,6 +775,52 @@ const dibujarMejorCorte = (x1,y1,x2,y2)=> {
 
 		let n1 = xPoses1 * yPoses1;
 		let n2 = xPoses2 * yPoses2;
+
+		n = Math.max(n1,n2);
+		//console.log(`Entran ${n}`);
+
+		let izq = x3;
+		let top = y3;
+
+
+		ctx.strokeStyle = "#0ff";
+
+
+		
+		if (n1 >= n2 && n1 > 0) {
+			top = top - y2;
+			for (let h = 0; h < yPoses1; h++){
+				top = top + y2;
+				for (let i = 0; i < xPoses1; i++) {
+				ctx.strokeRect(izq + ((x1-((x2 * xPoses1)))/2) + (x2 * i),top + ((y1-(y2*yPoses1))/2),x2,y2)
+
+				}
+			}
+			
+		} else if (n2 > n1 && n2 > 0){
+			top = top - x2;
+			for (let h = 0; h < yPoses2; h++){
+				top = top + x2;
+				for (let i = 0; i < xPoses2; i++) {
+				ctx.strokeRect(izq + ((x1-((y2 * xPoses2)))/2) + (y2 * i),top + ((y1-(x2*yPoses2))/2),y2,x2);
+
+				}
+			}
+			
+		}
+		
+};
+
+const dibujarMejorCorte = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
+
+		let xPoses1 = Math.floor(x1 / parseInt(x2));
+		let yPoses1 = Math.floor(y1 / parseInt(y2));
+		let xPoses2 = Math.floor(x1 / parseInt(y2));
+		let yPoses2 = Math.floor(y1 / parseInt(x2));
+
+		let n1 = xPoses1 * yPoses1;
+		let n2 = xPoses2 * yPoses2;
+
 		n = Math.max(n1,n2);
 		//console.log(`Entran ${n}`);
 
