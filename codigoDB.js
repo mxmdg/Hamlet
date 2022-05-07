@@ -47,6 +47,22 @@ const agregarObjetos = (objeto,almacen,dataBase) => {
 	})
 };
 
+const leerValores = (almacen,dataBase)=> {
+	const idbData = abrirTrans(almacen,dataBase);
+	const cursor = idbData[1].openCursor();
+	cursor.addEventListener("success",()=>{
+   		let c = event.target.result;
+
+   		 if (c) {
+        	console.log(`${c.value.nombre}, ${c.value.material.tipoPapel} ${c.value.material.gramaje}, ${c.value.tipo}, ${c.value.cantidad}`);
+        	c.continue();
+    	} else {
+        	console.log("Listo el pollo");
+    }
+});
+}
+
+
 const leerObjetos = (almacen,dataBase)=> {
 	const idbData = abrirTrans(almacen,dataBase);
 	const cursor = idbData[1].openCursor();
@@ -169,8 +185,10 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 	})
 
 	deleteButton.addEventListener("click",()=>{
-		eliminarObjetos(trabajosDB,"Trabajos",id);
-		document.querySelector(".productList").removeChild(container);
+		if (window.confirm(`Seguro queres eliminar "${name}"" de la base de datos`) == true) {
+			eliminarObjetos(trabajosDB,"Trabajos",id);
+			document.querySelector(".productList").removeChild(container);
+		}
 	})
 	
 
