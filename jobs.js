@@ -64,6 +64,10 @@ class Tapa {
 	}
 };
 
+const formTapa = ()=> {
+	console.log("Crear Formulario para tapas")
+}
+
 class Folleto {
 	constructor (nombre,alto,ancho,material,laminado,coloresFrente,coloresDorso) {
 		this.nombre = nombre;
@@ -215,13 +219,41 @@ const procesosTerminacion = [
 	medioCorte = new terminacion ("Medio Corte", "Tiempo"),
 ]
 
+let trabajoNuevo = [];
+let savedJobs = [];
+
 window.addEventListener("load",(e)=>{
+	
+	for (tipo of tiposDeTrabajos) {
+		
+		crearDocFrag("#jobType","Option",`${tipo}`);
+	};
+	
+	let arroyo = ()=> {
+    resultado = leerObjeto("Productos",jobsDB);
+    resultado.then(r=>{
+        console.log(r)
+        savedJobs = r;
+        });
+    resultado.catch(err => alert(err))
+	}
+
+	setTimeout(arroyo,2500)
+
+
+	//resultado.catch(err=> alert(err));
+
+	console.log(savedJobs);
+	e.preventDefault();
+});
+
+/*window.addEventListener("load",(e)=>{
 		for (tipo of tiposDeTrabajos) {
 		
 		crearDocFrag("#jobType","Option",`${tipo}`);
 	};
 	e.preventDefault();
-});
+});*/
 
 let jt = document.getElementById("jobType");
 
@@ -234,9 +266,27 @@ let nw = document.getElementById("newJob");
 const currentJob = ()=> {
 	let cj = new trabajo (navigator.appCodeName,id.value,jt.value,qt.value,[]);
 	 console.log(cj);
-	 agregarObjetos(cj,"Trabajos",trabajosDB);
+	 //agregarObjetos(cj,"Productos",jobsDB);
 	 return cj
 }
+
+
+
+const cargarDatos = (n) => {
+	jt.value = savedJobs[n].tipo;
+	id.value = savedJobs[n].nombre;
+	qt.value = savedJobs[n].cantidad;
+	
+}
+
+/*materialSeleccionado.addEventListener("change",(e)=>{
+	for (mat of materiales) {
+		if (materialSeleccionado.value.includes(mat.tipoPapel + " " + mat.gramaje)) {
+		papelElegido = mat
+		};
+	}; return papelElegido;
+
+});*/
 
 
 function validarForm() {
@@ -256,6 +306,7 @@ function validarForm() {
 
 		if (error == undefined) {
 			let pifiados = document.querySelectorAll(".inputError");
+			
 
 			for (err of pifiados) {
 				err.classList.remove("inputError");
@@ -263,6 +314,7 @@ function validarForm() {
 			
 			currentJob();
 			crearDocFragConID(".formulario","select",`<option>Agregar parte</option>`,"addPart");
+			
 			for (p of tiposDePartes) {
 				let contenedor = document.getElementById("interiorForm").lastElementChild
 				let n = document.createElement("option");
@@ -270,6 +322,7 @@ function validarForm() {
    				n.appendChild(op);
    				contenedor.appendChild(n);
    			};
+
    			
    			
 
