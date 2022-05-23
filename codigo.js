@@ -86,7 +86,7 @@ class interior {
 		this.orientacion = this.orientacionDePagina();
 		this.totalPags = this.cantidad * this.pags;
 		this.printer = impresoras.filter(impresora => impresora.colores == Math.max(coloresFrente,coloresDorso));
-		this.formatosDisponibles = this.printer[0].formatos;
+		this.formatosDisponibles = this.printer[0].formatos.filter(f => Math.max(f.x, f.y) > Math.max(this.ancho, this.alto) && Math.min(f.x, f.y) > Math.min(this.ancho, this.alto));
 		this.anchoDeTapaSinSolapas = this.lomo + (this.ancho * 2);
 		this.anchoDeTapaConSolapas = this.lomo + (this.ancho * 2) + 160;
 		};
@@ -192,6 +192,7 @@ const formatos = [
 	iD_488x330 = new formato("488x330",488,330),
 	iD_360x290 = new formato("360x290",360,290),
 	iD_470x320 = new formato("470x320",470,320),
+	iD_470x216 = new formato("470x216",470,216),
 	iD_432x320 = new formato("432x320",432,320),
 	iD_648x315 = new formato("648x315",648,315),
 	iD_650x340 = new formato("650x340",650,340),
