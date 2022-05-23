@@ -190,6 +190,7 @@ const formatos = [
 	oficio = new formato("Oficio",215.9,355.6),
 	tabloide = new formato("Tabloide",431.8,279.4),
 	iD_488x330 = new formato("488x330",488,330),
+	iD_548x245 = new formato("548x245",548,245),
 	iD_360x290 = new formato("360x290",360,290),
 	iD_470x320 = new formato("470x320",470,320),
 	iD_470x216 = new formato("470x216",470,216),
