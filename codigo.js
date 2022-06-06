@@ -89,6 +89,8 @@ class interior {
 		this.formatosDisponibles = this.printer[0].formatos.filter(f => Math.max(f.x, f.y) > Math.max(this.ancho, this.alto) && Math.min(f.x, f.y) > Math.min(this.ancho, this.alto));
 		this.anchoDeTapaSinSolapas = this.lomo + (this.ancho * 2);
 		this.anchoDeTapaConSolapas = this.lomo + (this.ancho * 2) + 160;
+		this.peso = (this.alto * this.ancho * this.material.gramaje)/1000000 * ((this.coloresDorso>0)?this.pags/2:this.pags)
+		this.pesoTotal = this.peso * this.cantidad
 		};
 
 	orientacionDePagina() {
@@ -160,12 +162,16 @@ class material {
 		this.largoPlana = largoPlana;
 		this.fibra = fibra;
 		this.altoResma = altoResma;
+		this.peso = (this.anchoPlana * this.largoPlana * this.gramaje)/(1000*1000);
 	}
 
 	howManyOf(formato) {
 		calcularMejorCorte(this.anchoPlana,this.largoPlana,formato.x,formato.y)
 
 	}
+
+	
+
 };
 
 class terminacion {
@@ -193,6 +199,7 @@ const formatos = [
 	iD_548x245 = new formato("548x245",548,245),
 	iD_360x290 = new formato("360x290",360,290),
 	iD_470x320 = new formato("470x320",470,320),
+	iD_470x315 = new formato("470x315",470,315),
 	iD_470x216 = new formato("470x216",470,216),
 	iD_432x320 = new formato("432x320",432,320),
 	iD_648x315 = new formato("648x315",648,315),
@@ -203,6 +210,7 @@ const formatos = [
 	iD_548x245 = new formato("548x245",548,245),
 	iD_508x240 = new formato("508x240",508,240),
 	iD_350x250 = new formato("350x250",350,250),
+	tmp_210x255 = new formato("210x255",210,255),
 	iD_215x315 = new formato("215x315",215,315)
 
 ]

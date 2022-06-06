@@ -49,27 +49,14 @@ const agregarObjetos = (objeto,almacen,dataBase) => {
 	})
 };
 
-const leerValores = (almacen,dataBase)=> {
-	const idbData = abrirTrans(almacen,dataBase);
-	const cursor = idbData[1].openCursor();
-	cursor.addEventListener("success",()=>{
-   		let c = event.target.result;
-
-   		 if (c) {
-        	console.log(`${c.value.nombre}, ${c.value.material.tipoPapel} ${c.value.material.gramaje}, ${c.value.tipo}, ${c.value.cantidad}`);
-        	c.continue();
-    	} else {
-        	console.log("Listo el pollo");
-    }
-});
-}
 
 
 const leerObjetos = (almacen,dataBase)=> {
 	const idbData = abrirTrans(almacen,dataBase);
 	const cursor = idbData[1].openCursor();
 	let cont = document.querySelector(".productList")
-	cont.innerHTML = "";
+	cont.innerHTML = ""//'<form><input class="buscador" id="buscador" type="text" placeholder="322">322</form></form>';
+	let buscar = document.getElementById("buscador");
 	let i = 0;
 	cursor.addEventListener("success",()=>{
 		
@@ -116,19 +103,7 @@ const leerObjeto = async (a,db)=> {
 	return arr
 };
 
-const selectJob = (job) => {
-	let arr = leerObjeto("Trabajos",trabajosDB);
-	console.log(arr);
-	let thisJob = []
-	for (let j of arr) {
-		console.log("jota" + j);
-		if (j.nombre == job) {
-			thisJob.push(j)
-		}
-	}
-	//console.log(thisJob);
-	return thisJob
-}
+
 
 const modificarObjetos = (objeto,dataBase,almacen,key) => {
 	const idbData = abrirTrans(almacen,dataBase);
@@ -174,9 +149,40 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 	titulo.setAttribute("contenteditable","false");
 	titulo.setAttribute("spellcheck","false");
 
-	titulo.addEventListener("keyup",()=>{
-		saveButton.classList.replace("imposible","posible");
+	const informe = (n)=>{
+		let lomo = n.lomo;
+		let tapaConSol = n.anchoDeTapaConSolapas;
+		let tapaSinSol = n.anchoDeTapaSinSolapas;
+		let pags = n.pags;
+		let peso = Math.round(n.peso);
+		let pesoTotal = Math.round(n.pesoTotal/100)/10;
+		
+		let contenedor = document.createElement("div");
+		let content = `<p>Paginas: ${pags}</p>
+						<p>Lomo: ${lomo}</p>
+						<p>Tapa con Solapas: ${tapaConSol}</p>
+						<p>Tapa Sin solapas: ${tapaSinSol}</p>
+						<p>Peso: ${peso} gr.</p>
+						<p>Peso Total: ${pesoTotal} kg.</p>`;
+
+		//contenedor.appendChild(content)
+
+		return content
+	}
+
+	titulo.addEventListener("mouseover",(e)=>{
+		replaceDocFragConClase(".productList","DIV",informe(savedJobs[i]),"informe","floatWindow","info");
+		let fw = document.getElementById("info");
+		let posX = e.clientX;
+    	let posY = e.clientY;
+		fw.setAttribute("style",`top: ${posY}px; left: ${posX}px;`);
+		//console.log(posX + " - " + posY) 
 	})
+
+	/* titulo.addEventListener("mouseout", ()=>{
+		let pl = document.querySelector(".productList");
+		pl.removeChild(pl.lastChild);
+	}) */
 
 	saveButton.addEventListener("click",()=>{
 		if (saveButton.className == "posible") {
