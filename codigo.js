@@ -238,6 +238,7 @@ const tiposDeTrabajos = ["Libro","Revista","Anillado","Sin Encuadernacion","Mult
 
 const materiales = [
 	Obra_80 = new material("Obra",80,"Boreal",650,950,950,57),
+	Obra_80_Prisma = new material("Obra",80,"Prisma",650,950,950,54),
 	Obra_70 = new material("Obra",70,"Boreal",650,950,950,50),
 	Obra_90 = new material("Obra",90,"Boreal",650,950,950,62),
 	Obra_120 = new material("Obra",120,"Boreal",650,950,950,70),
@@ -247,6 +248,7 @@ const materiales = [
 	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,58),
 	IlustMate_120 = new material("Encapado Mate",120,"Suzano",650,950,950,52),
 	IlustMate_150 = new material("Encapado Mate",150,"Suzano",650,950,950,55),
+	IlustMate_150_72 = new material("Encapado Mate",150,"DigiArt",720,1020,1020,56),
 	IlustMate_170 = new material("Encapado Mate",170,"Suzano",650,950,950,58),
 	IlustMate_270 = new material("Encapado Mate",270,"Suzano",720,1020,1020,64),
 	IlustMate_300 = new material("Encapado Mate",300,"Suzano",740,1100,1100,64),
@@ -286,7 +288,7 @@ let savedJobs = [];
 window.addEventListener("load",(e)=>{
 	for (mat of materiales) {
 		
-		crearDocFrag("#material","Option",`${mat.tipoPapel} ${mat.gramaje} (${mat.marca})`);
+		crearDocFrag("#material","Option",`${mat.tipoPapel} ${mat.gramaje} (${mat.marca} - ${mat.anchoPlana} x ${mat.largoPlana})`);
 	};
 	for (tipo of tiposDeTrabajos) {
 		
@@ -349,8 +351,7 @@ const cargarDatos = (n) => {
 	alto.value = savedJobs[n].alto;
 	ancho.value = savedJobs[n].ancho;
 	pags.value = savedJobs[n].pags;
-	materialSeleccionado.value = savedJobs[n].material.tipoPapel + " " + savedJobs[n].material.gramaje + " (" + savedJobs[n].material.marca + ")";
-	//`${mat.tipoPapel} ${mat.gramaje} (${mat.marca})`
+	materialSeleccionado.value = `${savedJobs[n].material.tipoPapel} ${savedJobs[n].material.gramaje} (${savedJobs[n].material.marca} - ${savedJobs[n].material.anchoPlana} x ${savedJobs[n].material.largoPlana})`;
 	for (mat of materiales) {
 		if (materialSeleccionado.value.includes(mat.tipoPapel + " " + mat.gramaje)) {
 		papelElegido = mat
