@@ -58,6 +58,8 @@ try {
 
 // Personal Project!
 
+var nombre = "Diego"
+
 class trabajo {
 	constructor (usuario,nombre,tipo,cantidad,partes) {
 		this.usuario = usuario;
@@ -91,6 +93,7 @@ class interior {
 		this.anchoDeTapaConSolapas = this.lomo + (this.ancho * 2) + 160;
 		this.peso = (this.alto * this.ancho * this.material.gramaje)/1000000 * ((this.coloresDorso>0)?this.pags/2:this.pags)
 		this.pesoTotal = this.peso * this.cantidad
+		this.fecha = new Date();
 		};
 
 	orientacionDePagina() {
@@ -189,6 +192,8 @@ class formato {
 	}
 };
 
+
+
 const formatos = [
 	a3 = new formato("A3",420,297),
 	a4 = new formato("A4",297,210),
@@ -206,6 +211,7 @@ const formatos = [
 	iD_650x340 = new formato("650x340",650,340),
 	iD_650x358 = new formato("650x358",650,358),
 	iD_508x358 = new formato("508x358",508,358),
+	iD_488x240 = new formato("488x240",488,240),
 	iD_488x245 = new formato("488x245",488,245),
 	iD_548x245 = new formato("548x245",548,245),
 	iD_508x240 = new formato("508x240",508,240),
@@ -477,7 +483,7 @@ function informarProducto(prod) {
 
 	leerObjetos("Trabajos",trabajosDB);
 
-
+	
 
 	//-------- Cerrar ventana -- ya fue... no, volvió
 
@@ -516,6 +522,14 @@ function informarProducto(prod) {
 	});	
 
 }
+
+const buscar = (xx)=>{
+	let resultado = []
+	for (let j of savedJobs) {
+	j.nombre.includes(xx)?resultado.push(j):console.log("--");
+	}
+	return resultado;
+};
 
 
 
@@ -1027,3 +1041,18 @@ const canvas = document.getElementById("canvas");
 
 const ctx = canvas.getContext("2d");
 
+const esPrimo = (n)=> {
+    primo = true
+    for (let index = 2; index < n; index++) {
+		//console.log(n/index)
+        if (n % index == 0) {
+            primo = false;
+			console.log(`${n} no es un numero primo porque ${n} / ${index} = ${n/index}`)
+            break
+    	}    
+    }
+	if (primo == true) {
+		console.log(`${n} es un numero primo`)
+	}
+
+}

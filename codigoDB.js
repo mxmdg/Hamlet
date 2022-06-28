@@ -156,6 +156,7 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 		let pags = n.pags;
 		let peso = Math.round(n.peso);
 		let pesoTotal = Math.round(n.pesoTotal/100)/10;
+		let fecha = n.fecha?( n.fecha.getDate() + "/" +  (parseInt(n.fecha.getMonth()) + 1) + "/" +  n.fecha.getFullYear()):"2022"; 
 		
 		let contenedor = document.createElement("div");
 		let content = `<p>Paginas: ${pags}</p>
@@ -163,7 +164,8 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 						<p>Tapa con Solapas: ${tapaConSol}</p>
 						<p>Tapa Sin solapas: ${tapaSinSol}</p>
 						<p>Peso: ${peso} gr.</p>
-						<p>Peso Total: ${pesoTotal} kg.</p>`;
+						<p>Peso Total: ${pesoTotal} kg.</p>
+						<p>Fecha: ${fecha}</p>`;
 
 		//contenedor.appendChild(content)
 
@@ -174,15 +176,15 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 		replaceDocFragConClase(".productList","DIV",informe(savedJobs[i]),"informe","floatWindow","info");
 		let fw = document.getElementById("info");
 		let posX = e.clientX;
-    	let posY = e.clientY;
+    	let posY = e.clientY>(screen.availHeight - 300)?screen.availHeight - 300:e.clientY;
 		fw.setAttribute("style",`top: ${posY}px; left: ${posX}px;`);
 		//console.log(posX + " - " + posY) 
 	})
 
-	/* titulo.addEventListener("mouseout", ()=>{
+	titulo.addEventListener("mouseout", ()=>{
 		let pl = document.querySelector(".productList");
-		pl.removeChild(pl.lastChild);
-	}) */
+		pl.lastChild.classList.contains("informe")?pl.removeChild(pl.lastChild):"";
+	})
 
 	saveButton.addEventListener("click",()=>{
 		if (saveButton.className == "posible") {
