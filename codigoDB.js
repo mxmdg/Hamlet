@@ -55,7 +55,7 @@ const leerObjetos = (almacen,dataBase)=> {
 	const idbData = abrirTrans(almacen,dataBase);
 	const cursor = idbData[1].openCursor();
 	let cont = document.querySelector(".productList")
-	cont.innerHTML = ""//'<form><input class="buscador" id="buscador" type="text" placeholder="322">322</form></form>';
+	cont.innerHTML = `<div class="informe floatWindow hidden" id="info"></div>`//'<form><input class="buscador" id="buscador" type="text" placeholder="322">322</form></form>';
 	let buscar = document.getElementById("buscador");
 	let i = 0;
 	cursor.addEventListener("success",()=>{
@@ -173,18 +173,26 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 	}
 
 	titulo.addEventListener("mouseover",(e)=>{
-		replaceDocFragConClase(".productList","DIV",informe(savedJobs[i]),"informe","floatWindow","info");
+		//replaceDocFragConClase(".productList","DIV",informe(savedJobs[i]),"informe","floatWindow","info");
+		const content = (informe(savedJobs[i]));
 		let fw = document.getElementById("info");
-		let posX = e.clientX;
+		fw.innerHTML = content;
+		let posX = e.clientX + 25;
     	let posY = e.clientY>(screen.availHeight - 300)?screen.availHeight - 300:e.clientY;
+		
 		fw.setAttribute("style",`top: ${posY}px; left: ${posX}px;`);
+		fw.classList.remove("hidden");
 		//console.log(posX + " - " + posY) 
 	})
 
-	titulo.addEventListener("mouseout", ()=>{
-		let pl = document.querySelector(".productList");
-		pl.lastChild.classList.contains("informe")?pl.removeChild(pl.lastChild):"";
+	titulo.addEventListener("mouseleave", ()=>{
+		let fw = document.getElementById("info");
+		fw.classList.add("hidden");
+		//let pl = document.querySelector(".productList");
+		//pl.lastChild.classList.contains("informe")?pl.removeChild(pl.lastChild):"";
 	})
+
+
 
 	saveButton.addEventListener("click",()=>{
 		if (saveButton.className == "posible") {

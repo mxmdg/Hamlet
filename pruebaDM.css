@@ -336,6 +336,15 @@ canvas {
 	box-shadow: 7px 7px 10px #000;
 	bottom: 25px;
 	left: 25px;
+	transition: all .5s ease-out;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+.visible {
+	visibility: visible;
 }
 
 .verde {
