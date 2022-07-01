@@ -172,8 +172,9 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 		return content
 	}
 
-	titulo.addEventListener("mouseover",(e)=>{
+	titulo.addEventListener("contextmenu",(e)=>{
 		//replaceDocFragConClase(".productList","DIV",informe(savedJobs[i]),"informe","floatWindow","info");
+		e.preventDefault();
 		const content = (informe(savedJobs[i]));
 		let fw = document.getElementById("info");
 		fw.innerHTML = content;
