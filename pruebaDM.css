@@ -272,6 +272,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 	display: inline;
 	text-align: left;
 	transition: color 0s;
+	user-select: none;
 }
 
 .productList h3:hover {
@@ -280,6 +281,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 }
 .delete {
 	color: #d00;
+	transition: color .5s ease-in, border .5s ease-in;
 }
 
 .delete:hover{
@@ -287,6 +289,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 	color: #a00;
 	background: #000;
 	box-shadow: 3px 3px 2px #000;
+	transition: color .5s;
 }
 
 .imposible {
@@ -295,13 +298,16 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 
 .posible {
 	color: #59e3ea;
-	border: 1px solid #59e3ea;
+	transition: color .5s ease-in, border .5s ease-in;
+
 }
 
 .posible:hover{
 	color: #59e3ea;
 	border:1px solid #59e3ea;
 	box-shadow: 3px 3px 2px #000;
+	transition: color 1s, border 1s;
+
 }
 
 /* -------------------- CRUD - end ------------------ */
@@ -413,6 +419,7 @@ canvas {
 	background: #913;
 	text-align: center;
 	box-shadow: 3px 3px 2px #00000066;
+	user-select: none;
 }
 
 .botonCerrar:hover {
@@ -434,6 +441,7 @@ canvas {
 	background: #393;
 	text-align: center;
 	box-shadow: 3px 3px 2px #00000066;
+	user-select: none;
 }
 
 .botonMin:hover {

@@ -58,7 +58,11 @@ const leerObjetos = (almacen,dataBase)=> {
 	cont.innerHTML = `<div class="informe floatWindow hidden" id="info"></div>`//'<form><input class="buscador" id="buscador" type="text" placeholder="322">322</form></form>';
 	let buscar = document.getElementById("buscador");
 	let i = 0;
+
+
 	cursor.addEventListener("success",()=>{
+
+	
 		
 		if (cursor.result) {
 			let element = crearHTML(
@@ -172,7 +176,7 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 		return content
 	}
 
-	titulo.addEventListener("contextmenu",(e)=>{
+	titulo.addEventListener("click",(e)=>{
 		//replaceDocFragConClase(".productList","DIV",informe(savedJobs[i]),"informe","floatWindow","info");
 		e.preventDefault();
 		const content = (informe(savedJobs[i]));
@@ -186,9 +190,10 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 		//console.log(posX + " - " + posY) 
 	})
 
-	titulo.addEventListener("mouseleave", ()=>{
+	titulo.addEventListener("mouseout", (e)=>{
 		let fw = document.getElementById("info");
 		fw.classList.add("hidden");
+		e.stopImmediatePropagation();
 		//let pl = document.querySelector(".productList");
 		//pl.lastChild.classList.contains("informe")?pl.removeChild(pl.lastChild):"";
 	})

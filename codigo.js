@@ -58,7 +58,6 @@ try {
 
 // Personal Project!
 
-var nombre = "Diego"
 
 class trabajo {
 	constructor (usuario,nombre,tipo,cantidad,partes) {
@@ -249,6 +248,7 @@ const materiales = [
 	Obra_90 = new material("Obra",90,"Boreal",650,950,950,62),
 	Obra_120 = new material("Obra",120,"Boreal",650,950,950,70),
 	Obra_180 = new material("Obra",180,"Boreal",650,950,950,73),
+	Obra_240 = new material("Obra",240,"Chambrill",650,950,950,76),
 	Bookcell_80 = new material("Bookcell",80,"Boreal",650,950,950,60),
 	Bookcell_65 = new material("Bookcell",65,"Boreal",650,950,950,54),
 	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,58),
@@ -461,10 +461,10 @@ function validarForm() {
 };
 
 
-let n = 0;
+let nw = 0;
 
 function informarProducto(prod) {
-	n = n + 1;
+	nw = nw + 1;
 	
 	prod = new interior(ident.value, 
 						tipoTrabajo.value,
@@ -476,7 +476,7 @@ function informarProducto(prod) {
 						parseInt(coloresDorso.value),
 						papelElegido);
 	
-	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${n}">${prod.nombre}<div class="botonMin" id="btnMin_${n}">-</div><div class="botonCerrar" id="btnCierre_${n}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}`,"verde","xy",`resultado_${n}`);
+	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${nw}">${prod.nombre}<div class="botonMin" id="btnMin_${nw}">-</div><div class="botonCerrar" id="btnCierre_${nw}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}`,"verde","xy",`resultado_${nw}`);
 	trabajoNuevo.push(prod);
 
 	agregarObjetos(prod,"Trabajos",trabajosDB);
@@ -487,16 +487,16 @@ function informarProducto(prod) {
 
 	//-------- Cerrar ventana -- ya fue... no, volvió
 
-	let clickParaCerrar = document.getElementById(`btnCierre_${n}`); 
+	let clickParaCerrar = document.getElementById(`btnCierre_${nw}`); 
 
-	let clickParaMin = document.getElementById(`btnMin_${n}`); 
+	let clickParaMin = document.getElementById(`btnMin_${nw}`); 
 
-	let ventanaACerrar = document.getElementById(`resultado_${n}`);
+	let ventanaACerrar = document.getElementById(`resultado_${nw}`);
 
-	clickParaMin.addEventListener("click",()=> {
+	clickParaMin.addEventListener("click",(e)=> {
 
-		let minBtn = document.getElementById(`btnMin_${n}`);
-		let ventana = document.getElementById(`btnMin_${n}`).parentElement.parentElement;
+		let minBtn = e.target;
+		let ventana = minBtn.parentElement.parentElement;
 
 
 		if (ventana.classList.contains("verdeMin")) {
@@ -541,7 +541,7 @@ btnEnviar.addEventListener("click",(e)=>{
 		e.preventDefault();
 		validarForm();
 		console.log(trabajoNuevo);
-		moverVentana(`#resultado_${n}`,`#arrastre_${n}`);
+		moverVentana(`#resultado_${nw}`,`#arrastre_${nw}`);
 		});
 		
 btnCerrar.addEventListener("click", (e)=>{
@@ -858,11 +858,11 @@ const dibujarMejorCorte = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
 		let top = (400 - y1)/2;
 
 
-		ctx.strokeStyle = "#fff";
+		ctx.strokeStyle = "#000";
 		ctx.strokeWidth = "1"
 		ctx.strokeRect(izq,top,x1,y1);
 
-		ctx.strokeStyle = "#ff3";
+		ctx.strokeStyle = "#000";
 
 
 		
