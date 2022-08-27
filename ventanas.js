@@ -56,77 +56,77 @@ function moverVentana(ventana,barra) {
 	const dragObject = document.querySelector(`${ventana}`);
 	const dragZone = document.querySelector(`${barra}`);
 
-dragZone.onmousedown = function(event) {
-	let shiftX = event.clientX - dragObject.getBoundingClientRect().left + 20;
-	let shiftY = event.clientY - dragObject.getBoundingClientRect().top + 20;
+	dragZone.onmousedown = function(event) {
+		let shiftX = event.clientX - dragObject.getBoundingClientRect().left + 20;
+		let shiftY = event.clientY - dragObject.getBoundingClientRect().top + 20;
 
-	dragObject.classList.add("agarrado");
+		dragObject.classList.add("agarrado");
 
-	moveAt(event.pageX, event.pageY);
-
-	function moveAt(pageX, pageY) {
-		dragObject.style.left = pageX - shiftX + 'px';
-		dragObject.style.top = pageY - shiftY + 'px';
-	}
-
-	function onMouseMove(event) {
 		moveAt(event.pageX, event.pageY);
-	}
 
-	document.addEventListener('mousemove', onMouseMove);
+		function moveAt(pageX, pageY) {
+			dragObject.style.left = pageX - shiftX + 'px';
+			dragObject.style.top = pageY - shiftY + 'px';
+		}
 
-	dragZone.onmouseup = function() {
-		document.removeEventListener('mousemove', onMouseMove);
-		dragObject.onmouseup = null
-		dragObject.classList.remove("agarrado");
-	};
+		function onMouseMove(event) {
+			moveAt(event.pageX, event.pageY);
+		}
 
-	dragZone.ondblclick = function() {
-		document.removeEventListener('mousemove', onMouseMove);
-		dragObject.onmouseup = null
-		dragObject.classList.remove("agarrado");
-	};
+		document.addEventListener('mousemove', onMouseMove);
+
+		dragZone.onmouseup = function() {
+			document.removeEventListener('mousemove', onMouseMove);
+			dragObject.onmouseup = null
+			dragObject.classList.remove("agarrado");
+		};
+
+		dragZone.ondblclick = function() {
+			document.removeEventListener('mousemove', onMouseMove);
+			dragObject.onmouseup = null
+			dragObject.classList.remove("agarrado");
+		};
 	
-};
+	};
 
-dragObject.onDragStart = function(){
-	return 
-};
+	dragObject.onDragStart = function(){
+		return 
+	};
 }
 
-function dragAndDrop(elemento) {
+/* function dragAndDrop(elemento) {
 	const dragObject = document.getElementById(`${elemento}`);
 
-dragObject.onmousedown = function(event) {
-	let shiftX = event.clientX - dragObject.getBoundingClientRect().left + 20;
-	let shiftY = event.clientY - dragObject.getBoundingClientRect().top + 20;
+	dragObject.onmousedown = function(event) {
+		let shiftX = event.clientX - dragObject.getBoundingClientRect().left + 20;
+		let shiftY = event.clientY - dragObject.getBoundingClientRect().top + 20;
 
-	dragObject.classList.add("agarrado");
+		dragObject.classList.add("agarrado");
 
-	moveAt(event.pageX, event.pageY);
-
-	function moveAt(pageX, pageY) {
-		dragObject.style.left = pageX - shiftX + 'px';
-		dragObject.style.top = pageY - shiftY + 'px';
-	}
-
-	function onMouseMove(event) {
 		moveAt(event.pageX, event.pageY);
-	}
 
-	document.addEventListener('mousemove', onMouseMove);
+		function moveAt(pageX, pageY) {
+			dragObject.style.left = pageX - shiftX + 'px';
+			dragObject.style.top = pageY - shiftY + 'px';
+		}
 
-	dragObject.onmouseup = function() {
-		document.removeEventListener('mousemove', onMouseMove);
-		dragObject.onmouseup = null
-		dragObject.classList.remove("agarrado");
+		function onMouseMove(event) {
+			moveAt(event.pageX, event.pageY);
+		}
+
+		document.addEventListener('mousemove', onMouseMove);
+
+		dragObject.onmouseup = function() {
+			document.removeEventListener('mousemove', onMouseMove);
+			dragObject.onmouseup = null
+			dragObject.classList.remove("agarrado");
+		};
 	};
-};
 
-dragObject.onDragStart = function(){
-	return 
-};
-}
+	dragObject.onDragStart = function(){
+		return 
+	};
+} */
 
 function removeGrandParent(elemento) {
 

@@ -72,7 +72,9 @@ class trabajo {
 
 
 class interior {
-	constructor (nombre,tipo,cantidad,alto,ancho,pags,coloresFrente,coloresDorso,material) {
+	constructor (orden,cliente,nombre,tipo,cantidad,alto,ancho,pags,coloresFrente,coloresDorso,material) {
+		this.orden = orden;
+		this.cliente = cliente;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.cantidad = cantidad;
@@ -200,7 +202,7 @@ const formatos = [
 	oficio = new formato("Oficio",215.9,355.6),
 	tabloide = new formato("Tabloide",431.8,279.4),
 	iD_488x330 = new formato("488x330",488,330),
-	iD_548x245 = new formato("548x245",548,245),
+	iD_648x230 = new formato("648x230",648,230),
 	iD_360x290 = new formato("360x290",360,290),
 	iD_470x320 = new formato("470x320",470,320),
 	iD_470x315 = new formato("470x315",470,315),
@@ -249,6 +251,7 @@ const materiales = [
 	Obra_120 = new material("Obra",120,"Boreal",650,950,950,70),
 	Obra_180 = new material("Obra",180,"Boreal",650,950,950,73),
 	Obra_240 = new material("Obra",240,"Chambrill",650,950,950,76),
+	Obra_300 = new material("Obra",300,"Bulk",660,960,960,76),
 	Bookcell_80 = new material("Bookcell",80,"Boreal",650,950,950,60),
 	Bookcell_65 = new material("Bookcell",65,"Boreal",650,950,950,54),
 	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,58),
@@ -328,6 +331,8 @@ window.addEventListener("DOMContentLoaded",(e)=>{
 });	
 
 var btnEnviar = document.getElementById("enviar");
+var orden = document.getElementById("orden");
+var cliente = document.getElementById("cliente");
 var ident = document.getElementById("descripcion");
 var tipoTrabajo = document.getElementById("tipoTrabajo");
 var cantidad = document.getElementById("cantidad");
@@ -350,6 +355,8 @@ let colores
 
 const cargarDatos = (n) => {
 	tipoTrabajo.value = savedJobs[n].tipo;
+	cliente.value = savedJobs[n].cliente;
+	orden.value = savedJobs[n].orden;
 	ident.value = savedJobs[n].nombre;
 	cantidad.value = savedJobs[n].cantidad;
 	coloresFrente.value = savedJobs[n].coloresFrente;
@@ -408,6 +415,12 @@ function validarForm() {
 		if (tipoTrabajo.value == "Tipo de producto") {
 			error = "Elija el tipo de Producto";
 			tipoTrabajo.classList.add("inputError");
+		} else if (orden.value.length == 0) {
+			error = "Verifique el Nº de Orden"
+			ident.classList.add("inputError");
+		} else if (cliente.value.length == 0) {
+			error = "Ingrese el cliente o razon social"
+			ident.classList.add("inputError");
 		} else if (ident.value.length == 0) {
 			error = "Ingrese el nombre de la parte o trabajo"
 			ident.classList.add("inputError");
@@ -466,7 +479,9 @@ let nw = 0;
 function informarProducto(prod) {
 	nw = nw + 1;
 	
-	prod = new interior(ident.value, 
+	prod = new interior(orden.value,
+						cliente.value,
+						ident.value, 
 						tipoTrabajo.value,
 						parseInt(cantidad.value),
 						parseInt(alto.value),
@@ -476,7 +491,7 @@ function informarProducto(prod) {
 						parseInt(coloresDorso.value),
 						papelElegido);
 	
-	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${nw}">${prod.nombre}<div class="botonMin" id="btnMin_${nw}">-</div><div class="botonCerrar" id="btnCierre_${nw}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}`,"verde","xy",`resultado_${nw}`);
+	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${nw}">${prod.orden} - ${prod.cliente} - ${prod.nombre}<div class="botonMin" id="btnMin_${nw}">-</div><div class="botonCerrar" id="btnCierre_${nw}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}`,"verde","xy",`resultado_${nw}`);
 	trabajoNuevo.push(prod);
 
 	agregarObjetos(prod,"Trabajos",trabajosDB);
@@ -491,7 +506,19 @@ function informarProducto(prod) {
 
 	let clickParaMin = document.getElementById(`btnMin_${nw}`); 
 
-	let ventanaACerrar = document.getElementById(`resultado_${nw}`);
+	let estaVentana = document.getElementById(`resultado_${nw}`);
+
+	
+
+	/* estaVentana.addEventListener("click", e=> {
+		e.preventDefault();
+		let otrasVentanas = document.querySelectorAll(".verde");
+		for (w of otrasVentanas) {
+			w.classList.remove("arriba");
+		};
+		e.target.classList.add("arriba");
+	}); */
+
 
 	clickParaMin.addEventListener("click",(e)=> {
 
@@ -553,15 +580,17 @@ const btnImpose = document.getElementById("impose");
 
 btnImpose.addEventListener("click",(e)=> {
 	e.preventDefault();
-	prod = new interior(ident.value, 
-						tipoTrabajo.value,
-						parseInt(cantidad.value),
-						parseInt(alto.value),
-						parseInt(ancho.value),
-						parseInt(pags.value),
-						parseInt(coloresFrente.value),
-						parseInt(coloresDorso.value),
-						papelElegido);
+	prod = new interior(orden.value,
+		cliente.value,
+		ident.value, 
+		tipoTrabajo.value,
+		parseInt(cantidad.value),
+		parseInt(alto.value),
+		parseInt(ancho.value),
+		parseInt(pags.value),
+		parseInt(coloresFrente.value),
+		parseInt(coloresDorso.value),
+		papelElegido);
 
 
 	replaceDocFragConClase(".formulario","select",`<option>Elegir formato</option>`,"selFormat","btn","formatoElegido")

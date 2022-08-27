@@ -4,7 +4,7 @@ if (!window.indexedDB) {
     window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
 }
 
-const trabajosDB = window.indexedDB.open("Imprenta",1);
+const trabajosDB = window.indexedDB.open("ImprentaDorrego",1);
 const jobsDB = window.indexedDB.open("Gutenberg",1);
 
 
@@ -67,6 +67,8 @@ const leerObjetos = (almacen,dataBase)=> {
 		if (cursor.result) {
 			let element = crearHTML(
 				cursor.result.value.id,
+				cursor.result.value.orden,
+				cursor.result.value.cliente,
 				cursor.result.value.nombre,
 				cursor.result.value.tipo,
 				cursor.result.value.material,
@@ -126,7 +128,7 @@ const eliminarObjetos = (dataBase,almacen,key) => {
 };
 
 
-const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
+const crearHTML = (id,order, client, name,type,stock,qty,cF,cD,format,orientation,i)=> {
 	let container = document.createElement("DIV");
 	let titulo = document.createElement("h3");
 	let saveButtons = document.createElement("DIV");
@@ -142,7 +144,7 @@ const crearHTML = (id,name,type,stock,qty,cF,cD,format,orientation,i)=> {
 
 	saveButton.textContent = "Cargar";
 	deleteButton.textContent = "Borrar";
-	titulo.textContent = `${name} (${type}) - ${stock.tipoPapel} ${stock.gramaje} - Cantidad: ${qty} - Colores: ${cF}/${cD} - Formato: ${format} (${orientation})`;
+	titulo.textContent = `${order} - ${client} - ${name} (${type}) - ${stock.tipoPapel} ${stock.gramaje} - Cantidad: ${qty} - Colores: ${cF}/${cD} - Formato: ${format} (${orientation})`;
 
 	saveButtons.appendChild(saveButton);
 	saveButtons.appendChild(deleteButton);
