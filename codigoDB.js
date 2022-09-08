@@ -4,8 +4,10 @@ if (!window.indexedDB) {
     window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
 }
 
-const trabajosDB = window.indexedDB.open("ImprentaDorrego",1);
-const jobsDB = window.indexedDB.open("Gutenberg",1);
+let trabajosDB = window.indexedDB.open("ImprentaDorrego",1);
+let jobsDB = window.indexedDB.open("Gutenberg",1);
+
+
 
 
 // CRUD = create, read, update, delete
@@ -221,7 +223,28 @@ const crearHTML = (id,order, client, name,type,stock,qty,cF,cD,format,orientatio
 	return container
 };
 
+window.addEventListener("load", e => {
+	crearDocFrag(".dbPick","label",`Seleccionar base de datos`)
+	crearDocFragConID(".dbPick","select",`<option>ImprentaDorrego</option><option>Imprenta</option>`,"dbSelector");
+	const dbSelector = document.getElementById("dbSelector");
+	dbSelector.addEventListener("change", e =>{
+		trabajosDB = window.indexedDB.open(dbSelector.value,1);
+		validarIDB(trabajosDB,"Trabajos");
+		leerObjetos("Trabajos",trabajosDB);
+		//leerObjeto("Trabajos",trabajosDB);
+		let arroyo = async ()=> {
+			resultado = await leerObjeto("Trabajos",trabajosDB);
+			resultado.then(r=>{
+				console.log(r)
+				savedJobs = r;
+				});
+			resultado.catch(err => alert(err))
+			}
+		
+		arroyo();
 
+	})
+})
 
 const addButton = document.querySelector(".add");
 const newProduct = document.getElementById("product");

@@ -206,21 +206,30 @@ const formatos = [
 	iD_360x290 = new formato("360x290",360,290),
 	iD_470x320 = new formato("470x320",470,320),
 	iD_470x315 = new formato("470x315",470,315),
+	iD_450x295 = new formato("450x295",450,295),
 	iD_470x216 = new formato("470x216",470,216),
 	iD_432x320 = new formato("432x320",432,320),
 	iD_648x315 = new formato("648x315",648,315),
 	iD_650x340 = new formato("650x340",650,340),
+	iD_588x298 = new formato("588x288",588,288),
 	iD_650x358 = new formato("650x358",650,358),
 	iD_508x358 = new formato("508x358",508,358),
 	iD_488x240 = new formato("488x240",488,240),
 	iD_488x245 = new formato("488x245",488,245),
 	iD_548x245 = new formato("548x245",548,245),
 	iD_508x240 = new formato("508x240",508,240),
+	iD_508x299 = new formato("508x299",508,299),
 	iD_350x250 = new formato("350x250",350,250),
+	iD_660x360 = new formato("660x360",660,360),
 	tmp_210x255 = new formato("210x255",210,255),
 	iD_215x315 = new formato("215x315",215,315)
 
 ]
+
+
+formatos.sort((a, b) => {return parseInt(a.nombre) - parseInt(b.nombre)});
+
+console.table(formatos)
 
 
 class impresora {
@@ -253,6 +262,7 @@ const materiales = [
 	Obra_240 = new material("Obra",240,"Chambrill",650,950,950,76),
 	Obra_300 = new material("Obra",300,"Bulk",660,960,960,76),
 	Bookcell_80 = new material("Bookcell",80,"Boreal",650,950,950,60),
+	Bookcell_80_590x900 = new material("Bookcell",80,"Boreal",590,900,590,60),
 	Bookcell_65 = new material("Bookcell",65,"Boreal",650,950,950,54),
 	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,58),
 	IlustMate_120 = new material("Encapado Mate",120,"Suzano",650,950,950,52),
@@ -269,6 +279,7 @@ const materiales = [
 	oppBlanco = new material("OPP Blanco",150,"Support",1000,700,700,62),
 	oppTransparente = new material("OPP Transparente",150,"Support",1000,700,700,62)
 ]
+
 
 
 const impresoras = [
@@ -295,7 +306,8 @@ let trabajoNuevo = [];
 let savedJobs = [];
 
 window.addEventListener("load",(e)=>{
-	for (mat of materiales) {
+	materialesSorted = materiales.sort();
+	for (mat of materialesSorted) {
 		
 		crearDocFrag("#material","Option",`${mat.tipoPapel} ${mat.gramaje} (${mat.marca} - ${mat.anchoPlana} x ${mat.largoPlana})`);
 	};
@@ -366,7 +378,7 @@ const cargarDatos = (n) => {
 	pags.value = savedJobs[n].pags;
 	materialSeleccionado.value = `${savedJobs[n].material.tipoPapel} ${savedJobs[n].material.gramaje} (${savedJobs[n].material.marca} - ${savedJobs[n].material.anchoPlana} x ${savedJobs[n].material.largoPlana})`;
 	for (mat of materiales) {
-		if (materialSeleccionado.value.includes(mat.tipoPapel + " " + mat.gramaje)) {
+		if (materialSeleccionado.value.includes(`${mat.tipoPapel} ${mat.gramaje} (${mat.marca} - ${mat.anchoPlana} x ${mat.largoPlana}`)) {
 		papelElegido = mat
 		};
 	}; return papelElegido;
@@ -374,7 +386,7 @@ const cargarDatos = (n) => {
 
 materialSeleccionado.addEventListener("change",(e)=>{
 	for (mat of materiales) {
-		if (materialSeleccionado.value.includes(mat.tipoPapel + " " + mat.gramaje)) {
+		if (materialSeleccionado.value.includes(`${mat.tipoPapel} ${mat.gramaje} (${mat.marca} - ${mat.anchoPlana} x ${mat.largoPlana}`)) {
 		papelElegido = mat
 		};
 	}; return papelElegido;

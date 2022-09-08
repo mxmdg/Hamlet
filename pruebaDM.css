@@ -10,7 +10,7 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	width: 100%;
-	margin: 25px auto;
+	margin: 5px auto;
 	font-family: monospace;
 }
 
@@ -18,7 +18,7 @@
 .mainContainer{
 	display: inline-flex;
 	border-right: 1px solid #555;
-	padding: 20px;
+	padding: 5%;
 	width: 100vw;
 	max-width: 400px;
 	height: 100vh;
@@ -167,6 +167,15 @@ div.terminacion{
 .formulario > .inputError {
 	background-color: #f24;
 	border: 2px solid #900;
+}
+
+.dbPick{
+	background-color: #444;
+	border-radius: 5px;
+	grid-column: 1 / span 2;
+	padding: 10px;
+	margin-bottom: 20px;
+	box-shadow: #000 3px 3px 3px;
 }
 
 input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputError, input#coloresDorso.inputError, input#ancho.inputError, input#alto.inputError {
@@ -342,7 +351,7 @@ canvas {
 	border-radius: 0px 15px 15px 15px;
 	box-shadow: 7px 7px 10px #000;
 	bottom: 25px;
-	left: 25px;
+	Right: 25px;
 	transition: all .5s ease-out;
 }
 
