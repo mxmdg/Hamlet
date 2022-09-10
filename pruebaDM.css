@@ -4,7 +4,37 @@
   color: #0ff;
 }
 
+td.gridjs-td{
+	background-color: #222;
+	border: 1px solid #666;
+	padding: 9px;
+}
 
+th.gridjs-th{
+	height: 60px;
+	color: #aaa;
+	background-color: #666;
+	border: 1px solid #000;
+	padding: 9px;
+}
+th.gridjs-th:hover  {
+	color: #59e3ea;
+	background: #222;
+	z-index: 1;
+}
+
+table.gridjs-table{
+	border: none;
+
+}
+
+.gridjs-td, .gridjs-tr {
+	color: #999;
+	font-size: 1em;
+	font-family: monospace;
+	line-height: 1.3em;
+	padding: 0px;
+}
 
 .formulario {
 	display: grid;

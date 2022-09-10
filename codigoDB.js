@@ -22,7 +22,7 @@ const validarIDB = (dataBase,store) => {
 
 	dataBase.addEventListener("success",()=>{
 		console.log(`${dataBase.result.name} cargada exitosamente`);
-		leerObjetos(store,dataBase);
+		renderJobs(store,dataBase);
 	});
 
 	dataBase.addEventListener("error",()=>{
@@ -31,7 +31,7 @@ const validarIDB = (dataBase,store) => {
 }
 
 validarIDB(trabajosDB,"Trabajos");
-validarIDB(jobsDB,"Productos");
+//validarIDB(jobsDB,"Productos");
 
 const abrirTrans = (almacen,dataBase) => {
 	const db = dataBase.result;
@@ -51,6 +51,40 @@ const agregarObjetos = (objeto,almacen,dataBase) => {
 	})
 };
 
+const renderJobs = (almacen,dataBase)=> {
+	const idbData = abrirTrans(almacen,dataBase);
+	const cursor = idbData[1].openCursor();
+	let cont = document.querySelector(".productList")
+	cont.innerHTML = ``//'<form><input class="buscador" id="buscador" type="text" placeholder="322">322</form></form>';
+	let i = 0;
+
+	let jobsList = [];
+
+
+	cursor.addEventListener("success",()=>{
+
+	
+		
+		if (cursor.result) {
+			let element = cursor.result.value;
+			
+			jobsList.push(element);
+			cursor.result.continue();
+			i++
+		} else {
+			
+			console.log("Estos son todos los datos de renderJobs");
+			new gridjs.Grid({
+ 				search: true,  
+  				columns: ['orden', 'cliente', 'nombre', 'tipo', 'cantidad', 'alto', 'ancho', 'pags', 'coloresFrente', 'coloresDorso', 'lomo', 'formato', 'orientacion', 'totalPags', 'anchoDeTapaSinSolapas', 'anchoDeTapaConSolapas', 'peso', 'pesoTotal', 'id'],
+ 				data: jobsList,
+  				sort: true,
+  				resizable: true
+			}).render(cont);
+		}
+		
+	})
+};
 
 
 const leerObjetos = (almacen,dataBase)=> {
@@ -87,7 +121,7 @@ const leerObjetos = (almacen,dataBase)=> {
 			i++
 		} else {
 			
-			console.log("Estos son todos los datos");
+			console.log("Estos son todos los datos de leerObjetos");
 		}
 		
 	})
@@ -108,6 +142,7 @@ const leerObjeto = async (a,db)=> {
 		}
 
 	});
+	console.log("Esta es la funcion 'leerObjeto'")
 	return arr
 };
 
@@ -146,7 +181,7 @@ const crearHTML = (id,order, client, name,type,stock,qty,cF,cD,format,orientatio
 
 	saveButton.textContent = "Cargar";
 	deleteButton.textContent = "Borrar";
-	titulo.textContent = `${order} - ${client} - ${name} (${type}) - ${stock.tipoPapel} ${stock.gramaje} - Cantidad: ${qty} - Colores: ${cF}/${cD} - Formato: ${format} (${orientation})`;
+	titulo.textContent = `${order} - ${client} - ${name} (${type}) - ${stock.Nombre} - Cantidad: ${qty} - Colores: ${cF}/${cD} - Formato: ${format} (${orientation})`;
 
 	saveButtons.appendChild(saveButton);
 	saveButtons.appendChild(deleteButton);
@@ -230,10 +265,12 @@ window.addEventListener("load", e => {
 	dbSelector.addEventListener("change", e =>{
 		trabajosDB = window.indexedDB.open(dbSelector.value,1);
 		validarIDB(trabajosDB,"Trabajos");
-		leerObjetos("Trabajos",trabajosDB);
+		renderJobs("Trabajos",trabajosDB);
 		//leerObjeto("Trabajos",trabajosDB);
 		let arroyo = async ()=> {
-			resultado = await leerObjeto("Trabajos",trabajosDB);
+			
+
+			let resultado = await leerObjeto("Trabajos",trabajosDB);
 			resultado.then(r=>{
 				console.log(r)
 				savedJobs = r;

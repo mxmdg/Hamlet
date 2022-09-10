@@ -1,74 +1,4 @@
-//"use strict";
-
-/* 	Capitulo 10
-	Control de Flujo y manejo de errores.
-	
-	-Sentencias de bloque.
-
-		let nombre = "Pedro"
-			{
-				let nombre = "Juan"
-				alert(nombre)
-			}
-		alert(nombre)
-
-	-Sentencias de control de flujo
-		(if, else if, else, switch)...
-
-
-
-// Veamos como funciona Switch...
-
-let fruta = "Mandarina";
-
-switch(fruta){
-	case "Manzana": 
-		console.log("$200 el kg");
-		break;
-	case "Banana":
-		console.log("$250 el kg");
-		break;
-	case "Naranja":
-		console.log("$150 el kg");
-		break;
-	default: console.log("No hay datos");		
-}
-
- -Sentencias de manejo de excepciones.
-
-	- Sintaxis
-	- Objeto Error
-	- Catch... try (condicional e incondicional)
-	- Sentencia Throw
-	- Finally
-
-
-function asdasd(txt) {
-	alert(txt);
-}
-
-try {
-	throw { "Error desde Throw";
-} catch(error) {
-	alert(error);
-} finally {
-	alert("Esto se ejecuta si o si");
-}
-*/
-
 // Personal Project!
-
-
-class trabajo {
-	constructor (usuario,nombre,tipo,cantidad,partes) {
-		this.usuario = usuario;
-		this.tipo = tipo;
-		this.cantidad = cantidad;
-		this.nombre = nombre;
-		this.partes = []
-	}
-
-}
 
 
 class interior {
@@ -106,13 +36,7 @@ class interior {
 		} else if (parseInt(this.ancho ) == parseInt(this.alto)) {
 			orientacion = "Cuadrado"
 		} return orientacion;
-		};
-
-	calcularCortes() {
-		for (let f of this.formatosDisponibles) {
-				
-		};
-	};
+		}ñ
 
 	};
 
@@ -158,7 +82,7 @@ class Revista {
 
 class material {
 	constructor (tipoPapel,gramaje,marca,anchoPlana,largoPlana,fibra,altoResma){
-		
+		this.Nombre = `${tipoPapel} ${gramaje} (${marca} - ${anchoPlana}x${largoPlana})`;
 		this.tipoPapel = tipoPapel;
 		this.gramaje = gramaje;
 		this.marca = marca
@@ -229,7 +153,6 @@ const formatos = [
 
 formatos.sort((a, b) => {return parseInt(a.nombre) - parseInt(b.nombre)});
 
-console.table(formatos)
 
 
 class impresora {
@@ -309,17 +232,22 @@ window.addEventListener("load",(e)=>{
 	materialesSorted = materiales.sort();
 	for (mat of materialesSorted) {
 		
-		crearDocFrag("#material","Option",`${mat.tipoPapel} ${mat.gramaje} (${mat.marca} - ${mat.anchoPlana} x ${mat.largoPlana})`);
+		crearDocFrag("#material","Option",`${mat.Nombre}`);
 	};
+
 	for (tipo of tiposDeTrabajos) {
 		
 		crearDocFrag("#tipoTrabajo","Option",`${tipo}`);
 	};
+
+	for (pro of procesosTerminacion) {
+		crearDocFrag(".terminacion", "div",`<input type="checkbox" id="${pro.proceso}"><p>${pro.proceso}</p>`);
+	};
 	
 	let arroyo = ()=> {
-    resultado = leerObjeto("Trabajos",trabajosDB);
+    let resultado = leerObjeto("Trabajos",trabajosDB);
     resultado.then(r=>{
-        console.log(r)
+        //console.log(r)
         savedJobs = r;
         });
     resultado.catch(err => alert(err))
@@ -330,40 +258,25 @@ window.addEventListener("load",(e)=>{
 
 	//resultado.catch(err=> alert(err));
 
-	console.log(savedJobs);
+	//console.log(savedJobs);
 	e.preventDefault();
 });
 
 
-window.addEventListener("DOMContentLoaded",(e)=>{
-	for (pro of procesosTerminacion) {
-		crearDocFrag(".terminacion", "div",`<input type="checkbox" id="${pro.proceso}"><p>${pro.proceso}</p>`);
-	}
-	e.preventDefault();
-});	
+const btnEnviar = document.getElementById("enviar");
+const orden = document.getElementById("orden");
+const cliente = document.getElementById("cliente");
+const ident = document.getElementById("descripcion");
+const tipoTrabajo = document.getElementById("tipoTrabajo");
+const cantidad = document.getElementById("cantidad");
+const coloresFrente = document.getElementById("coloresFrente");
+const coloresDorso = document.getElementById("coloresDorso");
+const alto = document.getElementById("alto");
+const ancho = document.getElementById("ancho");
+const pags = document.getElementById("paginas");
+const materialSeleccionado = document.getElementById("material");
+let papelElegido
 
-var btnEnviar = document.getElementById("enviar");
-var orden = document.getElementById("orden");
-var cliente = document.getElementById("cliente");
-var ident = document.getElementById("descripcion");
-var tipoTrabajo = document.getElementById("tipoTrabajo");
-var cantidad = document.getElementById("cantidad");
-var coloresFrente = document.getElementById("coloresFrente");
-var coloresDorso = document.getElementById("coloresDorso");
-var alto = document.getElementById("alto");
-var ancho = document.getElementById("ancho");
-var pags = document.getElementById("paginas");
-var materialSeleccionado = document.getElementById("material");
-var papelElegido
-
-let colores
-
-/*for (let i = 0; i < impresion.length; i++) {
-	impresion[i].addEventListener("change", ()=> {
-	colores = impresion[i].value;
-	console.log(colores);
-	})
-};*/
 
 const cargarDatos = (n) => {
 	tipoTrabajo.value = savedJobs[n].tipo;
@@ -376,9 +289,9 @@ const cargarDatos = (n) => {
 	alto.value = savedJobs[n].alto;
 	ancho.value = savedJobs[n].ancho;
 	pags.value = savedJobs[n].pags;
-	materialSeleccionado.value = `${savedJobs[n].material.tipoPapel} ${savedJobs[n].material.gramaje} (${savedJobs[n].material.marca} - ${savedJobs[n].material.anchoPlana} x ${savedJobs[n].material.largoPlana})`;
+	materialSeleccionado.value = `${savedJobs[n].material.Nombre}`;
 	for (mat of materiales) {
-		if (materialSeleccionado.value.includes(`${mat.tipoPapel} ${mat.gramaje} (${mat.marca} - ${mat.anchoPlana} x ${mat.largoPlana}`)) {
+		if (materialSeleccionado.value.includes(`${mat.Nombre}`)) {
 		papelElegido = mat
 		};
 	}; return papelElegido;
@@ -386,7 +299,7 @@ const cargarDatos = (n) => {
 
 materialSeleccionado.addEventListener("change",(e)=>{
 	for (mat of materiales) {
-		if (materialSeleccionado.value.includes(`${mat.tipoPapel} ${mat.gramaje} (${mat.marca} - ${mat.anchoPlana} x ${mat.largoPlana}`)) {
+		if (materialSeleccionado.value.includes(`${mat.Nombre}`)) {
 		papelElegido = mat
 		};
 	}; return papelElegido;
@@ -406,7 +319,7 @@ function validarForm() {
 				max = 315; min = 50; pagMax = 1000; pagMin = 20;
 				break;
 			case "Revista":	
-				max = 300; min = 70; pagMax = 64; pagMin = 4;
+				max = 315; min = 70; pagMax = 64; pagMin = 4;
 				break;
 			case "Anillado":	
 				max = 356; min = 100; pagMax = 900; pagMin = 20;
@@ -508,8 +421,7 @@ function informarProducto(prod) {
 
 	agregarObjetos(prod,"Trabajos",trabajosDB);
 
-	leerObjetos("Trabajos",trabajosDB);
-
+	renderJobs("Trabajos", trabajosDB);
 	
 
 	//-------- Cerrar ventana -- ya fue... no, volvió
