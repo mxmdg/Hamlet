@@ -36,7 +36,7 @@ class interior {
 		} else if (parseInt(this.ancho ) == parseInt(this.alto)) {
 			orientacion = "Cuadrado"
 		} return orientacion;
-		}ñ
+		}
 
 	};
 
@@ -173,7 +173,9 @@ class impresora {
 
 
 
-const tiposDeTrabajos = ["Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"]
+const tiposDeTrabajos = ["Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"];
+
+const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Revista','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
 
 const materiales = [
 	Obra_80 = new material("Obra",80,"Boreal",650,950,950,57),
@@ -240,9 +242,14 @@ window.addEventListener("load",(e)=>{
 		crearDocFrag("#tipoTrabajo","Option",`${tipo}`);
 	};
 
-	for (pro of procesosTerminacion) {
-		crearDocFrag(".terminacion", "div",`<input type="checkbox" id="${pro.proceso}"><p>${pro.proceso}</p>`);
+	for (tipo of tiposDePartes) {
+		
+		crearDocFrag("#Partes","Option",`${tipo}`);
 	};
+
+	/*for (pro of procesosTerminacion) {
+		crearDocFrag(".terminacion", "div",`<input type="checkbox" id="${pro.proceso}"><p>${pro.proceso}</p>`);
+	};*/
 	
 	let arroyo = ()=> {
     let resultado = leerObjeto("Trabajos",trabajosDB);
@@ -268,6 +275,7 @@ const orden = document.getElementById("orden");
 const cliente = document.getElementById("cliente");
 const ident = document.getElementById("descripcion");
 const tipoTrabajo = document.getElementById("tipoTrabajo");
+const partes = document.getElementById("Partes");
 const cantidad = document.getElementById("cantidad");
 const coloresFrente = document.getElementById("coloresFrente");
 const coloresDorso = document.getElementById("coloresDorso");
@@ -279,17 +287,17 @@ let papelElegido
 
 
 const cargarDatos = (n) => {
-	tipoTrabajo.value = savedJobs[n].tipo;
-	cliente.value = savedJobs[n].cliente;
-	orden.value = savedJobs[n].orden;
-	ident.value = savedJobs[n].nombre;
-	cantidad.value = savedJobs[n].cantidad;
-	coloresFrente.value = savedJobs[n].coloresFrente;
-	coloresDorso.value = savedJobs[n].coloresDorso;
-	alto.value = savedJobs[n].alto;
-	ancho.value = savedJobs[n].ancho;
-	pags.value = savedJobs[n].pags;
-	materialSeleccionado.value = `${savedJobs[n].material.Nombre}`;
+	tipoTrabajo.value = n.tipo;
+	cliente.value = n.cliente;
+	orden.value = n.orden;
+	ident.value = n.nombre;
+	cantidad.value = n.cantidad;
+	coloresFrente.value = n.coloresFrente;
+	coloresDorso.value = n.coloresDorso;
+	alto.value = n.alto;
+	ancho.value = n.ancho;
+	pags.value = n.pags;
+	materialSeleccionado.value = `${n.material.Nombre}`;
 	for (mat of materiales) {
 		if (materialSeleccionado.value.includes(`${mat.Nombre}`)) {
 		papelElegido = mat
@@ -306,12 +314,54 @@ materialSeleccionado.addEventListener("change",(e)=>{
 
 });
 
+partes.addEventListener('change',e=>{
+			let tt = 'Tipo de Producto'
+			switch(partes.value) { //'Interior Binder','Tapa','Interior Cosido','Interior Revista','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'
+				case 'Interior Binder': tt = "Libro";
+					break;
+				case 'Tapa':  tt = "Multipagina";
+					break;
+				case 'Interior Cosido':  tt = "Cosido a Hilo";
+					break;
+				case 'Interior Revista':  tt = "Revista";
+					break;
+				case 'Señalador':  tt = "Sin Encuadernacion";
+					break;	
+				case 'Tarjeta':  tt = "Sin Encuadernacion";
+					break;	
+				case 'Insert':  tt = "Multipagina";
+					break;	
+				case 'Diptico':  tt = "Sin Encuadernacion";
+					break;	
+				case 'Triptico':  tt = "Sin Encuadernacion";
+					break;	
+				case 'Folleto':  tt = "Sin Encuadernacion";
+					break;	
+				case 'Cubierta':  tt = "Sin Encuadernacion";
+					break;	
+				case 'Guardas':  tt = "Sin Encuadernacion";
+					break;	
+											
+			}
+			tipoTrabajo.value = tt;
+			e.preventDefault()
+		});
 
+orden.addEventListener('change', e => {
+	e.preventDefault();
+	console.log("antes del loop: " + orden.value);
+	for (let j of savedJobs) {
+		if (j.orden == orden.value) {
+			console.log(j)
+			console.log(orden.value)
+			cargarDatos(j);
+		};
+	};
+});
 
 function validarForm() {
 		let error
 		
-
 		let max = 300, min = 60, pagMax = 1000, pagMin = 20;
 
 		switch(tipoTrabajo.value) { //"Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"
@@ -406,7 +456,7 @@ function informarProducto(prod) {
 	
 	prod = new interior(orden.value,
 						cliente.value,
-						ident.value, 
+						(ident.value + " - " + partes.value), 
 						tipoTrabajo.value,
 						parseInt(cantidad.value),
 						parseInt(alto.value),
@@ -416,13 +466,22 @@ function informarProducto(prod) {
 						parseInt(coloresDorso.value),
 						papelElegido);
 	
-	crearDocFragConClase(".secContainer","div",`<div class="zonaDeArrastre" id="arrastre_${nw}">${prod.orden} - ${prod.cliente} - ${prod.nombre}<div class="botonMin" id="btnMin_${nw}">-</div><div class="botonCerrar" id="btnCierre_${nw}">X</div></div><br>Lomo: ${prod.lomo}<br>Formato: ${prod.formato} ${prod.orientacion}<br>Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}`,"verde","xy",`resultado_${nw}`);
+	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="arrastre_${nw}">
+													<h4>${prod.orden} - ${prod.cliente} - ${prod.nombre}</h4>
+													<div class="botonMin" id="btnMin_${nw}">_</div>
+													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
+												</div>
+													<section>
+														<br>Lomo: ${prod.lomo}<br>
+														Formato: ${prod.formato} ${prod.orientacion}<br>
+														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
+														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
+														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
+													</section>`,
+												"fixedWindow","xy",`resultado_${nw}`);
 	trabajoNuevo.push(prod);
 
 	agregarObjetos(prod,"Trabajos",trabajosDB);
-
-	renderJobs("Trabajos", trabajosDB);
-	
 
 	//-------- Cerrar ventana -- ya fue... no, volvió
 
@@ -463,14 +522,21 @@ function informarProducto(prod) {
 
 
 	clickParaCerrar.addEventListener("click", () => {
-		removeGrandParent(clickParaCerrar)
-		let num = (clickParaCerrar.getAttribute("id").substring(10));
+		if (clickParaCerrar.getAttribute("id") === "contCanvas") {
+			alert("You can't close this window");
+		} else {
+			removeGrandParent(clickParaCerrar)
+			let num = (clickParaCerrar.getAttribute("id").substring(10));
 
-		console.log(num);
+			console.log(num);
 
 
-		trabajoNuevo.splice((num - 1), 1);
+			trabajoNuevo.splice((num - 1), 1);
+		}
+		
 	});	
+
+	renderJobs("Trabajos", trabajosDB);
 
 }
 
@@ -497,7 +563,8 @@ btnEnviar.addEventListener("click",(e)=>{
 		
 btnCerrar.addEventListener("click", (e)=>{
     e.preventDefault();
-    removeGrandParent(btnCerrar);
+    alert("No se puede cerrar la ventana de imposicion")
+    
 });
 
 const btnImpose = document.getElementById("impose");

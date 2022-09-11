@@ -51,6 +51,8 @@
 			<input type="Number" name="orden" id="orden">
 			<label >Cliente</label>
 			<input type="text" name="cliente" id="cliente">
+			<select id="Partes"><option>Parte</option></select>
+			
 			<label >Nombre</label>
 			<input type="text" name="descripcion" id="descripcion">
 			<div>	
@@ -86,19 +88,54 @@
 		
 		
 	</div>
-	<div class="secContainer"></div>
-	
-	<div class="productList">
-		
-	</div>
-	<div id="contCanvas" class="verde verdeMin">
-		<div class="zonaDeArrastre">
+	<div class="secContainer">
+		<div id="contCanvas" class="fixedWindow verdeMin">
+		<div class="fixedWindow-title">
 			<h4>Imposición</h4>
 		<div class="botonMin" id="btnMin"> + </div>
 		<div class="botonCerrar" id="btnCierre"> x </div>
 		</div>
 		<canvas id="canvas" width="700" height="400"></canvas>
 	</div>
+		<!-- <div class="fixedWindow">
+			<div class="fixedWindow-title">
+				<h4>Prueba</h4>
+				<div class="botonMin" id="btnMin_${nw}">_</div>
+				<div class="botonCerrar" id="btnCierre_${nw}">X</div>
+			</div>
+			<section>
+				<section>
+					<br>Lomo: ${prod.lomo}<br>
+						Formato: ${prod.formato} ${prod.orientacion}<br>
+						Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
+						Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
+						Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
+					</section>
+			</section>
+		</div>
+		<div class="fixedWindow">
+			<div class="fixedWindow-title">
+				<h4>Prueba 2</h4>
+				<div class="botonMin" id="btnMin_${nw}">-</div>
+				<div class="botonCerrar" id="btnCierre_${nw}">X</div>
+			</div>
+			<section>
+				<section>
+					<br>Lomo: ${prod.lomo}<br>
+						Formato: ${prod.formato} ${prod.orientacion}<br>
+						Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
+						Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
+						Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
+					</section>
+			</section>
+		</div> -->
+	</div>
+
+	
+	<div class="productList">
+		
+	</div>
+	
 	
 </body>
 

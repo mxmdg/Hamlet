@@ -10,31 +10,46 @@ td.gridjs-td{
 	padding: 9px;
 }
 
-th.gridjs-th{
+th.gridjs-th {
 	height: 60px;
 	color: #aaa;
 	background-color: #666;
-	border: 1px solid #000;
+	border: 1px solid black;
 	padding: 9px;
 }
+
 th.gridjs-th:hover  {
 	color: #59e3ea;
 	background: #222;
 	z-index: 1;
 }
 
-table.gridjs-table{
-	border: none;
 
+.gridjs-footer, .gridjs-pagination, .gridjs-pagination .gridjs-pages button:disabled, .gridjs-pagination .gridjs-pages button:hover:disabled, .gridjs-pagination .gridjs-pages button[disabled]{
+	background: #444;
+	color: #aaa;
+	font-family: monospace;
+	font-size: 1em;
 }
 
+ .gridjs-pagination .gridjs-pages button.gridjs-currentPage  {
+ 	background: #333;
+ 	color: #59e3ea;
+ }
+
+ .gridjs-pagination .gridjs-pages button {
+ 	background: #222;
+ 	color: #999;
+ }
+
 .gridjs-td, .gridjs-tr {
-	color: #999;
+	color: #aaa;
 	font-size: 1em;
 	font-family: monospace;
 	line-height: 1.3em;
 	padding: 0px;
 }
+
 
 .formulario {
 	display: grid;
@@ -60,9 +75,10 @@ table.gridjs-table{
 
 .secContainer{ 
 	display: inline-flex;
+	flex-direction: column;
 	background: #333;
 	height: 100vh;
-	grid-column: 2 / span 2;
+	grid-column: 2 / span 1;
 	grid-row: 1 / span 2;
 }
 
@@ -141,7 +157,7 @@ div.terminacion{
 	box-shadow: 1px 1px 0.3px #000;
 }
 
-.formulario input, .formulario select {
+.formulario input, .formulario select, input.gridjs-input {
 	color: #eee;
 	background: #555;
 	border: 1px solid #222;
@@ -152,7 +168,7 @@ div.terminacion{
 	transition: border 1s;
 }
 
-.formulario input:focus, .formulario select:focus {
+.formulario input:focus, .formulario select:focus, input.gridjs-input:focus {
 	color: #59e3ea;
 	border: 1px solid #59e3ea;
 	background: #444;
@@ -220,11 +236,12 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 	display: inline;
 	height: 100vh;
 	overflow-y: scroll;
-	padding: 50px;
+	padding: 20px;
 	height: 100vh;
 	overflow-y: scroll;
 	grid-column: 3 / span 1;
 	grid-row: 1 / span 1;
+	background: #444;
 }
 
 .productList.button {
@@ -385,6 +402,46 @@ canvas {
 	transition: all .5s ease-out;
 }
 
+.fixedWindow {
+	position: static;
+	font-family:monospace;
+	font-weight: 300;
+	font-size: 15px;
+	color: #ddd;
+	background: #444;
+	line-height: 20px;
+	padding: 0px;
+	width: 100%;
+	height: fit-content;
+	background: #323232;
+	border: 1px solid #777;
+	box-shadow: 7px 7px 10px #000;
+	transition: all .5s ease-out;
+}
+
+.fixedWindow-title{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	background-color: #00000044;
+	box-shadow: 0px 2px 4px #000;
+	font-weight: 600;
+	padding: 3px 3px 3px 13px;
+	color: #39a;
+	margin: 1px;
+}
+
+.fixedWindow section {
+	font-size: 1em;
+	line-height: 1.5em;
+	padding: 5px 5px 5px 10px;
+	color: #39a;
+}
+
+.fixedWindow h4 {
+	width: 100%;
+}
+
 .hidden {
 	opacity: 0;
 }
@@ -409,10 +466,22 @@ canvas {
 	transition: height .3s ease-in, color .5s ease-in, width .3s ease-in;
 }
 
+.violeta {
+	border: 5px solid white;
+	border-radius: 20px;
+	padding: 20px;
+	color: #fff;
+	background: #5900b3bb;
+	box-shadow: 2px 2px 5px #33333399;
+	margin: 20px;
+	position: relative;
+	transition: box-shadow .5s;
+	z-index: 50;
+}
+
 .verdeMin {
 	color: #000;
 	height: 35px;
-	width: 60px;
 	overflow: hidden;
 	transition: height .5s ease-in, width .3s ease-in;
 }
@@ -448,16 +517,14 @@ canvas {
 .botonCerrar {
 	padding: 2px;
 	margin: 2px;
-	border-radius: 50%;
 	width: 25px;
 	height: 25px;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	border: 2px solid #311;
-	background: #913;
+	border-bottom: 1px solid #913;
+	border-right: 1px solid #913;
+	color:  #913;
+	font-size: 0.7em;
+	background: transparent;
 	text-align: center;
-	box-shadow: 3px 3px 2px #00000066;
 	user-select: none;
 }
 
@@ -470,14 +537,13 @@ canvas {
 .botonMin {
 	padding: 2px;
 	margin: 2px;
-	border-radius: 50%;
 	width: 25px;
-	height: 25px;
-	position: absolute;
-	right: 25px;
-	top: 0px;
-	border: 2px solid #222;
-	background: #393;
+	height: 80%;
+	border-bottom: 1px solid #393;
+	border-right: 1px solid #393;
+	color: #393;
+	font-size: 0.7em;
+	background: transparent;
 	text-align: center;
 	box-shadow: 3px 3px 2px #00000066;
 	user-select: none;

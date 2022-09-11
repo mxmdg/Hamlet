@@ -8,8 +8,6 @@ let trabajosDB = window.indexedDB.open("ImprentaDorrego",1);
 let jobsDB = window.indexedDB.open("Gutenberg",1);
 
 
-
-
 // CRUD = create, read, update, delete
 
 const validarIDB = (dataBase,store) => {
@@ -76,10 +74,33 @@ const renderJobs = (almacen,dataBase)=> {
 			console.log("Estos son todos los datos de renderJobs");
 			new gridjs.Grid({
  				search: true,  
-  				columns: ['orden', 'cliente', 'nombre', 'tipo', 'cantidad', 'alto', 'ancho', 'pags', 'coloresFrente', 'coloresDorso', 'lomo', 'formato', 'orientacion', 'totalPags', 'anchoDeTapaSinSolapas', 'anchoDeTapaConSolapas', 'peso', 'pesoTotal', 'id'],
+  				columns: ['orden',
+  						'cliente', 
+  						'nombre', 
+  						'tipo', 
+  						'cantidad', 
+  						'pags', 
+  						'coloresFrente', 
+  						'coloresDorso', 
+  						'lomo', 
+  						'formato', 
+  						'orientacion', 
+  						'totalPags', 
+  						'anchoDeTapaSinSolapas', 
+  						'anchoDeTapaConSolapas', 
+  						'peso', 
+  						'pesoTotal', 
+  						'id'
+  				],
  				data: jobsList,
   				sort: true,
-  				resizable: true
+  				pagination: {limit: 15},
+  				fixedHeader: true,
+  				style: { 
+    				table: { 
+      					'white-space': 'nowrap'
+   					 }
+ 				 },
 			}).render(cont);
 		}
 		

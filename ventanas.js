@@ -144,13 +144,14 @@ function minGrandParent(elemento) {
 
 };
 
-let btnCierre = document.getElementById("btnCierre");
+//let btnCierre = document.getElementById("btnCierre");
 let btnMin = document.getElementById("btnMin");
 
-btnCierre.addEventListener("click",(e)=>{
+/*btnCierre.addEventListener("click",(e)=>{
 	e.preventDefault();
-	removeGrandParent(btnCierre);
-})
+	alert("No se puede cerrar la ventana de Imposicion");
+
+})*/
 
 btnMin.addEventListener("click",(e)=>{
 	e.preventDefault();
@@ -164,7 +165,7 @@ btnMin.addEventListener("click",(e)=>{
 
 })
 
-moverVentana(".verde",".zonaDeArrastre");
+//moverVentana(".verde",".zonaDeArrastre");
 
 
 

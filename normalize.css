@@ -28,8 +28,8 @@ html {
 body {
   font-family: 'Hind', sans-serif;
   display: grid;
-  grid-template-columns: 400px 1fr;
-  
+  grid-template-columns: 400px 1fr 2fr;
+  grid-template-row: 1fr 1fr;
   margin: 0;
 }
 
