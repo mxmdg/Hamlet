@@ -74,23 +74,20 @@ const renderJobs = (almacen,dataBase)=> {
 			console.log("Estos son todos los datos de renderJobs");
 			new gridjs.Grid({
  				search: true,  
-  				columns: ['orden',
+  				columns: [
+						'orden',
   						'cliente', 
   						'nombre', 
   						'tipo', 
   						'cantidad', 
   						'pags', 
-  						'coloresFrente', 
-  						'coloresDorso', 
+  						'colores',
+						'soporte', 
   						'lomo', 
   						'formato', 
   						'orientacion', 
-  						'totalPags', 
-  						'anchoDeTapaSinSolapas', 
-  						'anchoDeTapaConSolapas', 
-  						'peso', 
-  						'pesoTotal', 
-  						'id'
+  						'totalPags'
+  					
   				],
  				data: jobsList,
   				sort: true,

@@ -13,7 +13,9 @@ class interior {
 		this.pags = pags;
 		this.coloresFrente = coloresFrente;
 		this.coloresDorso = coloresDorso;
+		this.colores = (coloresFrente + "/" + coloresDorso);
 		this.material = material;
+		this.soporte = this.material.Nombre;
 		this.lomo = Math.ceil(Math.ceil(parseInt(pags) / 2 ) * ((parseInt(material.altoResma))/500));
 		this.formato = ancho + " x " + alto;
 		this.orientacion = this.orientacionDePagina();
@@ -132,6 +134,7 @@ const formatos = [
 	iD_470x315 = new formato("470x315",470,315),
 	iD_450x295 = new formato("450x295",450,295),
 	iD_470x216 = new formato("470x216",470,216),
+	iD_490x300 = new formato("490x300",490,300),
 	iD_432x320 = new formato("432x320",432,320),
 	iD_648x315 = new formato("648x315",648,315),
 	iD_650x340 = new formato("650x340",650,340),
@@ -538,7 +541,97 @@ function informarProducto(prod) {
 
 	renderJobs("Trabajos", trabajosDB);
 
-}
+};
+
+function presentarProducto(prod) {
+	nw = nw + 1;
+	
+	
+	
+	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="arrastre_${nw}">
+													<h4>${prod.orden} - ${prod.cliente} - ${prod.nombre}</h4>
+													<div class="botonMin" id="btnMin_${nw}">_</div>
+													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
+												</div>
+													<section>
+														<br>Lomo: ${prod.lomo}<br>
+														Formato: ${prod.formato} ${prod.orientacion}<br>
+														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
+														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
+														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
+													</section>
+													<div id="buttons${nw}"><button class="button__ON" id="impo${nw}">Imponer</button></div>`,
+												"fixedWindow","xy",`resultado_${nw}`);
+	//trabajoNuevo.push(prod);
+
+	
+
+	//-------- Cerrar ventana -- ya fue... no, volvió
+
+	let clickParaCerrar = document.getElementById(`btnCierre_${nw}`); 
+
+	let clickParaMin = document.getElementById(`btnMin_${nw}`); 
+
+	let estaVentana = document.getElementById(`resultado_${nw}`);
+
+	const impoBtn = document.getElementById(`impo${nw}`);
+
+	/* impoBtn.addEventListener("click", (e, prod)=>{
+		e.preventDefault();
+
+		crearDocFragConClase(`.buttons${nw}`,"select",`<option>Elegir formato</option>`,"selFormat","btn","formatoElegido")
+		for (f of prod.formatosDisponibles) {
+			crearDocFrag("#formatoElegido","option",f.nombre);
+	}
+	sf = document.getElementById("formatoElegido");
+		
+	}) */
+
+	/* estaVentana.addEventListener("click", e=> {
+		e.preventDefault();
+		let otrasVentanas = document.querySelectorAll(".verde");
+		for (w of otrasVentanas) {
+			w.classList.remove("arriba");
+		};
+		e.target.classList.add("arriba");
+	}); */
+
+
+	clickParaMin.addEventListener("click",(e)=> {
+
+		let minBtn = e.target;
+		let ventana = minBtn.parentElement.parentElement;
+
+
+		if (ventana.classList.contains("verdeMin")) {
+			ventana.classList.remove("verdeMin");
+			minBtn.innerHTML = "-";
+			
+		} else {
+			ventana.classList.add("verdeMin")
+			minBtn.innerHTML = "+";
+		}
+
+	})
+
+
+	clickParaCerrar.addEventListener("click", () => {
+		if (clickParaCerrar.getAttribute("id") === "contCanvas") {
+			alert("You can't close this window");
+		} else {
+			removeGrandParent(clickParaCerrar)
+			let num = (clickParaCerrar.getAttribute("id").substring(10));
+
+			console.log(num);
+
+
+			trabajoNuevo.splice((num - 1), 1);
+		}
+		
+	});	
+
+
+};
 
 const buscar = (xx)=>{
 	let resultado = []
@@ -548,7 +641,10 @@ const buscar = (xx)=>{
 	return resultado;
 };
 
-
+const reload = (job)=> {
+	cargarDatos(job);
+	presentarProducto(job);
+}
 
 let formu = document.getElementById("interiorForm");
 
@@ -878,11 +974,11 @@ const dibujarMejorCorte = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
 		let top = (400 - y1)/2;
 
 
-		ctx.strokeStyle = "#000";
+		ctx.strokeStyle = "#999";
 		ctx.strokeWidth = "1"
 		ctx.strokeRect(izq,top,x1,y1);
 
-		ctx.strokeStyle = "#000";
+		ctx.strokeStyle = "#3aa";
 
 
 		
