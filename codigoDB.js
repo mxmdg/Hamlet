@@ -76,15 +76,39 @@ const renderJobs = (almacen,dataBase)=> {
  				search: true,  
   				columns: [
 						'orden',
-  						'cliente', 
-  						'nombre', 
+  						'cliente',
+						{
+							name: 'id',
+							attributes: (cell,row) => {
+								// add these attributes to the td elements only
+								if (cell) { 
+								  return {
+									'data-cell-content': cell,
+									'onclick': () => dibujarCorteOptimizado(row.cells[11].data, row.cells[12].data),
+									'style': 'cursor: pointer',
+								  };
+								}
+							  },
+							//data: (row)=> row.id
+						},
+						'nombre',
   						'tipo', 
   						'cantidad', 
   						'pags', 
   						'colores',
 						'soporte', 
   						'lomo', 
-  						'formato', 
+  						'formato',
+						{
+							name: 'ancho',
+							hidden: true
+
+						},
+						{
+							name: 'alto',
+							hidden: true
+
+						},
   						'orientacion', 
   						'totalPags'
   					

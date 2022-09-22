@@ -178,7 +178,7 @@ class impresora {
 
 const tiposDeTrabajos = ["Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"];
 
-const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Revista','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
+const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anillado','Interior Revista','Afiche','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
 
 const materiales = [
 	Obra_80 = new material("Obra",80,"Boreal",650,950,950,57),
@@ -203,9 +203,11 @@ const materiales = [
 	IlustBrillo_120 = new material("Encapado Brillo",120,"Suzano",650,950,950,52),
 	IlustBrillo_150 = new material("Encapado Brillo",150,"Suzano",650,950,950,55),
 	IlustBrillo_170 = new material("Encapado Brillo",170,"Suzano",650,950,950,58),
+	IlustBrillo_250 = new material("Encapado Brillo",250,"Suzano",650,950,950,61),
 	autoadhesivoIlust = new material("Autoadhesivo Ilustracion",150,"Support",1000,700,700,62),
 	oppBlanco = new material("OPP Blanco",150,"Support",1000,700,700,62),
-	oppTransparente = new material("OPP Transparente",150,"Support",1000,700,700,62)
+	oppTransparente = new material("OPP Transparente",150,"Support",1000,700,700,62),
+	vegetal = new material("Vegetal",90,"",700,500,500,60)
 ]
 
 
@@ -319,14 +321,18 @@ materialSeleccionado.addEventListener("change",(e)=>{
 
 partes.addEventListener('change',e=>{
 			let tt = 'Tipo de Producto'
-			switch(partes.value) { //'Interior Binder','Tapa','Interior Cosido','Interior Revista','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'
+			switch(partes.value) { //'Interior Binder','Tapa','Interior Cosido','Interior Revista','Afiche','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'
 				case 'Interior Binder': tt = "Libro";
 					break;
 				case 'Tapa':  tt = "Multipagina";
 					break;
 				case 'Interior Cosido':  tt = "Cosido a Hilo";
 					break;
+				case 'Interior Anillado':  tt = "Anillado";
+					break;
 				case 'Interior Revista':  tt = "Revista";
+					break;
+				case 'Afiche':  tt = "Sin Encuadernacion";
 					break;
 				case 'Señalador':  tt = "Sin Encuadernacion";
 					break;	
