@@ -40,7 +40,7 @@
 <body>
 	<div class="mainContainer">
 		
-		<form class="formulario" id="interiorForm">
+		<form class="formulario col2" id="interiorForm">
 			<!-- <div class="zonaDeArrastre">
 				<h1>Presupuesto</h1>
 				<div class="botonCerrar" id="btnCierre">X</div>
@@ -96,6 +96,28 @@
 		<div class="botonCerrar" id="btnCierre"> x </div>
 		</div>
 		<canvas id="canvas" width="700" height="400"></canvas>
+		<div>
+			<form id="customImpo" class="formulario col3">
+				<div>
+					<label>Pliego:</label>
+					<input type="Number" placeholder="Ancho" id="xPliego">
+					<input type="Number" placeholder="Alto" id="yPliego">
+				</div>
+				<div>
+					<label>Formato Final:</label>
+					<input type="Number" placeholder="Ancho" id="xFinal">
+					<input type="Number" placeholder="Alto" id="yFinal">
+				</div>
+				<div>
+					<label>Ajustes</label>
+					<input type="Number" placeholder="Calle" id="calle">
+					<input type="Number" placeholder="Margenes" id="margenes">
+					
+				</div>
+				<blankSpace></blankSpace>
+				<button class="button__ON" id="impose">Imponer</button>
+			</form>
+		</div>
 	</div>
 		<!-- <div class="fixedWindow">
 			<div class="fixedWindow-title">

@@ -1024,6 +1024,24 @@ const dibujarMejorCorte = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
 		return n;
 };
 
+// ___________________________ Custom Impo _______________________________
+
+document.getElementById("customImpo").addEventListener("submit",(e)=>{
+	e.preventDefault();
+	let xFinal = document.getElementById("xFinal").value;
+	let yFinal = document.getElementById("yFinal").value;
+	let xPliego = document.getElementById("xPliego").value;
+	let yPliego = document.getElementById("yPliego").value;
+	let calle = document.getElementById("calle").value;
+	let margenes = document.getElementById("margenes").value;
+
+	
+	dibujarCorteOptimizado(parseInt(xPliego),parseInt(yPliego),parseInt(xFinal),parseInt(yFinal),parseInt(margenes),parseInt(calle));
+	
+
+})
+
+
 //___________________________ I D B _______________________________
 
 
