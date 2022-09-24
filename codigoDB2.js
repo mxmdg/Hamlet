@@ -6,6 +6,7 @@ if (!window.indexedDB) {
 
 
 const jobsDB = window.indexedDB.open("Gutenberg",1);
+let trabajosDB = window.indexedDB.open("ImprentaDorrego",1);
 
 
 // CRUD = create, read, update, delete
@@ -29,7 +30,7 @@ const validarIDB = (dataBase,store) => {
 }
 
 
-validarIDB(jobsDB,"Productos");
+validarIDB(trabajosDB,"Trabajos");
 
 const abrirTrans = (almacen,dataBase) => {
 	const db = dataBase.result;

@@ -480,13 +480,14 @@ function informarProducto(prod) {
 													<div class="botonMin" id="btnMin_${nw}">_</div>
 													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
 												</div>
-													<section>
+													<section class="jobInfo">
 														<br>Lomo: ${prod.lomo}<br>
 														Formato: ${prod.formato} ${prod.orientacion}<br>
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
 														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
-													</section>`,
+													</section>
+													<canvas id="canvas_${nw}" width="400" height="300"></canvas>`,
 												"fixedWindow","xy",`resultado_${nw}`);
 	trabajoNuevo.push(prod);
 
@@ -552,7 +553,7 @@ function informarProducto(prod) {
 function presentarProducto(prod) {
 	nw = nw + 1;
 	
-	
+	this.prod = prod	
 	
 	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="arrastre_${nw}">
 													<h4>${prod.orden} - ${prod.cliente} - ${prod.nombre}</h4>
@@ -564,8 +565,9 @@ function presentarProducto(prod) {
 														Formato: ${prod.formato} ${prod.orientacion}<br>
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
-														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
+														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}<br>
 													</section>
+													<canvas id="canvas_${nw}" width="400" height="300"></canvas>
 													<div id="buttons${nw}"><button class="button__ON" id="impo${nw}">Imponer</button></div>`,
 												"fixedWindow","xy",`resultado_${nw}`);
 	//trabajoNuevo.push(prod);
@@ -582,16 +584,19 @@ function presentarProducto(prod) {
 
 	const impoBtn = document.getElementById(`impo${nw}`);
 
-	/* impoBtn.addEventListener("click", (e, prod)=>{
+	document.getElementById(`impo${nw}`).addEventListener("click", (e, prod)=>{
 		e.preventDefault();
 
-		crearDocFragConClase(`.buttons${nw}`,"select",`<option>Elegir formato</option>`,"selFormat","btn","formatoElegido")
-		for (f of prod.formatosDisponibles) {
+		crearDocFragConClase(`#buttons${nw}`,"select",`<option>Elegir formato</option>`,"selFormat","btn",`formatoElegido${nw}`);
+
+		console.log(this.prod)
+
+		for (f of this.prod.formatosDisponibles) {
 			crearDocFrag("#formatoElegido","option",f.nombre);
 	}
-	sf = document.getElementById("formatoElegido");
+	sf = document.getElementById(`formatoElegido${nw}`);
 		
-	}) */
+	})
 
 	/* estaVentana.addEventListener("click", e=> {
 		e.preventDefault();
@@ -1028,15 +1033,24 @@ const dibujarMejorCorte = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
 
 document.getElementById("customImpo").addEventListener("submit",(e)=>{
 	e.preventDefault();
-	let xFinal = document.getElementById("xFinal").value;
-	let yFinal = document.getElementById("yFinal").value;
-	let xPliego = document.getElementById("xPliego").value;
-	let yPliego = document.getElementById("yPliego").value;
-	let calle = document.getElementById("calle").value;
-	let margenes = document.getElementById("margenes").value;
+	let data = []
+	data.push(parseInt(document.getElementById("xFinal").value));
+	data.push(parseInt(document.getElementById("yFinal").value));
+	data.push(parseInt(document.getElementById("xPliego").value));
+	data.push(parseInt(document.getElementById("yPliego").value));
+	data.push(parseInt(document.getElementById("calle").value));
+	data.push(parseInt(document.getElementById("margenes").value));
 
-	
-	dibujarCorteOptimizado(parseInt(xPliego),parseInt(yPliego),parseInt(xFinal),parseInt(yFinal),parseInt(margenes),parseInt(calle));
+	if (Math.max(data[2],data[3]) > 680 || Math.min(data[2],data[3]) > 380 ) {
+		
+		dibujarCorteOptimizado(Math.max(data[2],data[3])/2,Math.min(data[2],data[3])/2,data[0]/2,data[1]/2,data[5]/2,data[4]/2);
+
+	} else {
+
+		dibujarCorteOptimizado(Math.max(data[2],data[3]),Math.min(data[2],data[3]),data[0],data[1],data[5],data[4]);
+
+	}
+
 	
 
 })

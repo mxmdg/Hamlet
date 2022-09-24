@@ -87,6 +87,9 @@ th.gridjs-th:hover  {
 	height: 100vh;
 	grid-column: 2 / span 1;
 	grid-row: 1 / span 2;
+	min-width: 700px;
+	max-height: 100%;
+	overflow-x: scroll;
 }
 
 .impresion {
@@ -439,6 +442,8 @@ canvas {
 }
 
 .fixedWindow section {
+	/*display: flex;
+	flex-direction: row;*/
 	font-size: 1em;
 	line-height: 1.5em;
 	padding: 5px 5px 5px 10px;
@@ -601,3 +606,16 @@ canvas {
 	
 }
 
+@media only print {
+
+	.mainContainer, .productList {
+		visibility: hidden;
+	}
+
+	.secContainer {
+		max-width: 100%;
+		max-height: fit-content;
+		overflow: visible;
+		grid-column: 1;
+	}
+}

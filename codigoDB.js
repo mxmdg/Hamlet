@@ -84,12 +84,18 @@ const renderJobs = (almacen,dataBase)=> {
 								if (cell) { 
 								  return {
 									'data-cell-content': cell,
-									'onclick': () => dibujarCorteOptimizado(row.cells[11].data, row.cells[12].data),
+									'onclick': () => {if (window.confirm(`Seguro queres eliminar "${row.cells[3].data}"" de la base de datos`) == true) {
+																				eliminarObjetos(trabajosDB,'Trabajos',row.cells[2].data)
+																				//document.querySelector(".productList").removeChild(container);
+																			}
+																		},
+
+									//eliminarObjetos(trabajosDB,'Trabajos',row.cells[2].data),
 									'style': 'cursor: pointer',
 								  };
 								}
 							  },
-							//data: (row)=> row.id
+							//data: 'Borrar'
 						},
 						'nombre',
   						'tipo', 
