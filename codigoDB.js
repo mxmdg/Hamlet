@@ -83,12 +83,43 @@ const renderJobs = (almacen,dataBase)=> {
 								// add these attributes to the td elements only
 								if (cell) { 
 								  return {
-									'data-cell-content': cell,
-									'onclick': () => {if (window.confirm(`Seguro queres eliminar "${row.cells[3].data}"" de la base de datos`) == true) {
-																				eliminarObjetos(trabajosDB,'Trabajos',row.cells[2].data)
+									'data-cell-content': 'Borrar' + cell,
+									/*'onclick': () => {if (window.confirm(`Seguro queres eliminar "${row.cells[3].data}"" de la base de datos`) == true) {
+																				eliminarObjetos(trabajosDB,'Trabajos', cell)
 																				//document.querySelector(".productList").removeChild(container);
 																			}
-																		},
+																		},*/
+									'onclick': () => {
+										const selectedJob = cell;
+										let content = 	`<ul>
+															<li id='cargarTrabajo'>Cargar Trabajo</li>
+															<li id='presentarTrabajo'>Presentar Trabajo</li>
+															<li id='borrarTrabajo'>Borrar Trabajo</li>
+														</ul>`;
+
+										crearDocFragConClase('.productList','div',content,'contextMenu','floatWindow',`context_${cell}`);
+
+										const cargarTrabajo = document.getElementById('cargarTrabajo')
+
+										cargarTrabajo.addEventListener('click', (e)=>{cargarDatos(savedJobs.find(k => k.id == cell));
+																						removeGrandParent(cargarTrabajo);
+																					});
+
+										const presentarTrabajo = document.getElementById('presentarTrabajo')
+
+										presentarTrabajo.addEventListener('click', ()=> {
+																						reload(savedJobs.find(k => k.id == cell))
+																						removeGrandParent(presentarTrabajo);
+																						});
+
+										document.getElementById('borrarTrabajo').addEventListener('click', () =>{if (window.confirm(`Seguro queres eliminar "${row.cells[3].data}"" de la base de datos`) == true) {
+																				eliminarObjetos(trabajosDB,'Trabajos', cell);
+																				removeGrandParent(cargarTrabajo)
+																				//document.querySelector(".productList").removeChild(container);
+																			}
+																		});
+
+									},									
 
 									//eliminarObjetos(trabajosDB,'Trabajos',row.cells[2].data),
 									'style': 'cursor: pointer',
@@ -194,7 +225,23 @@ const leerObjeto = async (a,db)=> {
 	return arr
 };
 
+const leerUnObjeto = async (a,db,k)=> {
+	const idbData = abrirTrans(a,db);
+	const cursor = idbData[1].openCursor();
+	let arr = []
+	await cursor.addEventListener("success",()=>{
+		if (cursor.result.key == k) {
+			let key = cursor.result.key
+			let detalle = Object.defineProperty(cursor.result.value,`Key`, { enumerable: true, configurable: false, writable: false, value: `${key}`
+	});
+			arr.push(detalle);
+			cursor.result.continue();
+		}
 
+	});
+	console.log("Esta es la funcion 'leer UN Objeto'")
+	return arr
+};
 
 const modificarObjetos = (objeto,dataBase,almacen,key) => {
 	const idbData = abrirTrans(almacen,dataBase);
@@ -208,7 +255,7 @@ const eliminarObjetos = (dataBase,almacen,key) => {
 	const idbData = abrirTrans(almacen,dataBase);
 	idbData[1].delete(key);
 	idbData[0].addEventListener("complete",()=>{
-		console.log(`Objeto eliminado`)
+		console.log(`Objeto ${key} eliminado`)
 	})
 };
 
@@ -306,7 +353,7 @@ const crearHTML = (id,order, client, name,type,stock,qty,cF,cD,format,orientatio
 	return container
 };
 
-window.addEventListener("load", e => {
+/*window.addEventListener("load", e => {
 	crearDocFrag(".dbPick","label",`Seleccionar base de datos`)
 	crearDocFragConID(".dbPick","select",`<option>ImprentaDorrego</option><option>Imprenta</option>`,"dbSelector");
 	const dbSelector = document.getElementById("dbSelector");
@@ -330,7 +377,7 @@ window.addEventListener("load", e => {
 
 	})
 })
-
+*/
 const addButton = document.querySelector(".add");
 const newProduct = document.getElementById("product");
 

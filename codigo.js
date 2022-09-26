@@ -178,7 +178,7 @@ class impresora {
 
 const tiposDeTrabajos = ["Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"];
 
-const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anillado','Interior Revista','Afiche','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
+const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anillado','Interior Revista','Afiche','Señalador','Tarjeta','Etiqueta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
 
 const materiales = [
 	Obra_80 = new material("Obra",80,"Boreal",650,950,950,57),
@@ -338,6 +338,8 @@ partes.addEventListener('change',e=>{
 					break;	
 				case 'Tarjeta':  tt = "Sin Encuadernacion";
 					break;	
+				case 'Etiqueta':  tt = "Sin Encuadernacion";
+					break;	
 				case 'Insert':  tt = "Multipagina";
 					break;	
 				case 'Diptico':  tt = "Sin Encuadernacion";
@@ -486,8 +488,7 @@ function informarProducto(prod) {
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
 														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
-													</section>
-													<canvas id="canvas_${nw}" width="400" height="300"></canvas>`,
+													</section>`,
 												"fixedWindow","xy",`resultado_${nw}`);
 	trabajoNuevo.push(prod);
 
@@ -566,10 +567,15 @@ function presentarProducto(prod) {
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
 														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}<br>
-													</section>
-													<canvas id="canvas_${nw}" width="400" height="300"></canvas>
-													<div id="buttons${nw}"><button class="button__ON" id="impo${nw}">Imponer</button></div>`,
+													</section>`,
 												"fixedWindow","xy",`resultado_${nw}`);
+
+/* Esto es para agregar la impo en el cuadro de la parte
+
+<canvas id="canvas_${nw}" width="400" height="300"></canvas>
+<div id="buttons${nw}"><button class="button__ON" id="impo${nw}">Imponer</button></div>
+*/
+
 	//trabajoNuevo.push(prod);
 
 	
@@ -582,9 +588,9 @@ function presentarProducto(prod) {
 
 	let estaVentana = document.getElementById(`resultado_${nw}`);
 
-	const impoBtn = document.getElementById(`impo${nw}`);
+	//const impoBtn = document.getElementById(`impo${nw}`);
 
-	document.getElementById(`impo${nw}`).addEventListener("click", (e, prod)=>{
+	/*document.getElementById(`impo${nw}`).addEventListener("click", (e, prod)=>{
 		e.preventDefault();
 
 		crearDocFragConClase(`#buttons${nw}`,"select",`<option>Elegir formato</option>`,"selFormat","btn",`formatoElegido${nw}`);
@@ -596,7 +602,7 @@ function presentarProducto(prod) {
 	}
 	sf = document.getElementById(`formatoElegido${nw}`);
 		
-	})
+	})*/
 
 	/* estaVentana.addEventListener("click", e=> {
 		e.preventDefault();

@@ -412,6 +412,16 @@ canvas {
 	transition: all .5s ease-out;
 }
 
+.floatWindow li {
+	padding: 5px;
+	border-bottom: 1px solid #59e3ea;
+	list-style: none;
+}
+
+.floatWindow li:hover {
+	color: #59e3ea;
+}
+
 .fixedWindow {
 	position: static;
 	font-family:monospace;
