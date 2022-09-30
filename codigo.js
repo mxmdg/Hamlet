@@ -729,6 +729,10 @@ btnImpose.addEventListener("click",(e)=> {
 				}
 			}
 			dibujarMejorCorte(f.x,f.y,prod.ancho,prod.alto);
+			document.getElementById("xPliego").value = f.x;
+			document.getElementById("yPliego").value = f.y;
+			document.getElementById("xFinal").value = prod.ancho;
+			document.getElementById("yFinal").value = prod.alto;
 			calcularCortePlana(prod.material,f.x,f.y); //retorna poses
 			calcularMejorCorte(f.x,f.y,prod.alto,prod.ancho);//retorna n
 			let resultado = n; //esto es para no reemplazar el retorno "resultado" que viene de la funcion corteFinal. Usamos n para usar la funcion calcularMejorCorte
