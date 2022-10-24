@@ -181,33 +181,34 @@ const tiposDeTrabajos = ["Libro","Revista","Anillado","Sin Encuadernacion","Mult
 const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anillado','Interior Revista','Afiche','Señalador','Tarjeta','Etiqueta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
 
 const materiales = [
-	Obra_80 = new material("Obra",80,"Boreal",650,950,950,57),
-	Obra_80_Prisma = new material("Obra",80,"Prisma",650,950,950,54),
-	Obra_70 = new material("Obra",70,"Boreal",650,950,950,50),
-	Obra_90 = new material("Obra",90,"Boreal",650,950,950,62),
-	Obra_120 = new material("Obra",120,"Boreal",650,950,950,70),
-	Obra_180 = new material("Obra",180,"Boreal",650,950,950,73),
-	Obra_240 = new material("Obra",240,"Chambrill",650,950,950,76),
-	Obra_300 = new material("Obra",300,"Bulk",660,960,960,76),
+	Obra_80 = new material("Obra",80,"Boreal",650,950,950,56),
+	Obra_80_Prisma = new material("Obra",80,"Prisma",650,950,950,49),
+	Obra_70 = new material("Obra",70,"Boreal",650,950,950,47),
+	Obra_90 = new material("Obra",90,"Boreal",650,950,950,60),
+	Obra_120 = new material("Obra",120,"Celulosa",650,950,950,80),
+	Obra_180 = new material("Obra",180,"Boreal",650,950,950,0),
+	Obra_240 = new material("Obra",240,"Chambrill",650,950,950,0),
+	Obra_300 = new material("Obra",300,"Bulk",660,960,960,0),
 	Bookcell_80 = new material("Bookcell",80,"Boreal",650,950,950,60),
 	Bookcell_80_590x900 = new material("Bookcell",80,"Boreal",590,900,590,60),
-	Bookcell_65 = new material("Bookcell",65,"Boreal",650,950,950,54),
-	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,58),
-	IlustMate_120 = new material("Encapado Mate",120,"Suzano",650,950,950,52),
-	IlustMate_150 = new material("Encapado Mate",150,"Suzano",650,950,950,55),
+	Bookcell_65 = new material("Bookcell",65,"Boreal",650,950,950,47),
+	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,57),
+	IlustMate_120 = new material("Encapado Mate",120,"Suzano",650,950,950,55),
+	IlustMate_150 = new material("Encapado Mate",150,"Suzano",650,950,950,62),
 	IlustMate_150_72 = new material("Encapado Mate",150,"DigiArt",720,1020,1020,56),
-	IlustMate_170 = new material("Encapado Mate",170,"Suzano",650,950,950,58),
+	IlustMate_170 = new material("Encapado Mate",170,"Suzano",650,950,950,70),
 	IlustMate_270 = new material("Encapado Mate",270,"Suzano",720,1020,1020,64),
 	IlustMate_300 = new material("Encapado Mate",300,"Suzano",740,1100,1100,64),
 	IlustMate_350 = new material("Encapado Mate",350,"Suzano",650,950,950,67),
 	IlustBrillo_120 = new material("Encapado Brillo",120,"Suzano",650,950,950,52),
-	IlustBrillo_150 = new material("Encapado Brillo",150,"Suzano",650,950,950,55),
-	IlustBrillo_170 = new material("Encapado Brillo",170,"Suzano",650,950,950,58),
-	IlustBrillo_250 = new material("Encapado Brillo",250,"Suzano",650,950,950,61),
-	autoadhesivoIlust = new material("Autoadhesivo Ilustracion",150,"Support",1000,700,700,62),
-	oppBlanco = new material("OPP Blanco",150,"Support",1000,700,700,62),
-	oppTransparente = new material("OPP Transparente",150,"Support",1000,700,700,62),
-	vegetal = new material("Vegetal",90,"",700,500,500,60)
+	IlustBrillo_150 = new material("Encapado Brillo",150,"Suzano",650,950,950,65),
+	IlustBrillo_170 = new material("Encapado Brillo",170,"Creator",650,950,950,76),
+	IlustBrillo_250 = new material("Encapado Brillo",250,"Suzano",650,950,950,0),
+	autoadhesivoIlust = new material("Autoadhesivo Ilustracion",150,"Support",1000,700,700,0),
+	oppBlanco = new material("OPP Blanco",150,"Support",1000,700,700,0),
+	oppTransparente = new material("OPP Transparente",150,"Support",1000,700,700,0),
+	vegetal = new material("Vegetal",90,"",700,500,500,60),
+	cartulina = new material("Cartulina",270,'',700,1000,1000,0)
 ]
 
 
@@ -216,6 +217,7 @@ const impresoras = [
 	nuvera314 = new impresora("Nuvera 314",1,200,490,200,320,314,2),
 	nuvera157 = new impresora("Nuvera 157",1,200,470,200,320,157,2),
 	iGen = new impresora("iGen V",4,200,660,200,360,150,5),
+	iGenBN = new impresora("iGen V - B&N",1,200,660,200,360,150,3),
 	versant80 = new impresora("Versant 80",4,150,488,120,330,80,5),
 	//versant180 = new impresora("Versant 180",4,150,488,120,330,80,5),
 	versant3100 = new impresora("Versant 80",4,150,660,120,330,100,4),
@@ -380,7 +382,7 @@ function validarForm() {
 				max = 315; min = 50; pagMax = 1000; pagMin = 20;
 				break;
 			case "Revista":	
-				max = 315; min = 70; pagMax = 64; pagMin = 4;
+				max = 320; min = 70; pagMax = 68; pagMin = 4;
 				break;
 			case "Anillado":	
 				max = 356; min = 100; pagMax = 900; pagMin = 20;
