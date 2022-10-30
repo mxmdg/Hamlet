@@ -40,6 +40,12 @@ class interior {
 		} return orientacion;
 		}
 
+	impresorasDisponibles() {
+		
+		let impresorasPorFormato = this.printer.filter(impresora => Math.min(this.alto, this.ancho) < Math.min(impresora.xMin, impresora.yMin));
+		console.log(impresorasPorFormato)
+	}
+
 	};
 
 class tapa {
@@ -405,10 +411,10 @@ function validarForm() {
 			tipoTrabajo.classList.add("inputError");
 		} else if (orden.value.length == 0) {
 			error = "Verifique el Nº de Orden"
-			ident.classList.add("inputError");
+			orden.classList.add("inputError");
 		} else if (cliente.value.length == 0) {
 			error = "Ingrese el cliente o razon social"
-			ident.classList.add("inputError");
+			cliente.classList.add("inputError");
 		} else if (ident.value.length == 0) {
 			error = "Ingrese el nombre de la parte o trabajo"
 			ident.classList.add("inputError");

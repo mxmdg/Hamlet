@@ -144,10 +144,14 @@ const renderJobs = (almacen,dataBase)=> {
 						{
 							name: 'alto',
 							hidden: true
-
+      
 						},
   						'orientacion', 
-  						'totalPags'
+  						'totalPags',
+						{
+							name:'fecha y hora',
+							data: (cell)=> cell.fecha.toLocaleDateString() + " " + cell.fecha.toLocaleTimeString()
+						}
   					
   				],
  				data: jobsList,
