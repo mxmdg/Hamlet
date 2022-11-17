@@ -42,7 +42,8 @@ const agregarObjetos = (objeto,almacen,dataBase) => {
 	const idbData = abrirTrans(almacen,dataBase);
 	idbData[1].add(objeto);
 	idbData[0].addEventListener("complete",()=>{
-		console.log(`Objeto agregado`)
+		console.log(`Objeto agregado`);
+		validarIDB(dataBase,almacen);
 	})
 	idbData[0].addEventListener("error", (e)=>{
 		alert(e.target.error.message);
@@ -67,6 +68,7 @@ const renderJobs = (almacen,dataBase)=> {
 			let element = cursor.result.value;
 			
 			jobsList.push(element);
+			console.table(jobsList)
 			cursor.result.continue();
 			i++
 		} else {
@@ -91,7 +93,8 @@ const renderJobs = (almacen,dataBase)=> {
 																		},*/
 									'onclick': () => {
 										const selectedJob = cell;
-										let content = 	`<ul>
+										let content = 	`<h4>${row.cells[3].data}</h4>
+														<ul>
 															<li id='cargarTrabajo'>Cargar Trabajo</li>
 															<li id='presentarTrabajo'>Presentar Trabajo</li>
 															<li id='borrarTrabajo'>Borrar Trabajo</li>
@@ -119,7 +122,13 @@ const renderJobs = (almacen,dataBase)=> {
 																			}
 																		});
 
-									},									
+										document.getElementById(`context_${cell}`).addEventListener('mouseleave', (e) =>{
+											e.preventDefault();
+											document.querySelector('.productList').removeChild(document.getElementById(`context_${cell}`))
+										})
+
+									},
+
 
 									//eliminarObjetos(trabajosDB,'Trabajos',row.cells[2].data),
 									'style': 'cursor: pointer',
@@ -156,13 +165,13 @@ const renderJobs = (almacen,dataBase)=> {
   				],
  				data: jobsList,
   				sort: true,
-  				pagination: {limit: 15},
+  				pagination: {limit: 25},
   				fixedHeader: true,
   				style: { 
     				table: { 
       					'white-space': 'nowrap'
    					 }
- 				 },
+ 				 }
 			}).render(cont);
 		}
 		
@@ -259,7 +268,8 @@ const eliminarObjetos = (dataBase,almacen,key) => {
 	const idbData = abrirTrans(almacen,dataBase);
 	idbData[1].delete(key);
 	idbData[0].addEventListener("complete",()=>{
-		console.log(`Objeto ${key} eliminado`)
+		console.log(`Objeto ${key} eliminado`);
+		validarIDB(dataBase,almacen);
 	})
 };
 
