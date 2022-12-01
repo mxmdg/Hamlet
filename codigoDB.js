@@ -50,9 +50,9 @@ const agregarObjetos = (objeto,almacen,dataBase) => {
 	})
 };
 
-const renderJobs = (almacen,dataBase)=> {
+const  renderJobs = async (almacen,dataBase)=> {
 	const idbData = abrirTrans(almacen,dataBase);
-	const cursor = idbData[1].openCursor();
+	const cursor = await idbData[1].openCursor();
 	let cont = document.querySelector(".productList")
 	cont.innerHTML = ``//'<form><input class="buscador" id="buscador" type="text" placeholder="322">322</form></form>';
 	let i = 0;
@@ -68,7 +68,7 @@ const renderJobs = (almacen,dataBase)=> {
 			let element = cursor.result.value;
 			
 			jobsList.push(element);
-			console.table(jobsList)
+			//console.table(jobsList)
 			cursor.result.continue();
 			i++
 		} else {
@@ -93,7 +93,7 @@ const renderJobs = (almacen,dataBase)=> {
 																		},*/
 									'onclick': () => {
 										const selectedJob = cell;
-										let content = 	`<h4>${row.cells[3].data}</h4>
+										let content = 	`<h4>Nº ${row.cells[0].data}</h4>
 														<ul>
 															<li id='cargarTrabajo'>Cargar Trabajo</li>
 															<li id='presentarTrabajo'>Presentar Trabajo</li>
@@ -165,7 +165,7 @@ const renderJobs = (almacen,dataBase)=> {
   				],
  				data: jobsList,
   				sort: true,
-  				pagination: {limit: 25},
+  				pagination: {limit: 20},
   				fixedHeader: true,
   				style: { 
     				table: { 

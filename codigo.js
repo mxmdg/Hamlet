@@ -184,7 +184,7 @@ class impresora {
 
 const tiposDeTrabajos = ["Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"];
 
-const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anillado','Interior Revista','Afiche','Señalador','Tarjeta','Etiqueta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
+const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anillado','Interior Revista','Hojas sueltas','Afiche','Señalador','Tarjeta','Etiqueta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'];
 
 const materiales = [
 	Obra_80 = new material("Obra",80,"Boreal",650,950,950,56),
@@ -303,7 +303,8 @@ const cargarDatos = (n) => {
 	tipoTrabajo.value = n.tipo;
 	cliente.value = n.cliente;
 	orden.value = n.orden;
-	ident.value = n.nombre;
+	partes.value = n.nombre.split('-')[1].trim();
+	ident.value = n.nombre.split('-')[0];
 	cantidad.value = n.cantidad;
 	coloresFrente.value = n.coloresFrente;
 	coloresDorso.value = n.coloresDorso;
@@ -339,6 +340,8 @@ partes.addEventListener('change',e=>{
 				case 'Interior Anillado':  tt = "Anillado";
 					break;
 				case 'Interior Revista':  tt = "Revista";
+					break;
+					case 'Hojas sueltas':  tt = "Multipagina";
 					break;
 				case 'Afiche':  tt = "Sin Encuadernacion";
 					break;
@@ -428,7 +431,8 @@ function validarForm() {
 			error = `Este tipo de trabajo no puede contener menos de ${pagMin} paginas ni mas de ${pagMax}`
 			pags.classList.add("inputError");
 		} else if (tipoTrabajo.value == "Revista" && ((pags.value % 4) > 0)) {
-			error = "El numero de paginas debe ser multiplo de 4"
+			error = "El numero de paginas debe ser multiplo de 4";
+			pags.classList.add("inputError");
 		} else if (coloresFrente.value < 0 || coloresFrente.value > 7) {
 			error = "Elija 1 color para blanco y negro, 4 para CMYK. Puede añadri hasta 3 colores especiales."
 			coloresFrente.classList.add("inputError");
@@ -498,7 +502,11 @@ function informarProducto(prod) {
 														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
 													</section>`,
 												"fixedWindow","xy",`resultado_${nw}`);
+
+																							
 	trabajoNuevo.push(prod);
+
+
 
 	agregarObjetos(prod,"Trabajos",trabajosDB);
 
