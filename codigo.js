@@ -494,10 +494,13 @@ function informarProducto(prod) {
 													<div class="botonMin" id="btnMin_${nw}">_</div>
 													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
 												</div>
+													<section class="jobOrder">
+														Cantidad: ${prod.cantidad}<br>
+														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
+														Formato: ${prod.formato} ${prod.orientacion}<br>
+													</section>
 													<section class="jobInfo">
 														<br>Lomo: ${prod.lomo}<br>
-														Formato: ${prod.formato} ${prod.orientacion}<br>
-														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
 														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
 													</section>`,
@@ -577,12 +580,11 @@ function presentarProducto(prod) {
 													<div class="botonMin" id="btnMin_${nw}">_</div>
 													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
 												</div>
-													<section>
-														<br>Lomo: ${prod.lomo}<br>
-														Formato: ${prod.formato} ${prod.orientacion}<br>
+													<section class="jobOrder">
+														Cantidad: ${prod.cantidad}<br>
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
-														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
-														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}<br>
+														Formato: ${prod.formato} ${prod.orientacion}<br>
+														colores: ${prod.colores}
 													</section>`,
 												"fixedWindow","xy",`resultado_${nw}`);
 
