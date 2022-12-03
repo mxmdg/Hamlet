@@ -618,14 +618,50 @@ canvas {
 
 @media only print {
 
-	.mainContainer, .productList {
+	.mainContainer, .productList, .button__ON, .botonMin, .botonCerrar, .verdeMin {
 		visibility: hidden;
 	}
 
+	.fixedWindow-title {
+		color: #000;
+		box-shadow: none;
+		border-bottom: 1px solid #000;
+		background: transparent;
+	}
+
+	.fixedWindow {
+		box-shadow: 3px 3px 5px #666;
+		border-radius: 15px;
+		margin-bottom: 5mm;
+	}
+
+	.fixedWindow h4 {
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		color: #000;
+
+	}
+
+	.fixedWindow section {
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		color:#000;
+	}
+
 	.secContainer {
-		max-width: 100%;
+		width: 200mm;
 		max-height: fit-content;
 		overflow: visible;
 		grid-column: 1;
+		flex-direction: column-reverse;
+		justify-content: flex-end;
+		margin: 10mm;
+		padding: 5mm;
+		border: 1px solid black;
 	}
+
+	#contCanvas .info {
+		padding: 20px;
+		color: #000;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	}
+
 }

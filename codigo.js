@@ -581,7 +581,8 @@ function presentarProducto(prod) {
 													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
 												</div>
 													<section class="jobOrder">
-														Cantidad: ${prod.cantidad}<br>
+														Cantidad: <b>${prod.cantidad}</b><br>
+														Paginas: <b>${prod.pags}</b><br>
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Formato: ${prod.formato} ${prod.orientacion}<br>
 														colores: ${prod.colores}
