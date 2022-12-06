@@ -589,6 +589,16 @@ function presentarProducto(prod) {
 													</section>`,
 												"fixedWindow","xy",`resultado_${nw}`);
 
+	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="observaciones_${nw}">
+												<h4>Observaciones</h4>
+												<div class="botonMin" id="btnMin_${nw+100}">_</div>
+												<div class="botonCerrar" id="btnCierre_${nw+100}">X</div>
+											</div>
+												<form>
+													<textarea class='obs'></textarea>
+												</form>`,
+											"fixedWindow","xy",`resultado_${nw+100}`);											
+
 /* Esto es para agregar la impo en el cuadro de la parte
 
 <canvas id="canvas_${nw}" width="400" height="300"></canvas>
@@ -606,6 +616,14 @@ function presentarProducto(prod) {
 	let clickParaMin = document.getElementById(`btnMin_${nw}`); 
 
 	let estaVentana = document.getElementById(`resultado_${nw}`);
+
+	//---------Duplicado para ventana observaciones
+
+	let clickParaCerrar2 = document.getElementById(`btnCierre_${nw+100}`); 
+
+	let clickParaMin2 = document.getElementById(`btnMin_${nw+100}`); 
+
+	let estaVentana2 = document.getElementById(`resultado_${nw+100}`);
 
 	//const impoBtn = document.getElementById(`impo${nw}`);
 
@@ -663,9 +681,46 @@ function presentarProducto(prod) {
 
 			trabajoNuevo.splice((num - 1), 1);
 		}
+
 		
 	});	
 
+	//-----------Duplicado para ventana observaciones
+
+	clickParaMin2.addEventListener("click",(e)=> {
+
+		let minBtn = e.target;
+		let ventana = minBtn.parentElement.parentElement;
+
+
+		if (ventana.classList.contains("verdeMin")) {
+			ventana.classList.remove("verdeMin");
+			minBtn.innerHTML = "-";
+			
+		} else {
+			ventana.classList.add("verdeMin")
+			minBtn.innerHTML = "+";
+		}
+
+	})
+
+
+	clickParaCerrar2.addEventListener("click", () => {
+		if (clickParaCerrar2.getAttribute("id") === "contCanvas") {
+			alert("You can't close this window");
+		} else {
+			removeGrandParent(clickParaCerrar2)
+			let num = (clickParaCerrar2.getAttribute("id").substring(10));
+
+			console.log(num);
+
+
+			trabajoNuevo.splice((num - 1), 1);
+		}
+		
+	});
+
+	
 
 };
 
