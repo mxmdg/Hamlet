@@ -260,9 +260,9 @@ window.addEventListener("load",(e)=>{
 		crearDocFrag("#Partes","Option",`${tipo}`);
 	};
 
-	/*for (pro of procesosTerminacion) {
+	for (pro of procesosTerminacion) {
 		crearDocFrag(".terminacion", "div",`<input type="checkbox" id="${pro.proceso}"><p>${pro.proceso}</p>`);
-	};*/
+	};
 	
 	let arroyo = ()=> {
     let resultado = leerObjeto("Trabajos",trabajosDB);
@@ -376,7 +376,7 @@ orden.addEventListener('change', e => {
 		if (j.orden == orden.value) {
 			console.log(j)
 			console.log(orden.value)
-			cargarDatos(j);
+			presentarProducto(j);
 		};
 	};
 });
@@ -590,12 +590,15 @@ function presentarProducto(prod) {
 												"fixedWindow","xy",`resultado_${nw}`);
 
 	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="observaciones_${nw}">
-												<h4>Observaciones</h4>
+													<h4>${prod.orden} - ${prod.cliente}</h4><p>${prod.fecha.toLocaleDateString()}</p>
 												<div class="botonMin" id="btnMin_${nw+100}">_</div>
 												<div class="botonCerrar" id="btnCierre_${nw+100}">X</div>
 											</div>
+												<section>
+													
+												</section>
 												<form>
-													<textarea class='obs'></textarea>
+													<textarea class='obs' placeholder='Observaciones'></textarea>
 												</form>`,
 											"fixedWindow","xy",`resultado_${nw+100}`);											
 

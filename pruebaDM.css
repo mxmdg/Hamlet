@@ -661,13 +661,13 @@ canvas {
 	}
 
 	.secContainer {
-		width: 200mm;
-		height: 287mm;
+		width: 210mm;
+		height: 297mm;
 		overflow: hidden;
 		grid-column: 1;
 		flex-direction: column-reverse;
 		justify-content: flex-end;
-		margin: 10mm;
+		margin: 5mm;
 		padding: 5mm;
 		border: 1px solid black;
 	}
