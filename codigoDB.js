@@ -5,7 +5,7 @@ if (!window.indexedDB) {
 }
 
 let trabajosDB = window.indexedDB.open("ImprentaDorrego",1);
-let jobsDB = window.indexedDB.open("Gutenberg",1);
+let jobsDB = window.indexedDB.open("Imprenta",1);
 
 
 // CRUD = create, read, update, delete
@@ -23,8 +23,8 @@ const validarIDB = (dataBase,store) => {
 		renderJobs(store,dataBase);
 	});
 
-	dataBase.addEventListener("error",()=>{
-		console.log(`ERROR con la base de datos ${dataBase}`);
+	dataBase.addEventListener("error",(e)=>{
+		console.log(`ERROR ${e} con la base de datos ${dataBase}`);
 	});
 }
 
@@ -75,7 +75,23 @@ const  renderJobs = async (almacen,dataBase)=> {
 			
 			console.log("Estos son todos los datos de renderJobs");
 			new gridjs.Grid({
- 				search: true,  
+ 				search: true,
+				language: {
+					'search': {
+					  'placeholder': '🔍 Buscar'
+					},
+					'pagination': {
+					  'previous': '◀',
+					  'next': '▶',
+					  'showing': 'Mostrando',
+					  'results': () => 'Trabajos',
+					  'of': 'de',
+					  'to': 'al',
+					  'results': 'resultados',
+					  navigate: (page, pages) => `Página ${page} de ${pages}`,
+   						page: (page) => `Página ${page}`,
+					}
+				 },  
   				columns: [
 						'orden',
   						'cliente',
@@ -171,7 +187,10 @@ const  renderJobs = async (almacen,dataBase)=> {
     				table: { 
       					'white-space': 'nowrap'
    					 }
- 				 }
+ 				 },
+				  loading: 'Cargando...',
+				  noRecordsFound: 'No se encontraron registros',
+				  error: 'Ha ocurrido un error al carga la aplicación...', 
 			}).render(cont);
 		}
 		

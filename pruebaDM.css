@@ -178,11 +178,16 @@ div.terminacion{
 	transition: border 1s;
 }
 
-.formulario input:focus, .formulario select:focus, input.gridjs-input:focus {
-	color: #59e3ea;
+.formulario input:focus, .formulario select:focus, input.gridjs-input:focus, .gridjs-search-input {
+	color: #000;
 	border: 1px solid #59e3ea;
-	background: #444;
+	background: #39a;
 }
+
+.gridjs-search-input::placeholder{
+	color: #ccc;
+}
+
 .formulario label {
 	padding: 0 5px;
 	font-size: 12px;
@@ -467,8 +472,7 @@ canvas {
 .obs {
 	width: 100%;
 	margin: auto;
-	height:fit-content;
-	min-height: 160px;
+	min-height: fit-content;
 	max-height: 300px;
 	padding:15px;
 	background-color: #222;
@@ -476,6 +480,38 @@ canvas {
 	font-family: 'Courier New', Courier, monospace;
 	font-size: 1em;
 	align-self: center;
+}
+
+.modal{
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background: #000000cc;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+.jobEditor{
+	font-family:monospace;
+	font-weight: 300;
+	font-size: 15px;
+	color: #ddd;
+	background: #444;
+	line-height: 20px;
+	padding: 15px;
+	width: fit-content;
+	height: fit-content;
+	background: #323232;
+	border: 1px solid #59e3ea;
+	border-radius: 0px 15px 15px 15px;
+	box-shadow: 7px 7px 10px #000;
+	margin:auto;
+	transition: all .5s ease-out;
+}
+
+.obs textarea {
+	height: fit-content;
 }
 
 .hidden {
@@ -691,6 +727,10 @@ canvas {
 		border: none;
 		overflow: hidden;
 
+	}
+
+	.obs textarea{
+		height: fit-content;
 	}
 
 }
