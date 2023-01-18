@@ -125,15 +125,7 @@ class formato {
 	}
 };
 
-class ordenDeTrabajo {
-	constructor(Number,Customer,Job,Parts){
-		this.Number = Number;
-		this.Customer = Customer;
-		this.Job = Job;
-		this.Parts = Parts;
-		
-	}
-}
+
 
 const formatos = [
 	a3 = new formato("A3",420,297),
@@ -354,38 +346,6 @@ materialSeleccionado.addEventListener("change",(e)=>{
 
 });
 
-const jobEditor = (n) => {
-	let contenido = `
-	<div class="jobEditor">
-		<div>
-			<h3>Orden: ${n.orden}</h3>
-			<table>
-				<thead>
-					<th>
-						<h3>Propiedad</h3>
-					</th>
-					<th>
-						<h3>Valor</h3>
-					</th>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Nombre</td>
-						<td>${n.nombre}</td>
-					</tr>
-					<tr>
-						<td>Edad</td>
-						<td>45</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-`
-	crearDocFragConClase('.body','DIV',contenido,'modal','nada',`jobEditor_${n.Key}`);
-
-}
-
 partes.addEventListener('change',e=>{
 			let tt = 'Tipo de Producto'
 			switch(partes.value) { //'Interior Binder','Tapa','Interior Cosido','Interior Revista','Afiche','Señalador','Tarjeta','Insert','Diptico','Triptico','Folleto','Cubierta','Guardas'
@@ -438,20 +398,6 @@ orden.addEventListener('change', e => {
 		};
 	};
 });
-
-const newOrder = (Num)=>{
-	let o = []
-	for (let j of savedJobs) {
-		if (j.orden == Num) {
-			o.push(j);
-		};
-	};
-	const OT = new ordenDeTrabajo(o[0].orden,o[0].cliente,o[0].nombre.split(' - ')[0],o);
-	console.table(OT);
-	return OT
-}
-
-console.log(newOrder);
 
 function validarForm() {
 		let error
@@ -637,7 +583,7 @@ function informarProducto(prod) {
 		
 	});	
 
-	
+	renderJobs("Trabajos", trabajosDB);
 
 };
 
@@ -908,7 +854,8 @@ btnImpose.addEventListener("click",(e)=> {
 
 		dibujar();
 
-		//renderJobs("Trabajos", trabajosDB);
+		
+		
 		
 	})
 
