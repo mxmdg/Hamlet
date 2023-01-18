@@ -7,7 +7,8 @@
 td.gridjs-td{
 	background-color: #222;
 	border: 1px solid #666;
-	padding: 9px;
+	padding: 5px;
+	overflow: hidden;
 }
 
 th.gridjs-th {
@@ -150,7 +151,7 @@ div.terminacion{
 	color: #eee;
 	border: 1px solid #ddd;
 	border-radius: 5px;
-	box-shadow: 3px 3px 0px #000;
+	box-shadow: 10px 15px 20px #000;;
 	margin-bottom: 25px;
 }
 
@@ -247,16 +248,20 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 
 /* -------------------- CRUD - start------------------ */
 
-.productList{
+.jobList{
+	position: absolute;
+	bottom: 0;
 	display: inline;
 	height: 100vh;
 	overflow-y: scroll;
 	padding: 20px;
 	height: 100vh;
-	overflow-y: scroll;
+	width: 100vw;
+	overflow: hidden;
 	grid-column: 3 / span 1;
 	grid-row: 1 / span 1;
 	background: #444;
+	transition: height 1.5s ease-out;
 }
 
 .productList.button {
@@ -284,7 +289,7 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 	padding: 5px;
 	border: 1px solid #999;
 	height: 30px;
-	transition: border 1s, box-shadow .3s, background .5s;
+	transition: border 1s, box-shadow .3s;
 }
 
 .addProducts button:focus,.addProducts button:active, input:focus {
@@ -535,7 +540,7 @@ canvas {
 	height: 500px;
 	overflow: hidden;
 	transition: box-shadow .5s;
-	transition: height .3s ease-in, color .5s ease-in, width .3s ease-in;
+	transition: all .5s ease-in;
 }
 
 .violeta {
@@ -555,6 +560,7 @@ canvas {
 	color: #000;
 	height: 35px;
 	overflow: hidden;
+	padding: 0;
 	transition: all .5s ease-in;
 	
 }
@@ -640,13 +646,16 @@ canvas {
 	body {
 			display: flex;
 			flex-direction: column;
+			width: 100vw;
 			min-width: 300px;
 	}
 	.mainContainer{
 		padding: 20px;
+		width: 100vw;
 		min-width: 300px;
+		overflow: auto;
 	}
-	.productList {
+	.jobList {
 		background: #ddd;
 		min-width: 300px;
 		display: block;

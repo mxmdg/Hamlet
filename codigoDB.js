@@ -59,11 +59,8 @@ const  renderJobs = async (almacen,dataBase)=> {
 
 	let jobsList = [];
 
-
 	cursor.addEventListener("success",()=>{
 
-	
-		
 		if (cursor.result) {
 			let element = cursor.result.value;
 			
@@ -131,7 +128,7 @@ const  renderJobs = async (almacen,dataBase)=> {
 																						removeGrandParent(presentarTrabajo);
 																						});
 
-										document.getElementById('borrarTrabajo').addEventListener('click', () =>{if (window.confirm(`Seguro queres eliminar "${row.cells[3].data}"" de la base de datos`) == true) {
+										document.getElementById('borrarTrabajo').addEventListener('click', () =>{if (window.confirm(`Seguro queres eliminar "${row.cells[3].data}" de la base de datos`) == true) {
 																				eliminarObjetos(trabajosDB,'Trabajos', cell);
 																				removeGrandParent(cargarTrabajo)
 																				//document.querySelector(".productList").removeChild(container);
@@ -144,14 +141,10 @@ const  renderJobs = async (almacen,dataBase)=> {
 										})
 
 									},
-
-
-									//eliminarObjetos(trabajosDB,'Trabajos',row.cells[2].data),
 									'style': 'cursor: pointer',
 								  };
 								}
 							  },
-							//data: 'Borrar'
 						},
 						'nombre',
   						'tipo', 
@@ -181,7 +174,7 @@ const  renderJobs = async (almacen,dataBase)=> {
   				],
  				data: jobsList,
   				sort: true,
-  				pagination: {limit: 20},
+  				pagination: {limit: (Math.floor((window.innerHeight - 50) / 50))},
   				fixedHeader: true,
   				style: { 
     				table: { 

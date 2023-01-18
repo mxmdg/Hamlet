@@ -283,6 +283,24 @@ window.addEventListener("load",(e)=>{
 
 	setTimeout(arroyo,2500)
 
+	prodListMin.addEventListener("click",(e)=> {
+		console.log(`Click en ${e.target}`)
+
+		let minBtn = e.target;
+		let ventana = minBtn.parentElement.parentElement;
+
+
+		if (ventana.classList.contains("verdeMin")) {
+			ventana.classList.remove("verdeMin");
+			minBtn.innerHTML = "ᐯ";
+			
+		} else {
+			ventana.classList.add("verdeMin")
+			minBtn.innerHTML = "ᐱ";
+		}
+
+	})
+
 
 	//resultado.catch(err=> alert(err));
 
@@ -304,8 +322,8 @@ const alto = document.getElementById("alto");
 const ancho = document.getElementById("ancho");
 const pags = document.getElementById("paginas");
 const materialSeleccionado = document.getElementById("material");
+const prodListMin = document.getElementById("prodListMin");
 let papelElegido
-
 
 const cargarDatos = (n) => {
 	tipoTrabajo.value = n.tipo;
@@ -604,7 +622,6 @@ function informarProducto(prod) {
 
 	})
 
-
 	clickParaCerrar.addEventListener("click", () => {
 		if (clickParaCerrar.getAttribute("id") === "contCanvas") {
 			alert("You can't close this window");
@@ -741,6 +758,8 @@ function presentarProducto(prod) {
 
 		
 	});	
+
+	
 
 	//-----------Duplicado para ventana observaciones
 
@@ -1287,7 +1306,7 @@ const test = (prod)=>{
 
 };
 
-const getItemByKey = (keyNumber,store,db)=> {
+const getItemByKey = async (keyNumber,store,db)=> {
 	const arr = leerObjeto(store,db);
 	return arr
 };
