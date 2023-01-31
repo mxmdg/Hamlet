@@ -82,8 +82,10 @@ th.gridjs-th:hover  {
 }
 
 .secContainer{ 
-	display: inline-flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 350px));;
+	grid-auto-flow: dense;
+	gap: 5px;
 	background: #333;
 	height: 100vh;
 	grid-column: 2 / span 1;
@@ -91,6 +93,11 @@ th.gridjs-th:hover  {
 	min-width: 700px;
 	max-height: 100%;
 	overflow-x: scroll;
+}
+
+#contCanvas {
+	grid-column: span 2;
+	grid-row: span 2;
 }
 
 .impresion {
@@ -428,7 +435,7 @@ canvas {
 }
 
 .fixedWindow {
-	position: static;
+	column-span: 2 / span 3;
 	font-family:monospace;
 	font-weight: 300;
 	font-size: 15px;
@@ -465,8 +472,9 @@ canvas {
 	color: #39a;
 }
 
-.fixedWindow h4 {
+.fixedWindow h4, .fixedWindow h5 {
 	width: 100%;
+	margin: 10px;
 }
 
 .obs {
@@ -653,12 +661,13 @@ canvas {
 	}
 
 	.fixedWindow {
+		width: 90%;
 		box-shadow: 3px 3px 5px #666;
 		border-radius: 15px;
 		margin-bottom: 5mm;
 	}
 
-	.fixedWindow h4 {
+	.fixedWindow h4, .fixedWindow h5 {
 		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 		color: #000;
 

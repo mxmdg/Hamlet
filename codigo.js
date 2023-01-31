@@ -593,31 +593,24 @@ function presentarProducto(prod) {
 	this.prod = prod	
 	
 	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="arrastre_${nw}">
-													<h4>${prod.orden} - ${prod.cliente} - ${prod.nombre}</h4>
+													<h4>${prod.orden} - ${prod.cliente}</h4>
 													<div class="botonMin" id="btnMin_${nw}">_</div>
 													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
 												</div>
+													<h4>${prod.nombre}</h4>
 													<section class="jobOrder">
 														Cantidad: <b>${prod.cantidad}</b><br>
 														Paginas: <b>${prod.pags}</b><br>
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Formato: ${prod.formato} ${prod.orientacion}<br>
 														colores: ${prod.colores}
-													</section>`,
-												"fixedWindow","xy",`resultado_${nw}`);
-
-	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="observaciones_${nw}">
-													<h4>${prod.orden} - ${prod.cliente}</h4><p>${prod.fecha.toLocaleDateString()}</p>
-												<div class="botonMin" id="btnMin_${nw+100}">_</div>
-												<div class="botonCerrar" id="btnCierre_${nw+100}">X</div>
-											</div>
-												<section>
-													
-												</section>
-												<form>
+													</section>
+													<form>
 													<textarea class='obs' placeholder='Observaciones'></textarea>
 												</form>`,
-											"fixedWindow","xy",`resultado_${nw+100}`);											
+												"fixedWindow","xy",`resultado_${nw}`);
+
+											
 
 /* Esto es para agregar la impo en el cuadro de la parte
 
@@ -639,11 +632,11 @@ function presentarProducto(prod) {
 
 	//---------Duplicado para ventana observaciones
 
-	let clickParaCerrar2 = document.getElementById(`btnCierre_${nw+100}`); 
+	// let clickParaCerrar2 = document.getElementById(`btnCierre_${nw+100}`); 
 
-	let clickParaMin2 = document.getElementById(`btnMin_${nw+100}`); 
+	// let clickParaMin2 = document.getElementById(`btnMin_${nw+100}`); 
 
-	let estaVentana2 = document.getElementById(`resultado_${nw+100}`);
+	// let estaVentana2 = document.getElementById(`resultado_${nw+100}`);
 
 	//const impoBtn = document.getElementById(`impo${nw}`);
 
@@ -709,38 +702,38 @@ function presentarProducto(prod) {
 
 	//-----------Duplicado para ventana observaciones
 
-	clickParaMin2.addEventListener("click",(e)=> {
+	// clickParaMin2.addEventListener("click",(e)=> {
 
-		let minBtn = e.target;
-		let ventana = minBtn.parentElement.parentElement;
+	// 	let minBtn = e.target;
+	// 	let ventana = minBtn.parentElement.parentElement;
 
 
-		if (ventana.classList.contains("verdeMin")) {
-			ventana.classList.remove("verdeMin");
-			minBtn.innerHTML = "-";
+	// 	if (ventana.classList.contains("verdeMin")) {
+	// 		ventana.classList.remove("verdeMin");
+	// 		minBtn.innerHTML = "-";
 			
-		} else {
-			ventana.classList.add("verdeMin")
-			minBtn.innerHTML = "+";
-		}
+	// 	} else {
+	// 		ventana.classList.add("verdeMin")
+	// 		minBtn.innerHTML = "+";
+	// 	}
 
-	})
-
-
-	clickParaCerrar2.addEventListener("click", () => {
-		if (clickParaCerrar2.getAttribute("id") === "contCanvas") {
-			alert("You can't close this window");
-		} else {
-			removeGrandParent(clickParaCerrar2)
-			let num = (clickParaCerrar2.getAttribute("id").substring(10));
-
-			console.log(num);
+	// })
 
 
-			trabajoNuevo.splice((num - 1), 1);
-		}
+	// clickParaCerrar2.addEventListener("click", () => {
+	// 	if (clickParaCerrar2.getAttribute("id") === "contCanvas") {
+	// 		alert("You can't close this window");
+	// 	} else {
+	// 		removeGrandParent(clickParaCerrar2)
+	// 		let num = (clickParaCerrar2.getAttribute("id").substring(10));
+
+	// 		console.log(num);
+
+
+	// 		trabajoNuevo.splice((num - 1), 1);
+	// 	}
 		
-	});
+	// });
 
 	
 
