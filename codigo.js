@@ -130,9 +130,13 @@ class formato {
 const formatos = [
 	a3 = new formato("A3",420,297),
 	a4 = new formato("A4",297,210),
+	a5 = new formato("A5",148,210),
 	carta = new formato("Carta",279.4,215.9),
 	oficio = new formato("Oficio",215.9,355.6),
 	tabloide = new formato("Tabloide",431.8,279.4),
+	minimo = new formato('Minimo', 170,100),
+	minNuvera = new formato('ID_199x204',199,204),
+	minIgen = new formato('ID_180x180',180,180),
 	iD_488x330 = new formato("488x330",488,330),
 	iD_648x230 = new formato("648x230",648,230),
 	iD_360x290 = new formato("360x290",360,290),
@@ -220,13 +224,13 @@ const materiales = [
 
 
 const impresoras = [
-	nuvera314 = new impresora("Nuvera 314",1,200,490,200,320,314,2),
-	nuvera157 = new impresora("Nuvera 157",1,200,470,200,320,157,2),
-	iGen = new impresora("iGen V",4,200,660,200,360,150,5),
-	iGenBN = new impresora("iGen V - B&N",1,200,660,200,360,150,3),
-	versant80 = new impresora("Versant 80",4,150,488,120,330,80,5),
+	nuvera314 = new impresora("Nuvera 314",1,198,490,203,320,314,2),
+	nuvera157 = new impresora("Nuvera 157",1,198,470,203,320,157,2),
+	iGen = new impresora("iGen V",4,178,660,178,364,150,5),
+	iGenBN = new impresora("iGen V - B&N",1,178,660,178,364,150,3),
+	versant80 = new impresora("Versant 80",4,146,660,98,330,80,5),
 	//versant180 = new impresora("Versant 180",4,150,488,120,330,80,5),
-	versant3100 = new impresora("Versant 80",4,150,660,120,330,100,4),
+	versant3100 = new impresora("Versant 3100",4,146,660,98,330,100,4),
 ]
 
 
@@ -406,7 +410,7 @@ function validarForm() {
 
 		switch(tipoTrabajo.value) { //"Libro","Revista","Anillado","Sin Encuadernacion","Multipagina","Cosido a Hilo"
 			case "Libro" :
-				max = 315; min = 50; pagMax = 1000; pagMin = 20;
+				max = 356; min = 50; pagMax = 1000; pagMin = 20;
 				break;
 			case "Revista":	
 				max = 320; min = 70; pagMax = 68; pagMin = 4;
@@ -773,17 +777,21 @@ const btnImpose = document.getElementById("impose");
 
 btnImpose.addEventListener("click",(e)=> {
 	e.preventDefault();
-	prod = new interior(orden.value,
-		cliente.value,
-		ident.value, 
-		tipoTrabajo.value,
-		parseInt(cantidad.value),
-		parseInt(alto.value),
-		parseInt(ancho.value),
-		parseInt(pags.value),
-		parseInt(coloresFrente.value),
-		parseInt(coloresDorso.value),
-		papelElegido);
+	try {
+		prod = new interior(orden.value,
+			cliente.value,
+			ident.value, 
+			tipoTrabajo.value,
+			parseInt(cantidad.value),
+			parseInt(alto.value),
+			parseInt(ancho.value),
+			parseInt(pags.value),
+			parseInt(coloresFrente.value),
+			parseInt(coloresDorso.value),
+			papelElegido);
+	} catch (e) {
+		alert(e)
+	}
 
 
 	replaceDocFragConClase(".formulario","select",`<option>Elegir formato</option>`,"selFormat","btn","formatoElegido")
@@ -832,7 +840,7 @@ btnImpose.addEventListener("click",(e)=> {
 
 			//console.log(`f.x: ${f.x} - f.y: ${f.y}`)
 
-   			//replaceDocFragConClase("#contCanvas","div",("Lomo: " + prod.lomo + " Ancho de Tapa: " + prod.anchoDeTapaSinSolapas + " - Con Solapas: " + prod.anchoDeTapaConSolapas),"info","data","infoData");
+   			// replaceDocFragConClase("#contCanvas","div",("Lomo: " + prod.lomo + " Ancho de Tapa: " + prod.anchoDeTapaSinSolapas + " - Con Solapas: " + prod.anchoDeTapaConSolapas),"info","data","infoData");
    			if (resultado == 0) {
    				//console.log("No entra, la puta madre")
    				replaceDocFragConClase("#contCanvas","div",(`${prod.nombre} no cabe en ${f.nombre}`),"info","resultados","infoResult");

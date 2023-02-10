@@ -79,6 +79,7 @@ th.gridjs-th:hover  {
 	object-fit: contain;
 	align-items: flex-start;
 	justify-items: flex-end;
+	overflow: scroll;
 }
 
 .secContainer{ 
@@ -86,7 +87,7 @@ th.gridjs-th:hover  {
 	grid-template-columns: repeat(auto-fill, minmax(200px, 350px));;
 	grid-auto-flow: dense;
 	gap: 5px;
-	background: #333;
+	background: url("fondo-2.jpg"), #333 ;
 	height: 100vh;
 	grid-column: 2 / span 1;
 	grid-row: 1 / span 2;
@@ -144,7 +145,6 @@ div.terminacion{
 
 
 .button__ON, .button__OFF {
-	color: green;
 	padding: 10px;
 	margin-top: 10px;
 	margin-left: 10%;
@@ -154,7 +154,7 @@ div.terminacion{
 }
 
 .button__ON {
-	background: #444;
+	background: #44444422;
 	color: #eee;
 	border: 1px solid #ddd;
 	border-radius: 5px;
@@ -171,13 +171,13 @@ div.terminacion{
 .button__ON:hover{
 	color: #59e3ea;
 	border: 1px solid #59e3ea;
-	background-color: #222;
+	background-color: #22222233;
 	box-shadow: 1px 1px 0.3px #000;
 }
 
 .formulario input, .formulario select, input.gridjs-input {
 	color: #eee;
-	background: #555;
+	background: #55555533;
 	border: 1px solid #222;
 	border-radius: 5px;
 	height: 35px;
@@ -262,8 +262,8 @@ input#paginas.inputError, input#cantidad.inputError, input#coloresFrente.inputEr
 	overflow: hidden;
 	grid-column: 3 / span 1;
 	grid-row: 1 / span 1;
-	background: #444;
-	transition: height 1.5s ease-out;
+	background: url(fondo-2.jpg);
+	transition: 0.5s ease-out;
 }
 
 .productList.button {
@@ -435,26 +435,26 @@ canvas {
 }
 
 .fixedWindow {
+	transition: all .5s ease-out;
 	column-span: 2 / span 3;
 	font-family:monospace;
 	font-weight: 300;
 	font-size: 15px;
 	color: #ddd;
-	background: #444;
+	background: #00000044;
 	line-height: 20px;
 	padding: 0px;
 	width: 100%;
 	height: fit-content;
-	background: #323232;
-	border: 1px solid #777;
-	box-shadow: 7px 7px 10px #000;
-	transition: all .5s ease-out;
+	border: 0px;
+	box-shadow: 3px 3px 10px #222;
+	
 }
 
 .fixedWindow-title{
 	display: flex;
 	justify-content: flex-end;
-	align-items: center;
+	align-items: flex-start;
 	background-color: #00000044;
 	box-shadow: 0px 2px 4px #000;
 	font-weight: 600;
@@ -484,11 +484,12 @@ canvas {
 	min-height: 160px;
 	max-height: 300px;
 	padding:15px;
-	background-color: #222;
+	background: transparent;
 	color:#59e3ea;
 	font-family: 'Courier New', Courier, monospace;
 	font-size: 1em;
 	align-self: center;
+	border: 0;
 }
 
 .hidden {
@@ -529,11 +530,11 @@ canvas {
 }
 
 .verdeMin {
+	transition: all .5s ease-out;
 	color: #000;
 	height: 35px;
 	overflow: hidden;
 	padding: 0;
-	transition: all .5s ease-in;
 	
 }
 
@@ -565,7 +566,7 @@ canvas {
 	cursor: move;
 }
 
-.botonCerrar {
+/* .botonCerrar {
 	padding: 2px;
 	margin: 2px;
 	width: 25px;
@@ -575,6 +576,19 @@ canvas {
 	color:  #913;
 	font-size: 0.7em;
 	background: transparent;
+	text-align: center;
+	user-select: none;
+} */
+
+.botonCerrar {
+	padding: 2px;
+	margin: 5px;
+	width: 20px;
+	height: 18px;
+	background: #913;
+	border-radius: 50%;
+	color:  #000;
+	font-size: 0.7em;
 	text-align: center;
 	user-select: none;
 }
@@ -587,14 +601,13 @@ canvas {
 
 .botonMin {
 	padding: 2px;
-	margin: 2px;
-	width: 25px;
-	height: 80%;
-	border-bottom: 1px solid #393;
-	border-right: 1px solid #393;
-	color: #393;
+	margin: 5px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	color: #000;
 	font-size: 0.7em;
-	background: transparent;
+	background: #393;
 	text-align: center;
 	box-shadow: 3px 3px 2px #00000066;
 	user-select: none;
@@ -661,10 +674,12 @@ canvas {
 	}
 
 	.fixedWindow {
-		width: 90%;
+		grid-template-columns: 1fr 1fr 1fr;
+		width: 180mm;
 		box-shadow: 3px 3px 5px #666;
 		border-radius: 15px;
 		margin-bottom: 5mm;
+		overflow: hidden;
 	}
 
 	.fixedWindow h4, .fixedWindow h5 {
