@@ -59,10 +59,10 @@ const  renderJobs = async (almacen,dataBase)=> {
 
 	let jobsList = [];
 
-	cursor.addEventListener("success",()=>{
+	cursor.addEventListener("success", async ()=>{
 
 		if (cursor.result) {
-			let element = cursor.result.value;
+			let element = await cursor.result.value;
 			
 			jobsList.push(element);
 			//console.table(jobsList)

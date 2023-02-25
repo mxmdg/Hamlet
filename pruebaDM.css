@@ -163,9 +163,11 @@ div.terminacion{
 }
 
 .button__OFF {
-	background: #666;
-	color: #333;
-	box-shadow: 0px 0px 0px #000;
+	background: #44444422;
+	color: #666;
+	border: 1px solid #666;
+	border-radius: 5px;
+	margin-bottom: 25px;
 
 }
 .button__ON:hover{
@@ -177,7 +179,7 @@ div.terminacion{
 
 .formulario input, .formulario select, input.gridjs-input {
 	color: #eee;
-	background: #55555533;
+	background: #55555588;
 	border: 1px solid #222;
 	border-radius: 5px;
 	height: 35px;
@@ -194,7 +196,7 @@ div.terminacion{
 .formulario label {
 	padding: 0 5px;
 	font-size: 12px;
-	color: #999;
+	color: #aaa;
 	margin-left: 20%;
 	margin-bottom: 2px;
 	
