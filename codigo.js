@@ -192,6 +192,7 @@ const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anil
 
 const materiales = [
 	Obra_80 = new material("Obra",80,"Boreal",650,950,950,56),
+	Obra_80_720x1020 = new material("Obra",80,"Boreal",720,1020,1020,56),
 	Obra_80_Prisma = new material("Obra",80,"Prisma",650,950,950,49),
 	Obra_70 = new material("Obra",70,"Boreal",650,950,950,47),
 	Obra_90 = new material("Obra",90,"Boreal",650,950,950,60),
@@ -201,11 +202,13 @@ const materiales = [
 	Obra_300 = new material("Obra",300,"Bulk",660,960,960,0),
 	Bookcell_80 = new material("Bookcell",80,"Boreal",650,950,950,60),
 	Bookcell_80_590x900 = new material("Bookcell",80,"Boreal",590,900,590,60),
+	Bookcell_80_720x1020 = new material("Bookcell",80,"Boreal",720,1020,1020,60),
 	Bookcell_65 = new material("Bookcell",65,"Boreal",650,950,950,47),
 	Nat_75 = new material("Nature",75,"Ledesma",650,950,950,57),
 	IlustMate_120 = new material("Encapado Mate",120,"Suzano",650,950,950,55),
+	IlustMate_120_720x1020 = new material("Encapado Mate",120,"Suzano",720,1020,1020,55),
 	IlustMate_150 = new material("Encapado Mate",150,"Suzano",650,950,950,62),
-	IlustMate_150_72 = new material("Encapado Mate",150,"DigiArt",720,1020,1020,56),
+	IlustMate_150_720x1020 = new material("Encapado Mate",150,"DigiArt",720,1020,1020,56),
 	IlustMate_170 = new material("Encapado Mate",170,"Suzano",650,950,950,70),
 	IlustMate_270 = new material("Encapado Mate",270,"Suzano",720,1020,1020,64),
 	IlustMate_300 = new material("Encapado Mate",300,"Suzano",740,1100,1100,64),
@@ -275,7 +278,7 @@ window.addEventListener("load",(e)=>{
         savedJobs = r;
         });
     resultado.catch(err => alert(err))
-	}
+	} 
 
 	setTimeout(arroyo,2500)
 
@@ -416,7 +419,7 @@ function validarForm() {
 				max = 320; min = 70; pagMax = 68; pagMin = 4;
 				break;
 			case "Anillado":	
-				max = 356; min = 100; pagMax = 900; pagMin = 20;
+				max = 356; min = 100; pagMax = 1000; pagMin = 20;
 				break;
 			case "Sin Encuadernacion":	
 				max = 650; min = 20; pagMax = 999999; pagMin = 1;
@@ -425,7 +428,7 @@ function validarForm() {
 				max = 650; min = 20; pagMax = 999999; pagMin = 1;
 				break;
 			case "Cosido a Hilo":
-				max = 300; min = 100; pagMax = 900; pagMin = 20;
+				max = 300; min = 100; pagMax = 1200; pagMin = 20;
 				break;
 			default :	
 				max = 356; min = 100; pagMax = 900; pagMin = 20;	 	  	 	
@@ -526,7 +529,7 @@ function informarProducto(prod) {
 														Ancho de tapa con solapas: ${prod.anchoDeTapaConSolapas}<br>
 														Ancho de tapa sin solapas: ${prod.anchoDeTapaSinSolapas}
 													</section>`,
-												"fixedWindow","xy",`resultado_${nw}`);
+												"violeta","xy",`resultado_${nw}`);
 
 																							
 	trabajoNuevo.push(prod);
@@ -603,16 +606,18 @@ function presentarProducto(prod) {
 												</div>
 													<h4>${prod.nombre}</h4>
 													<section class="jobOrder">
-														Cantidad: <b>${prod.cantidad}</b><br>
+														<br>
+														<h3>Cantidad: <b>${prod.cantidad}</b></h3>
+														<br>
 														Paginas: <b>${prod.pags}</b><br>
-														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
+														Material: <h4>${prod.material.tipoPapel}  ${prod.material.gramaje}</h4><br>
 														Formato: ${prod.formato} ${prod.orientacion}<br>
 														colores: ${prod.colores}
 													</section>
 													<form>
 													<textarea class='obs' placeholder='Observaciones'></textarea>
 												</form>`,
-												"fixedWindow","xy",`resultado_${nw}`);
+												"verde","xy",`resultado_${nw}`);
 
 											
 
@@ -830,12 +835,12 @@ btnImpose.addEventListener("click",(e)=> {
 			document.getElementById("yPliego").value = f.y;
 			document.getElementById("xFinal").value = prod.ancho;
 			document.getElementById("yFinal").value = prod.alto;
-			calcularCortePlana(prod.material,f.x,f.y); //retorna poses
-			calcularMejorCorte(f.x,f.y,prod.alto,prod.ancho);//retorna n
-			let resultado = n; //esto es para no reemplazar el retorno "resultado" que viene de la funcion corteFinal. Usamos n para usar la funcion calcularMejorCorte
-			let hojas = (prod.coloresDorso > 0) ? prod.pags / 2 : prod.pags;
+			let poses = calcularCortePlana(prod.material,f.x,f.y); //retorna poses
+			let n = calcularMejorCorte(f.x,f.y,prod.alto,prod.ancho);//retorna n
+			let resultado = (prod.tipo === "Cosido a Hilo")?1:n; //esto es para no reemplazar el retorno "resultado" que viene de la funcion corteFinal. Usamos n para usar la funcion calcularMejorCorte
+			let hojas = ((prod.coloresDorso > 0) ? prod.pags / 2 : prod.pags) /* / (prod.tipo === "Cosido a Hilo")?n:1 */;
    			let tirada = Math.ceil(prod.cantidad / resultado);
-   			let pliegos = hojas * tirada;
+   			let pliegos = ((prod.tipo === "Cosido a Hilo")?hojas/n:hojas) * tirada;
    			let pliegosPlana = Math.ceil(pliegos / poses);
 
 			//console.log(`f.x: ${f.x} - f.y: ${f.y}`)

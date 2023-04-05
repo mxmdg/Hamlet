@@ -135,7 +135,14 @@ const  renderJobs = async (almacen,dataBase)=> {
   						'cantidad', 
   						'pags', 
   						'colores',
-						'soporte', 
+						{
+							name: 'Material',
+							data: (cell)=> cell.material.tipoPapel
+						},
+						{
+							name: 'Gramaje',
+							data: (cell)=> cell.material.gramaje
+						}, 
   						'lomo', 
   						'formato',
 						{
@@ -162,7 +169,7 @@ const  renderJobs = async (almacen,dataBase)=> {
   				fixedHeader: true,
   				style: { 
     				table: { 
-      					'white-space': 'nowrap'
+      					'white-space': 'wrap'
    					 }
  				 }
 			}).render(cont);

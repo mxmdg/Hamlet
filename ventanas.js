@@ -57,8 +57,8 @@ function moverVentana(ventana,barra) {
 	const dragZone = document.querySelector(`${barra}`);
 
 	dragZone.onmousedown = function(event) {
-		let shiftX = event.clientX - dragObject.getBoundingClientRect().left + 20;
-		let shiftY = event.clientY - dragObject.getBoundingClientRect().top + 20;
+		let shiftX = event.clientX - dragObject.getBoundingClientRect().left;
+		let shiftY = event.clientY - dragObject.getBoundingClientRect().top;
 
 		dragObject.classList.add("agarrado");
 
@@ -165,7 +165,7 @@ btnMin.addEventListener("click",(e)=>{
 
 })
 
-//moverVentana(".verde",".zonaDeArrastre");
+moverVentana(".fixedWindow",".fixedWindow-title");
 
 
 
