@@ -160,6 +160,10 @@ const  renderJobs = async (almacen,dataBase)=> {
 						{
 							name:'fecha y hora',
 							data: (cell)=> cell.fecha.toLocaleDateString() + " " + cell.fecha.toLocaleTimeString()
+						},
+						{
+							name: 'Fecha de Entrega',
+							data: (cell)=> cell.fechaEntrega
 						}
   					
   				],

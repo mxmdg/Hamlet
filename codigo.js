@@ -2,7 +2,7 @@
 
 
 class interior {
-	constructor (orden,cliente,nombre,tipo,cantidad,alto,ancho,pags,coloresFrente,coloresDorso,material) {
+	constructor (orden,cliente,nombre,tipo,cantidad,alto,ancho,pags,coloresFrente,coloresDorso,material,endDate) {
 		this.orden = orden;
 		this.cliente = cliente;
 		this.nombre = nombre;
@@ -27,6 +27,7 @@ class interior {
 		this.peso = (this.alto * this.ancho * this.material.gramaje)/1000000 * ((this.coloresDorso>0)?this.pags/2:this.pags)
 		this.pesoTotal = this.peso * this.cantidad
 		this.fecha = new Date();
+		this.fechaEntrega = endDate
 		};
 
 	orientacionDePagina() {
@@ -158,6 +159,8 @@ const formatos = [
 	iD_508x299 = new formato("508x299",508,299),
 	iD_350x250 = new formato("350x250",350,250),
 	iD_660x360 = new formato("660x360",660,360),
+	iD_720x330 = new formato("720x330",720,330),
+	iD_1200x330 = new formato("1200x330",1200,330),
 	tmp_210x255 = new formato("210x255",210,255),
 	iD_215x315 = new formato("215x315",215,315)
 
@@ -192,8 +195,9 @@ const tiposDePartes = ['Tapa','Interior Binder','Interior Cosido','Interior Anil
 
 const materiales = [
 	Obra_80 = new material("Obra",80,"Boreal",650,950,950,56),
+	Obra_80_720x920 = new material("Obra",80,"Boreal",720,920,920,56),
 	Obra_80_720x1020 = new material("Obra",80,"Boreal",720,1020,1020,56),
-	Obra_80_Prisma = new material("Obra",80,"Prisma",650,950,950,49),
+	Obra_80_630x880 = new material("Obra",80,"Prisma",630,880,880,56),
 	Obra_70 = new material("Obra",70,"Boreal",650,950,950,47),
 	Obra_90 = new material("Obra",90,"Boreal",650,950,950,60),
 	Obra_120 = new material("Obra",120,"Celulosa",650,950,950,80),
@@ -213,7 +217,7 @@ const materiales = [
 	IlustMate_270 = new material("Encapado Mate",270,"Suzano",720,1020,1020,64),
 	IlustMate_300 = new material("Encapado Mate",300,"Suzano",740,1100,1100,64),
 	IlustMate_350 = new material("Encapado Mate",350,"Suzano",650,950,950,67),
-	IlustBrillo_120 = new material("Encapado Brillo",120,"Suzano",650,950,950,52),
+	IlustBrillo_120 = new material("Encapado Brillo",120,"Suzano",650,950,950,49),
 	IlustBrillo_150 = new material("Encapado Brillo",150,"Suzano",650,950,950,65),
 	IlustBrillo_170 = new material("Encapado Brillo",170,"Creator",650,950,950,76),
 	IlustBrillo_250 = new material("Encapado Brillo",250,"Suzano",650,950,950,0),
@@ -234,6 +238,7 @@ const impresoras = [
 	versant80 = new impresora("Versant 80",4,146,660,98,330,80,5),
 	//versant180 = new impresora("Versant 180",4,150,488,120,330,80,5),
 	versant3100 = new impresora("Versant 3100",4,146,660,98,330,100,4),
+	iridisse = new impresora("Iridisse",6,146,1200,98,330,120,35)
 ]
 
 
@@ -267,9 +272,9 @@ window.addEventListener("load",(e)=>{
 		crearDocFrag("#Partes","Option",`${tipo}`);
 	};
 
-	for (pro of procesosTerminacion) {
+	/* for (pro of procesosTerminacion) {
 		crearDocFrag(".terminacion", "div",`<input type="checkbox" id="${pro.proceso}"><p>${pro.proceso}</p>`);
-	};
+	}; */
 	
 	let arroyo = ()=> {
     let resultado = leerObjeto("Trabajos",trabajosDB);
@@ -301,6 +306,7 @@ window.addEventListener("load",(e)=>{
 	})
 
 
+
 	//resultado.catch(err=> alert(err));
 
 	//console.log(savedJobs);
@@ -322,6 +328,7 @@ const ancho = document.getElementById("ancho");
 const pags = document.getElementById("paginas");
 const materialSeleccionado = document.getElementById("material");
 const prodListMin = document.getElementById("prodListMin");
+const endDate = document.getElementById("endDate")
 let papelElegido
 
 const cargarDatos = (n) => {
@@ -336,6 +343,7 @@ const cargarDatos = (n) => {
 	alto.value = n.alto;
 	ancho.value = n.ancho;
 	pags.value = n.pags;
+	endDate.value = n.fechaEntrega;
 	materialSeleccionado.value = `${n.material.Nombre}`;
 	for (mat of materiales) {
 		if (materialSeleccionado.value.includes(`${mat.Nombre}`)) {
@@ -405,6 +413,20 @@ orden.addEventListener('change', e => {
 		};
 	};
 });
+
+function calcularDiasLaborales(fechaInicio, fechaFin) {
+    const unDia = 24 * 60 * 60 * 1000; // 1 día en milisegundos
+    let diasLaborales = 0;
+
+    while (fechaInicio < fechaFin) {
+        fechaInicio.setDate(fechaInicio.getDate() + 1);
+        if (fechaInicio.getDay() !== 0 && fechaInicio.getDay() !== 6) {
+            diasLaborales++;
+        }
+    }
+
+    return diasLaborales;
+}
 
 function validarForm() {
 		let error
@@ -479,6 +501,16 @@ function validarForm() {
 		} else if (alto.value < min || alto.value > max) {
 			error = `El alto del trabajo debe estar entre ${min} y ${max} mm`
 			alto.classList.add("inputError");
+		} else if (endDate.value) {
+			const fechaEntrega = new Date(endDate.value);
+			const fechaActual = new Date();
+	
+			const diasLaborales = calcularDiasLaborales(fechaActual, fechaEntrega);
+	
+			if (diasLaborales < 5) {
+				error = "La fecha de entrega debe ser al menos cinco días laborales después de la fecha actual.";
+				endDate.classList.add("inputError");
+			}
 		};
 
 		if (error == undefined) {
@@ -512,7 +544,9 @@ function informarProducto(prod) {
 						parseInt(pags.value),
 						parseInt(coloresFrente.value),
 						parseInt(coloresDorso.value),
-						papelElegido);
+						papelElegido,
+						endDate.value,
+						);
 	
 	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="arrastre_${nw}">
 													<h4>${prod.orden} - ${prod.cliente} - ${prod.nombre}</h4>
@@ -523,6 +557,7 @@ function informarProducto(prod) {
 														Cantidad: ${prod.cantidad}<br>
 														Material: ${prod.material.tipoPapel}  ${prod.material.gramaje}<br>
 														Formato: ${prod.formato} ${prod.orientacion}<br>
+														Fecha de Entrega: ${prod.fechaEntrega}
 													</section>
 													<section class="jobInfo">
 														<br>Lomo: ${prod.lomo}<br>
@@ -600,7 +635,8 @@ function presentarProducto(prod) {
 	this.prod = prod	
 	
 	crearDocFragConClase(".secContainer","div",`<div class="fixedWindow-title" id="arrastre_${nw}">
-													<h4>${prod.orden} - ${prod.cliente}</h4>
+													<h5>${prod.orden} - ${prod.cliente}</h5>
+													<h5>Fecha de entrega ${prod.fechaEntrega}</h5>
 													<div class="botonMin" id="btnMin_${nw}">_</div>
 													<div class="botonCerrar" id="btnCierre_${nw}">X</div>
 												</div>
@@ -932,15 +968,15 @@ function optimizarCorte (x1,y1,x2,y2) {
 		console.log(`Poses = ${poses} + ${masPoses}`);
 		console.log(`Total = ${totalPoses}`)
 
-		return [ xP= xPoses, 
-			yP= yPoses,
-			mP= masPoses,
-			tP= totalPoses,
-			xR= xResto,
-			yR= yResto,
-			x=x2,
-			y=y2
-			]
+		return  {xPoses, 
+				yPoses,
+				masPoses,
+				totalPoses,
+				xResto,
+				yResto,
+				x2,
+				y2}
+			
 };
 
 const calcularMejorCorte = (x1,y1,x2,y2)=> {
@@ -968,7 +1004,7 @@ function corteFinal (x1,y1,x2,y2,margen = 5,calle = 2) {
 	console.log(a);
 	let b = optimizarCorte(x1,y1,y2,x2);
 	console.log(b);
-	resultado = (a[3]>=b[3])? a : b;
+	resultado = (a.totalPoses>=b.totalPoses)? a : b;
 	
 	
 	console.log(`RESULTADO FINAL: ${resultado} en ${x1 + margen} x ${y1 + margen}`);
@@ -981,14 +1017,14 @@ const dibujarCorteOptimizado = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
 
 	let resultado = corteFinal(x1,y1,x2,y2,margen,calle);
 
-	let xPoses = resultado[0];
-	let yPoses = resultado[1];
-	let masPoses = resultado[2];
-	let tPoses = resultado[3];
-	let xResto = resultado[4];
-	let yResto = resultado[5];
-	let x = resultado[6] - calle;
-	let y = resultado[7] - calle;
+	let xPoses = resultado.xPoses;
+	let yPoses = resultado.yPoses;
+	let masPoses = resultado.masPoses;
+	let tPoses = resultado.totalPoses;
+	let xResto = resultado.xResto;
+	let yResto = resultado.yResto;
+	let x = resultado.x2 - calle;
+	let y = resultado.y2 - calle;
 
 	ctx.clearRect(0,0,700,400);
 
@@ -1026,10 +1062,13 @@ const dibujarCorteOptimizado = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
 
 	if (y < xResto) {
 		dibujarCorte(xResto,y1,x,y,xImpo,top2);
+		return {tPoses}
 	} else if (x < yResto) {
 		dibujarCorte(x1,yResto,x,y,izq2,yImpo);
+		return {tPoses}
 	}
-		
+
+	return {tPoses}	
 
 }
 
@@ -1145,21 +1184,25 @@ const dibujarMejorCorte = (x1,y1,x2,y2,margen = 0, calle = 0)=> {
 
 document.getElementById("customImpo").addEventListener("submit",(e)=>{
 	e.preventDefault();
-	let data = []
-	data.push(parseInt(document.getElementById("xFinal").value));
-	data.push(parseInt(document.getElementById("yFinal").value));
-	data.push(parseInt(document.getElementById("xPliego").value));
-	data.push(parseInt(document.getElementById("yPliego").value));
-	data.push(parseInt(document.getElementById("calle").value));
-	data.push(parseInt(document.getElementById("margenes").value));
+	let data = {
+	xFinal: (parseInt(document.getElementById("xFinal").value)),
+	yFinal: (parseInt(document.getElementById("yFinal").value)),
+	xPliego: (parseInt(document.getElementById("xPliego").value)),
+	yPliego: (parseInt(document.getElementById("yPliego").value)),
+	calle: (parseInt(document.getElementById("calle").value)),
+	margenes: (parseInt(document.getElementById("margenes").value)),
+	}
 
-	if (Math.max(data[2],data[3]) > 680 || Math.min(data[2],data[3]) > 380 ) {
+	if (Math.max(data.xPliego,data.yPliego) > 680 || Math.min(data.xPliego,data.yPliego) > 380 ) {
 		
-		dibujarCorteOptimizado(Math.max(data[2],data[3])/2,Math.min(data[2],data[3])/2,data[0]/2,data[1]/2,data[5]/2,data[4]/2);
+		const resultado = dibujarCorteOptimizado(Math.max(data.xPliego,data.yPliego)/2,Math.min(data.xPliego,data.yPliego)/2,data.xFinal/2,data.yFinal/2,data.margenes/2,data.calle/2);
+		replaceDocFragConClase("#contCanvas","div",(`Poses: ${resultado.tPoses}`),"info","resultados","infoResult");
+
 
 	} else {
 
-		dibujarCorteOptimizado(Math.max(data[2],data[3]),Math.min(data[2],data[3]),data[0],data[1],data[5],data[4]);
+		const resultado = dibujarCorteOptimizado(Math.max(data.xPliego,data.yPliego),Math.min(data.xPliego,data.yPliego),data.xFinal,data.yFinal,data.margenes,data.calle);
+		replaceDocFragConClase("#contCanvas","div",(`Poses: ${resultado.tPoses}`),"info","resultados","infoResult");
 
 	}
 
