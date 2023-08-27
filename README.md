@@ -1,4 +1,6 @@
 Hamlet
+
+
 Description
 This project is a graphical user interface (GUI) application for managing print job information and performing calculations related to print imposition. It provides a user-friendly interface for users to input job details, visualize print layouts, and perform various calculations relevant to the printing process.
 
